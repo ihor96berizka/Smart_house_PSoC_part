@@ -1,0 +1,1961 @@
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"PrISM_1.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.PrISM_1_Enable,"ax",%progbits
+  20              		.align	2
+  21              		.global	PrISM_1_Enable
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	PrISM_1_Enable, %function
+  25              	PrISM_1_Enable:
+  26              	.LFB4:
+  27              		.file 1 "Generated_Source\\PSoC4\\PrISM_1.c"
+   1:Generated_Source\PSoC4/PrISM_1.c **** /*******************************************************************************
+   2:Generated_Source\PSoC4/PrISM_1.c **** * File Name: PrISM_1.c
+   3:Generated_Source\PSoC4/PrISM_1.c **** * Version 2.20
+   4:Generated_Source\PSoC4/PrISM_1.c **** *
+   5:Generated_Source\PSoC4/PrISM_1.c **** * Description:
+   6:Generated_Source\PSoC4/PrISM_1.c **** *  This file provides the source code of the API for the PrISM Component.
+   7:Generated_Source\PSoC4/PrISM_1.c **** *
+   8:Generated_Source\PSoC4/PrISM_1.c **** * Note:
+   9:Generated_Source\PSoC4/PrISM_1.c **** *  The PRiSM Component consists of a 8, 16, 24, 32 - bit PrISM, it
+  10:Generated_Source\PSoC4/PrISM_1.c **** *  depends on length Polynomial value and user selected Seed Value. 
+  11:Generated_Source\PSoC4/PrISM_1.c **** *
+  12:Generated_Source\PSoC4/PrISM_1.c **** ********************************************************************************
+  13:Generated_Source\PSoC4/PrISM_1.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  14:Generated_Source\PSoC4/PrISM_1.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  15:Generated_Source\PSoC4/PrISM_1.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  16:Generated_Source\PSoC4/PrISM_1.c **** * the software package with which this file was provided.
+  17:Generated_Source\PSoC4/PrISM_1.c **** *******************************************************************************/
+  18:Generated_Source\PSoC4/PrISM_1.c **** 
+  19:Generated_Source\PSoC4/PrISM_1.c **** #include "PrISM_1.h"
+  20:Generated_Source\PSoC4/PrISM_1.c **** 
+  21:Generated_Source\PSoC4/PrISM_1.c **** 
+  22:Generated_Source\PSoC4/PrISM_1.c **** /***************************************
+  23:Generated_Source\PSoC4/PrISM_1.c **** * Local data allocation
+  24:Generated_Source\PSoC4/PrISM_1.c **** ***************************************/
+  25:Generated_Source\PSoC4/PrISM_1.c **** 
+  26:Generated_Source\PSoC4/PrISM_1.c **** uint8 PrISM_1_initVar = 0u;
+  27:Generated_Source\PSoC4/PrISM_1.c **** 
+  28:Generated_Source\PSoC4/PrISM_1.c **** 
+  29:Generated_Source\PSoC4/PrISM_1.c **** /*******************************************************************************
+  30:Generated_Source\PSoC4/PrISM_1.c **** * FUNCTION NAME:   PrISM_1_Start
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 2
+
+
+  31:Generated_Source\PSoC4/PrISM_1.c **** ********************************************************************************
+  32:Generated_Source\PSoC4/PrISM_1.c **** *
+  33:Generated_Source\PSoC4/PrISM_1.c **** * Summary:
+  34:Generated_Source\PSoC4/PrISM_1.c **** *  The start function sets Polynomial, Seed and Pulse Density registers provided
+  35:Generated_Source\PSoC4/PrISM_1.c **** *  by customizer. PrISM computation starts on rising edge of input clock.
+  36:Generated_Source\PSoC4/PrISM_1.c **** *
+  37:Generated_Source\PSoC4/PrISM_1.c **** * Parameters:  
+  38:Generated_Source\PSoC4/PrISM_1.c **** *  None.
+  39:Generated_Source\PSoC4/PrISM_1.c **** *
+  40:Generated_Source\PSoC4/PrISM_1.c **** * Return:  
+  41:Generated_Source\PSoC4/PrISM_1.c **** *  None.
+  42:Generated_Source\PSoC4/PrISM_1.c **** *
+  43:Generated_Source\PSoC4/PrISM_1.c **** * Global variables:
+  44:Generated_Source\PSoC4/PrISM_1.c **** *  The PrISM_1_initVar variable is used to indicate initial
+  45:Generated_Source\PSoC4/PrISM_1.c **** *  configuration of this component.  The variable is initialized to zero and
+  46:Generated_Source\PSoC4/PrISM_1.c **** *  set to 1 the first time PrISM_1_Start() is called. This allows for
+  47:Generated_Source\PSoC4/PrISM_1.c **** *  component initialization without re-initialization in all subsequent calls
+  48:Generated_Source\PSoC4/PrISM_1.c **** *  to the PrISM_1_Start() routine. 
+  49:Generated_Source\PSoC4/PrISM_1.c **** 
+  50:Generated_Source\PSoC4/PrISM_1.c **** * Reentrant:
+  51:Generated_Source\PSoC4/PrISM_1.c **** *  No.
+  52:Generated_Source\PSoC4/PrISM_1.c **** *
+  53:Generated_Source\PSoC4/PrISM_1.c **** *******************************************************************************/
+  54:Generated_Source\PSoC4/PrISM_1.c **** void PrISM_1_Start(void) 
+  55:Generated_Source\PSoC4/PrISM_1.c **** {
+  56:Generated_Source\PSoC4/PrISM_1.c ****     /* If not Initialized then initialize all required hardware and software */
+  57:Generated_Source\PSoC4/PrISM_1.c ****     if(PrISM_1_initVar == 0u)
+  58:Generated_Source\PSoC4/PrISM_1.c ****     {
+  59:Generated_Source\PSoC4/PrISM_1.c ****         PrISM_1_Init();
+  60:Generated_Source\PSoC4/PrISM_1.c ****         PrISM_1_initVar = 1u;
+  61:Generated_Source\PSoC4/PrISM_1.c ****     }
+  62:Generated_Source\PSoC4/PrISM_1.c ****     PrISM_1_Enable();
+  63:Generated_Source\PSoC4/PrISM_1.c **** }
+  64:Generated_Source\PSoC4/PrISM_1.c **** 
+  65:Generated_Source\PSoC4/PrISM_1.c **** 
+  66:Generated_Source\PSoC4/PrISM_1.c **** /*******************************************************************************
+  67:Generated_Source\PSoC4/PrISM_1.c **** * Function Name: PrISM_1_Init
+  68:Generated_Source\PSoC4/PrISM_1.c **** ********************************************************************************
+  69:Generated_Source\PSoC4/PrISM_1.c **** *
+  70:Generated_Source\PSoC4/PrISM_1.c **** * Summary:
+  71:Generated_Source\PSoC4/PrISM_1.c **** *  Initialize component's parameters to the parameters set by user in the 
+  72:Generated_Source\PSoC4/PrISM_1.c **** *  customizer of the component placed onto schematic. Usually called in 
+  73:Generated_Source\PSoC4/PrISM_1.c **** *  PrISM_1_Start().
+  74:Generated_Source\PSoC4/PrISM_1.c **** *
+  75:Generated_Source\PSoC4/PrISM_1.c **** * Parameters:  
+  76:Generated_Source\PSoC4/PrISM_1.c **** *  None.
+  77:Generated_Source\PSoC4/PrISM_1.c **** *
+  78:Generated_Source\PSoC4/PrISM_1.c **** * Return: 
+  79:Generated_Source\PSoC4/PrISM_1.c **** *  None.
+  80:Generated_Source\PSoC4/PrISM_1.c **** *
+  81:Generated_Source\PSoC4/PrISM_1.c **** *******************************************************************************/
+  82:Generated_Source\PSoC4/PrISM_1.c **** void PrISM_1_Init(void) 
+  83:Generated_Source\PSoC4/PrISM_1.c **** {
+  84:Generated_Source\PSoC4/PrISM_1.c ****     uint8 enableInterrupts;
+  85:Generated_Source\PSoC4/PrISM_1.c ****     
+  86:Generated_Source\PSoC4/PrISM_1.c ****     /* Writes Seed value, polynom value and density provided by customizer */
+  87:Generated_Source\PSoC4/PrISM_1.c ****     PrISM_1_WriteSeed(PrISM_1_SEED);
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 3
+
+
+  88:Generated_Source\PSoC4/PrISM_1.c ****     PrISM_1_WritePolynomial(PrISM_1_POLYNOM);
+  89:Generated_Source\PSoC4/PrISM_1.c ****     PrISM_1_WritePulse0(PrISM_1_DENSITY0);
+  90:Generated_Source\PSoC4/PrISM_1.c ****     PrISM_1_WritePulse1(PrISM_1_DENSITY1);
+  91:Generated_Source\PSoC4/PrISM_1.c ****     
+  92:Generated_Source\PSoC4/PrISM_1.c ****     enableInterrupts = CyEnterCriticalSection();
+  93:Generated_Source\PSoC4/PrISM_1.c ****     /* Set FIFO0_CLR bit to use FIFO0 as a simple one-byte buffer*/
+  94:Generated_Source\PSoC4/PrISM_1.c ****     CY_SET_REG8(PrISM_1_AUX_CONTROL_PTR, 
+  95:Generated_Source\PSoC4/PrISM_1.c ****                         CY_GET_REG8(PrISM_1_AUX_CONTROL_PTR) | PrISM_1_FIFO0_CLR);
+  96:Generated_Source\PSoC4/PrISM_1.c ****     CyExitCriticalSection(enableInterrupts);
+  97:Generated_Source\PSoC4/PrISM_1.c ****     
+  98:Generated_Source\PSoC4/PrISM_1.c ****     #if(!PrISM_1_PULSE_TYPE_HARDCODED)
+  99:Generated_Source\PSoC4/PrISM_1.c ****         /* Writes density type provided by customizer */
+ 100:Generated_Source\PSoC4/PrISM_1.c ****         #if(PrISM_1_GREATERTHAN_OR_EQUAL == PrISM_1_COMPARE0)
+ 101:Generated_Source\PSoC4/PrISM_1.c ****             PrISM_1_CONTROL_REG |= PrISM_1_CTRL_COMPARE_TYPE0_GREATER_THAN_OR_EQUAL;
+ 102:Generated_Source\PSoC4/PrISM_1.c ****         #else
+ 103:Generated_Source\PSoC4/PrISM_1.c ****             PrISM_1_CONTROL_REG &= (uint8)~PrISM_1_CTRL_COMPARE_TYPE0_GREATER_THAN_OR_EQUAL;
+ 104:Generated_Source\PSoC4/PrISM_1.c ****         #endif /* End PrISM_1_COMPARE0 */    
+ 105:Generated_Source\PSoC4/PrISM_1.c ****     
+ 106:Generated_Source\PSoC4/PrISM_1.c ****         #if(PrISM_1_GREATERTHAN_OR_EQUAL == PrISM_1_COMPARE1)
+ 107:Generated_Source\PSoC4/PrISM_1.c ****             PrISM_1_CONTROL_REG |= PrISM_1_CTRL_COMPARE_TYPE1_GREATER_THAN_OR_EQUAL;
+ 108:Generated_Source\PSoC4/PrISM_1.c ****         #else
+ 109:Generated_Source\PSoC4/PrISM_1.c ****             PrISM_1_CONTROL_REG &= (uint8)~PrISM_1_CTRL_COMPARE_TYPE1_GREATER_THAN_OR_EQUAL;
+ 110:Generated_Source\PSoC4/PrISM_1.c ****         #endif /* End PrISM_1_COMPARE1 */    
+ 111:Generated_Source\PSoC4/PrISM_1.c ****     #endif /* End PrISM_1_PULSE_TYPE_HARDCODED */
+ 112:Generated_Source\PSoC4/PrISM_1.c **** }
+ 113:Generated_Source\PSoC4/PrISM_1.c **** 
+ 114:Generated_Source\PSoC4/PrISM_1.c **** 
+ 115:Generated_Source\PSoC4/PrISM_1.c **** /*******************************************************************************
+ 116:Generated_Source\PSoC4/PrISM_1.c **** * Function Name: PrISM_1_Enable
+ 117:Generated_Source\PSoC4/PrISM_1.c **** ********************************************************************************
+ 118:Generated_Source\PSoC4/PrISM_1.c **** *  
+ 119:Generated_Source\PSoC4/PrISM_1.c **** * Summary: 
+ 120:Generated_Source\PSoC4/PrISM_1.c **** *  Enables the PrISM block operation
+ 121:Generated_Source\PSoC4/PrISM_1.c **** *
+ 122:Generated_Source\PSoC4/PrISM_1.c **** * Parameters:  
+ 123:Generated_Source\PSoC4/PrISM_1.c **** *  None.
+ 124:Generated_Source\PSoC4/PrISM_1.c **** *
+ 125:Generated_Source\PSoC4/PrISM_1.c **** * Return: 
+ 126:Generated_Source\PSoC4/PrISM_1.c **** *  None.
+ 127:Generated_Source\PSoC4/PrISM_1.c **** *
+ 128:Generated_Source\PSoC4/PrISM_1.c **** *******************************************************************************/
+ 129:Generated_Source\PSoC4/PrISM_1.c **** void PrISM_1_Enable(void) 
+ 130:Generated_Source\PSoC4/PrISM_1.c **** {
+  28              		.loc 1 130 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+ 131:Generated_Source\PSoC4/PrISM_1.c ****     #if(!PrISM_1_PULSE_TYPE_HARDCODED)
+ 132:Generated_Source\PSoC4/PrISM_1.c ****         /* Enable the PrISM computation */
+ 133:Generated_Source\PSoC4/PrISM_1.c ****         PrISM_1_CONTROL_REG |= PrISM_1_CTRL_ENABLE;
+  33              		.loc 1 133 0
+  34 0000 034A     		ldr	r2, .L2
+  35 0002 1178     		ldrb	r1, [r2]
+  36 0004 0123     		movs	r3, #1
+  37 0006 0B43     		orrs	r3, r1
+  38 0008 DBB2     		uxtb	r3, r3
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 4
+
+
+  39 000a 1370     		strb	r3, [r2]
+ 134:Generated_Source\PSoC4/PrISM_1.c ****     #endif /* End PrISM_1_PULSE_TYPE_HARDCODED */
+ 135:Generated_Source\PSoC4/PrISM_1.c **** }
+  40              		.loc 1 135 0
+  41              		@ sp needed
+  42 000c 7047     		bx	lr
+  43              	.L3:
+  44 000e C046     		.align	2
+  45              	.L2:
+  46 0010 72000F40 		.word	1074724978
+  47              		.cfi_endproc
+  48              	.LFE4:
+  49              		.size	PrISM_1_Enable, .-PrISM_1_Enable
+  50              		.section	.text.PrISM_1_Stop,"ax",%progbits
+  51              		.align	2
+  52              		.global	PrISM_1_Stop
+  53              		.code	16
+  54              		.thumb_func
+  55              		.type	PrISM_1_Stop, %function
+  56              	PrISM_1_Stop:
+  57              	.LFB5:
+ 136:Generated_Source\PSoC4/PrISM_1.c **** 
+ 137:Generated_Source\PSoC4/PrISM_1.c **** 
+ 138:Generated_Source\PSoC4/PrISM_1.c **** /*******************************************************************************
+ 139:Generated_Source\PSoC4/PrISM_1.c **** * FUNCTION NAME:   PrISM_1_Stop
+ 140:Generated_Source\PSoC4/PrISM_1.c **** ********************************************************************************
+ 141:Generated_Source\PSoC4/PrISM_1.c **** *
+ 142:Generated_Source\PSoC4/PrISM_1.c **** * Summary:
+ 143:Generated_Source\PSoC4/PrISM_1.c **** *  Stops PrISM computation. Outputs remain constant.
+ 144:Generated_Source\PSoC4/PrISM_1.c **** *
+ 145:Generated_Source\PSoC4/PrISM_1.c **** * Parameters:  
+ 146:Generated_Source\PSoC4/PrISM_1.c **** *  None.
+ 147:Generated_Source\PSoC4/PrISM_1.c **** *
+ 148:Generated_Source\PSoC4/PrISM_1.c **** * Return: 
+ 149:Generated_Source\PSoC4/PrISM_1.c **** *  None.
+ 150:Generated_Source\PSoC4/PrISM_1.c **** *
+ 151:Generated_Source\PSoC4/PrISM_1.c **** *******************************************************************************/
+ 152:Generated_Source\PSoC4/PrISM_1.c **** void PrISM_1_Stop(void) 
+ 153:Generated_Source\PSoC4/PrISM_1.c **** {
+  58              		.loc 1 153 0
+  59              		.cfi_startproc
+  60              		@ args = 0, pretend = 0, frame = 0
+  61              		@ frame_needed = 0, uses_anonymous_args = 0
+  62              		@ link register save eliminated.
+ 154:Generated_Source\PSoC4/PrISM_1.c ****     #if(!PrISM_1_PULSE_TYPE_HARDCODED)
+ 155:Generated_Source\PSoC4/PrISM_1.c ****         PrISM_1_CONTROL_REG &= (uint8)~PrISM_1_CTRL_ENABLE;
+  63              		.loc 1 155 0
+  64 0000 024A     		ldr	r2, .L5
+  65 0002 1378     		ldrb	r3, [r2]
+  66 0004 0121     		movs	r1, #1
+  67 0006 8B43     		bics	r3, r1
+  68 0008 1370     		strb	r3, [r2]
+ 156:Generated_Source\PSoC4/PrISM_1.c ****     #else
+ 157:Generated_Source\PSoC4/PrISM_1.c ****         /* PulseTypeHardoded option enabled - to stop PrISM use enable input */
+ 158:Generated_Source\PSoC4/PrISM_1.c ****     #endif /* End $INSTANCE_NAME`_PULSE_TYPE_HARDCODED */
+ 159:Generated_Source\PSoC4/PrISM_1.c **** }
+  69              		.loc 1 159 0
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 5
+
+
+  70              		@ sp needed
+  71 000a 7047     		bx	lr
+  72              	.L6:
+  73              		.align	2
+  74              	.L5:
+  75 000c 72000F40 		.word	1074724978
+  76              		.cfi_endproc
+  77              	.LFE5:
+  78              		.size	PrISM_1_Stop, .-PrISM_1_Stop
+  79              		.section	.text.PrISM_1_SetPulse0Mode,"ax",%progbits
+  80              		.align	2
+  81              		.global	PrISM_1_SetPulse0Mode
+  82              		.code	16
+  83              		.thumb_func
+  84              		.type	PrISM_1_SetPulse0Mode, %function
+  85              	PrISM_1_SetPulse0Mode:
+  86              	.LFB6:
+ 160:Generated_Source\PSoC4/PrISM_1.c **** 
+ 161:Generated_Source\PSoC4/PrISM_1.c **** #if(!PrISM_1_PULSE_TYPE_HARDCODED)
+ 162:Generated_Source\PSoC4/PrISM_1.c **** 
+ 163:Generated_Source\PSoC4/PrISM_1.c **** 
+ 164:Generated_Source\PSoC4/PrISM_1.c ****     /***************************************************************************
+ 165:Generated_Source\PSoC4/PrISM_1.c ****     * FUNCTION NAME:     PrISM_1_SetPulse0Mode
+ 166:Generated_Source\PSoC4/PrISM_1.c ****     ****************************************************************************
+ 167:Generated_Source\PSoC4/PrISM_1.c ****     *
+ 168:Generated_Source\PSoC4/PrISM_1.c ****     * Summary:
+ 169:Generated_Source\PSoC4/PrISM_1.c ****     *  Sets the pulse density type for Density0. Less than or Equal(<=) or 
+ 170:Generated_Source\PSoC4/PrISM_1.c ****     *  Greater than or Equal(>=).
+ 171:Generated_Source\PSoC4/PrISM_1.c ****     *
+ 172:Generated_Source\PSoC4/PrISM_1.c ****     * Parameters:
+ 173:Generated_Source\PSoC4/PrISM_1.c ****     *  pulse0Type: Selected pulse density type.
+ 174:Generated_Source\PSoC4/PrISM_1.c ****     *
+ 175:Generated_Source\PSoC4/PrISM_1.c ****     * Return:
+ 176:Generated_Source\PSoC4/PrISM_1.c ****     *  None.
+ 177:Generated_Source\PSoC4/PrISM_1.c ****     *
+ 178:Generated_Source\PSoC4/PrISM_1.c ****     ***************************************************************************/
+ 179:Generated_Source\PSoC4/PrISM_1.c ****     void PrISM_1_SetPulse0Mode(uint8 pulse0Type) 
+ 180:Generated_Source\PSoC4/PrISM_1.c ****     {
+  87              		.loc 1 180 0
+  88              		.cfi_startproc
+  89              		@ args = 0, pretend = 0, frame = 0
+  90              		@ frame_needed = 0, uses_anonymous_args = 0
+  91              		@ link register save eliminated.
+  92              	.LVL0:
+ 181:Generated_Source\PSoC4/PrISM_1.c ****         if(pulse0Type == PrISM_1_GREATERTHAN_OR_EQUAL)
+  93              		.loc 1 181 0
+  94 0000 0128     		cmp	r0, #1
+  95 0002 06D1     		bne	.L8
+ 182:Generated_Source\PSoC4/PrISM_1.c ****         {
+ 183:Generated_Source\PSoC4/PrISM_1.c ****             PrISM_1_CONTROL_REG |= PrISM_1_CTRL_COMPARE_TYPE0_GREATER_THAN_OR_EQUAL;
+  96              		.loc 1 183 0
+  97 0004 064A     		ldr	r2, .L10
+  98 0006 1178     		ldrb	r1, [r2]
+  99 0008 0223     		movs	r3, #2
+ 100 000a 0B43     		orrs	r3, r1
+ 101 000c DBB2     		uxtb	r3, r3
+ 102 000e 1370     		strb	r3, [r2]
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 6
+
+
+ 103 0010 04E0     		b	.L7
+ 104              	.L8:
+ 184:Generated_Source\PSoC4/PrISM_1.c ****         }
+ 185:Generated_Source\PSoC4/PrISM_1.c ****         else
+ 186:Generated_Source\PSoC4/PrISM_1.c ****         {
+ 187:Generated_Source\PSoC4/PrISM_1.c ****             PrISM_1_CONTROL_REG &= (uint8)~PrISM_1_CTRL_COMPARE_TYPE0_GREATER_THAN_OR_EQUAL;
+ 105              		.loc 1 187 0
+ 106 0012 034A     		ldr	r2, .L10
+ 107 0014 1378     		ldrb	r3, [r2]
+ 108 0016 0221     		movs	r1, #2
+ 109 0018 8B43     		bics	r3, r1
+ 110 001a 1370     		strb	r3, [r2]
+ 111              	.L7:
+ 188:Generated_Source\PSoC4/PrISM_1.c ****         }
+ 189:Generated_Source\PSoC4/PrISM_1.c ****     }
+ 112              		.loc 1 189 0
+ 113              		@ sp needed
+ 114 001c 7047     		bx	lr
+ 115              	.L11:
+ 116 001e C046     		.align	2
+ 117              	.L10:
+ 118 0020 72000F40 		.word	1074724978
+ 119              		.cfi_endproc
+ 120              	.LFE6:
+ 121              		.size	PrISM_1_SetPulse0Mode, .-PrISM_1_SetPulse0Mode
+ 122              		.section	.text.PrISM_1_SetPulse1Mode,"ax",%progbits
+ 123              		.align	2
+ 124              		.global	PrISM_1_SetPulse1Mode
+ 125              		.code	16
+ 126              		.thumb_func
+ 127              		.type	PrISM_1_SetPulse1Mode, %function
+ 128              	PrISM_1_SetPulse1Mode:
+ 129              	.LFB7:
+ 190:Generated_Source\PSoC4/PrISM_1.c ****     
+ 191:Generated_Source\PSoC4/PrISM_1.c ****     
+ 192:Generated_Source\PSoC4/PrISM_1.c ****     /***************************************************************************
+ 193:Generated_Source\PSoC4/PrISM_1.c ****     * FUNCTION NAME:   PrISM_1_SetPulse1Mode
+ 194:Generated_Source\PSoC4/PrISM_1.c ****     ****************************************************************************
+ 195:Generated_Source\PSoC4/PrISM_1.c ****     *
+ 196:Generated_Source\PSoC4/PrISM_1.c ****     * Summary:
+ 197:Generated_Source\PSoC4/PrISM_1.c ****     *  Sets the pulse density type for Density1. Less than or Equal(<=) or 
+ 198:Generated_Source\PSoC4/PrISM_1.c ****     *  Greater than or Equal(>=).
+ 199:Generated_Source\PSoC4/PrISM_1.c ****     *
+ 200:Generated_Source\PSoC4/PrISM_1.c ****     * Parameters:  
+ 201:Generated_Source\PSoC4/PrISM_1.c ****     *  pulse1Type: Selected pulse density type.
+ 202:Generated_Source\PSoC4/PrISM_1.c ****     *
+ 203:Generated_Source\PSoC4/PrISM_1.c ****     * Return:
+ 204:Generated_Source\PSoC4/PrISM_1.c ****     *  None.
+ 205:Generated_Source\PSoC4/PrISM_1.c ****     *
+ 206:Generated_Source\PSoC4/PrISM_1.c ****     ***************************************************************************/
+ 207:Generated_Source\PSoC4/PrISM_1.c ****     void PrISM_1_SetPulse1Mode(uint8 pulse1Type) 
+ 208:Generated_Source\PSoC4/PrISM_1.c ****     {
+ 130              		.loc 1 208 0
+ 131              		.cfi_startproc
+ 132              		@ args = 0, pretend = 0, frame = 0
+ 133              		@ frame_needed = 0, uses_anonymous_args = 0
+ 134              		@ link register save eliminated.
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 7
+
+
+ 135              	.LVL1:
+ 209:Generated_Source\PSoC4/PrISM_1.c ****         if(pulse1Type == PrISM_1_GREATERTHAN_OR_EQUAL)
+ 136              		.loc 1 209 0
+ 137 0000 0128     		cmp	r0, #1
+ 138 0002 06D1     		bne	.L13
+ 210:Generated_Source\PSoC4/PrISM_1.c ****         {
+ 211:Generated_Source\PSoC4/PrISM_1.c ****             PrISM_1_CONTROL_REG |= PrISM_1_CTRL_COMPARE_TYPE1_GREATER_THAN_OR_EQUAL;
+ 139              		.loc 1 211 0
+ 140 0004 064A     		ldr	r2, .L15
+ 141 0006 1178     		ldrb	r1, [r2]
+ 142 0008 0423     		movs	r3, #4
+ 143 000a 0B43     		orrs	r3, r1
+ 144 000c DBB2     		uxtb	r3, r3
+ 145 000e 1370     		strb	r3, [r2]
+ 146 0010 04E0     		b	.L12
+ 147              	.L13:
+ 212:Generated_Source\PSoC4/PrISM_1.c ****         }
+ 213:Generated_Source\PSoC4/PrISM_1.c ****         else
+ 214:Generated_Source\PSoC4/PrISM_1.c ****         {
+ 215:Generated_Source\PSoC4/PrISM_1.c ****             PrISM_1_CONTROL_REG &= (uint8)~PrISM_1_CTRL_COMPARE_TYPE1_GREATER_THAN_OR_EQUAL;
+ 148              		.loc 1 215 0
+ 149 0012 034A     		ldr	r2, .L15
+ 150 0014 1378     		ldrb	r3, [r2]
+ 151 0016 0421     		movs	r1, #4
+ 152 0018 8B43     		bics	r3, r1
+ 153 001a 1370     		strb	r3, [r2]
+ 154              	.L12:
+ 216:Generated_Source\PSoC4/PrISM_1.c ****         }
+ 217:Generated_Source\PSoC4/PrISM_1.c ****     }
+ 155              		.loc 1 217 0
+ 156              		@ sp needed
+ 157 001c 7047     		bx	lr
+ 158              	.L16:
+ 159 001e C046     		.align	2
+ 160              	.L15:
+ 161 0020 72000F40 		.word	1074724978
+ 162              		.cfi_endproc
+ 163              	.LFE7:
+ 164              		.size	PrISM_1_SetPulse1Mode, .-PrISM_1_SetPulse1Mode
+ 165              		.section	.text.PrISM_1_ReadSeed,"ax",%progbits
+ 166              		.align	2
+ 167              		.global	PrISM_1_ReadSeed
+ 168              		.code	16
+ 169              		.thumb_func
+ 170              		.type	PrISM_1_ReadSeed, %function
+ 171              	PrISM_1_ReadSeed:
+ 172              	.LFB8:
+ 218:Generated_Source\PSoC4/PrISM_1.c **** 
+ 219:Generated_Source\PSoC4/PrISM_1.c **** #endif /* End PrISM_1_PULSE_TYPE_HARDCODED == 0 */
+ 220:Generated_Source\PSoC4/PrISM_1.c **** 
+ 221:Generated_Source\PSoC4/PrISM_1.c **** 
+ 222:Generated_Source\PSoC4/PrISM_1.c **** /*******************************************************************************
+ 223:Generated_Source\PSoC4/PrISM_1.c **** * FUNCTION NAME:   PrISM_1_ReadSeed
+ 224:Generated_Source\PSoC4/PrISM_1.c **** ********************************************************************************
+ 225:Generated_Source\PSoC4/PrISM_1.c **** *
+ 226:Generated_Source\PSoC4/PrISM_1.c **** * Summary:
+ 227:Generated_Source\PSoC4/PrISM_1.c **** *  Reads the PrISM Seed register.
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 8
+
+
+ 228:Generated_Source\PSoC4/PrISM_1.c **** *
+ 229:Generated_Source\PSoC4/PrISM_1.c **** * Parameters:
+ 230:Generated_Source\PSoC4/PrISM_1.c **** *  None.
+ 231:Generated_Source\PSoC4/PrISM_1.c **** *
+ 232:Generated_Source\PSoC4/PrISM_1.c **** * Return:
+ 233:Generated_Source\PSoC4/PrISM_1.c **** *  Current Period register value.
+ 234:Generated_Source\PSoC4/PrISM_1.c **** *
+ 235:Generated_Source\PSoC4/PrISM_1.c **** *******************************************************************************/
+ 236:Generated_Source\PSoC4/PrISM_1.c **** uint8 PrISM_1_ReadSeed(void) 
+ 237:Generated_Source\PSoC4/PrISM_1.c **** {
+ 173              		.loc 1 237 0
+ 174              		.cfi_startproc
+ 175              		@ args = 0, pretend = 0, frame = 0
+ 176              		@ frame_needed = 0, uses_anonymous_args = 0
+ 177              		@ link register save eliminated.
+ 238:Generated_Source\PSoC4/PrISM_1.c ****     return( CY_GET_REG8(PrISM_1_SEED_PTR) );
+ 178              		.loc 1 238 0
+ 179 0000 014B     		ldr	r3, .L18
+ 180 0002 1878     		ldrb	r0, [r3]
+ 181 0004 C0B2     		uxtb	r0, r0
+ 239:Generated_Source\PSoC4/PrISM_1.c **** }
+ 182              		.loc 1 239 0
+ 183              		@ sp needed
+ 184 0006 7047     		bx	lr
+ 185              	.L19:
+ 186              		.align	2
+ 187              	.L18:
+ 188 0008 02000F40 		.word	1074724866
+ 189              		.cfi_endproc
+ 190              	.LFE8:
+ 191              		.size	PrISM_1_ReadSeed, .-PrISM_1_ReadSeed
+ 192              		.section	.text.PrISM_1_WriteSeed,"ax",%progbits
+ 193              		.align	2
+ 194              		.global	PrISM_1_WriteSeed
+ 195              		.code	16
+ 196              		.thumb_func
+ 197              		.type	PrISM_1_WriteSeed, %function
+ 198              	PrISM_1_WriteSeed:
+ 199              	.LFB9:
+ 240:Generated_Source\PSoC4/PrISM_1.c **** 
+ 241:Generated_Source\PSoC4/PrISM_1.c **** 
+ 242:Generated_Source\PSoC4/PrISM_1.c **** /*******************************************************************************
+ 243:Generated_Source\PSoC4/PrISM_1.c **** * FUNCTION NAME:   PrISM_1_WriteSeed
+ 244:Generated_Source\PSoC4/PrISM_1.c **** ********************************************************************************
+ 245:Generated_Source\PSoC4/PrISM_1.c **** *
+ 246:Generated_Source\PSoC4/PrISM_1.c **** * Summary:
+ 247:Generated_Source\PSoC4/PrISM_1.c **** *  Writes the PrISM Seed register with the start value.
+ 248:Generated_Source\PSoC4/PrISM_1.c **** *
+ 249:Generated_Source\PSoC4/PrISM_1.c **** * Parameters:
+ 250:Generated_Source\PSoC4/PrISM_1.c **** *  seed: Seed register value.
+ 251:Generated_Source\PSoC4/PrISM_1.c **** *
+ 252:Generated_Source\PSoC4/PrISM_1.c **** * Return:
+ 253:Generated_Source\PSoC4/PrISM_1.c **** *  None.
+ 254:Generated_Source\PSoC4/PrISM_1.c **** *
+ 255:Generated_Source\PSoC4/PrISM_1.c **** *******************************************************************************/
+ 256:Generated_Source\PSoC4/PrISM_1.c **** void PrISM_1_WriteSeed(uint8 seed) 
+ 257:Generated_Source\PSoC4/PrISM_1.c **** {
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 9
+
+
+ 200              		.loc 1 257 0
+ 201              		.cfi_startproc
+ 202              		@ args = 0, pretend = 0, frame = 0
+ 203              		@ frame_needed = 0, uses_anonymous_args = 0
+ 204              		@ link register save eliminated.
+ 205              	.LVL2:
+ 258:Generated_Source\PSoC4/PrISM_1.c ****     if(seed != 0u)
+ 206              		.loc 1 258 0
+ 207 0000 0028     		cmp	r0, #0
+ 208 0002 03D0     		beq	.L20
+ 259:Generated_Source\PSoC4/PrISM_1.c ****     {
+ 260:Generated_Source\PSoC4/PrISM_1.c ****         CY_SET_REG8(PrISM_1_SEED_COPY_PTR, seed);
+ 209              		.loc 1 260 0
+ 210 0004 024B     		ldr	r3, .L22
+ 211 0006 1870     		strb	r0, [r3]
+ 261:Generated_Source\PSoC4/PrISM_1.c ****         CY_SET_REG8(PrISM_1_SEED_PTR, seed);
+ 212              		.loc 1 261 0
+ 213 0008 024B     		ldr	r3, .L22+4
+ 214 000a 1870     		strb	r0, [r3]
+ 215              	.L20:
+ 262:Generated_Source\PSoC4/PrISM_1.c ****     }
+ 263:Generated_Source\PSoC4/PrISM_1.c **** }
+ 216              		.loc 1 263 0
+ 217              		@ sp needed
+ 218 000c 7047     		bx	lr
+ 219              	.L23:
+ 220 000e C046     		.align	2
+ 221              	.L22:
+ 222 0010 42000F40 		.word	1074724930
+ 223 0014 02000F40 		.word	1074724866
+ 224              		.cfi_endproc
+ 225              	.LFE9:
+ 226              		.size	PrISM_1_WriteSeed, .-PrISM_1_WriteSeed
+ 227              		.section	.text.PrISM_1_ReadPolynomial,"ax",%progbits
+ 228              		.align	2
+ 229              		.global	PrISM_1_ReadPolynomial
+ 230              		.code	16
+ 231              		.thumb_func
+ 232              		.type	PrISM_1_ReadPolynomial, %function
+ 233              	PrISM_1_ReadPolynomial:
+ 234              	.LFB10:
+ 264:Generated_Source\PSoC4/PrISM_1.c **** 
+ 265:Generated_Source\PSoC4/PrISM_1.c **** 
+ 266:Generated_Source\PSoC4/PrISM_1.c **** /*******************************************************************************
+ 267:Generated_Source\PSoC4/PrISM_1.c **** * FUNCTION NAME:   PrISM_1_ReadPolynomial
+ 268:Generated_Source\PSoC4/PrISM_1.c **** ********************************************************************************
+ 269:Generated_Source\PSoC4/PrISM_1.c **** *
+ 270:Generated_Source\PSoC4/PrISM_1.c **** * Summary:
+ 271:Generated_Source\PSoC4/PrISM_1.c **** *  Reads the PrISM polynomial.
+ 272:Generated_Source\PSoC4/PrISM_1.c **** *
+ 273:Generated_Source\PSoC4/PrISM_1.c **** * Parameters:
+ 274:Generated_Source\PSoC4/PrISM_1.c **** *  None.
+ 275:Generated_Source\PSoC4/PrISM_1.c **** *
+ 276:Generated_Source\PSoC4/PrISM_1.c **** * Return:
+ 277:Generated_Source\PSoC4/PrISM_1.c **** *  PrISM polynomial.
+ 278:Generated_Source\PSoC4/PrISM_1.c **** *
+ 279:Generated_Source\PSoC4/PrISM_1.c **** *******************************************************************************/
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 10
+
+
+ 280:Generated_Source\PSoC4/PrISM_1.c **** uint8 PrISM_1_ReadPolynomial(void) 
+ 281:Generated_Source\PSoC4/PrISM_1.c **** {
+ 235              		.loc 1 281 0
+ 236              		.cfi_startproc
+ 237              		@ args = 0, pretend = 0, frame = 0
+ 238              		@ frame_needed = 0, uses_anonymous_args = 0
+ 239              		@ link register save eliminated.
+ 282:Generated_Source\PSoC4/PrISM_1.c ****     return( CY_GET_REG8(PrISM_1_POLYNOM_PTR) );
+ 240              		.loc 1 282 0
+ 241 0000 014B     		ldr	r3, .L25
+ 242 0002 1878     		ldrb	r0, [r3]
+ 243 0004 C0B2     		uxtb	r0, r0
+ 283:Generated_Source\PSoC4/PrISM_1.c **** }
+ 244              		.loc 1 283 0
+ 245              		@ sp needed
+ 246 0006 7047     		bx	lr
+ 247              	.L26:
+ 248              		.align	2
+ 249              	.L25:
+ 250 0008 12000F40 		.word	1074724882
+ 251              		.cfi_endproc
+ 252              	.LFE10:
+ 253              		.size	PrISM_1_ReadPolynomial, .-PrISM_1_ReadPolynomial
+ 254              		.section	.text.PrISM_1_WritePolynomial,"ax",%progbits
+ 255              		.align	2
+ 256              		.global	PrISM_1_WritePolynomial
+ 257              		.code	16
+ 258              		.thumb_func
+ 259              		.type	PrISM_1_WritePolynomial, %function
+ 260              	PrISM_1_WritePolynomial:
+ 261              	.LFB11:
+ 284:Generated_Source\PSoC4/PrISM_1.c **** 
+ 285:Generated_Source\PSoC4/PrISM_1.c **** 
+ 286:Generated_Source\PSoC4/PrISM_1.c **** /*******************************************************************************
+ 287:Generated_Source\PSoC4/PrISM_1.c **** * FUNCTION NAME:   PrISM_1_WritePolynomial
+ 288:Generated_Source\PSoC4/PrISM_1.c **** ********************************************************************************
+ 289:Generated_Source\PSoC4/PrISM_1.c **** *
+ 290:Generated_Source\PSoC4/PrISM_1.c **** * Summary:
+ 291:Generated_Source\PSoC4/PrISM_1.c **** *  Writes the PrISM polynomial.
+ 292:Generated_Source\PSoC4/PrISM_1.c **** *
+ 293:Generated_Source\PSoC4/PrISM_1.c **** * Parameters:
+ 294:Generated_Source\PSoC4/PrISM_1.c **** *  polynomial: PrISM polynomial.
+ 295:Generated_Source\PSoC4/PrISM_1.c **** *
+ 296:Generated_Source\PSoC4/PrISM_1.c **** * Return:
+ 297:Generated_Source\PSoC4/PrISM_1.c **** *  None.
+ 298:Generated_Source\PSoC4/PrISM_1.c **** *
+ 299:Generated_Source\PSoC4/PrISM_1.c **** *******************************************************************************/
+ 300:Generated_Source\PSoC4/PrISM_1.c **** void PrISM_1_WritePolynomial(uint8 polynomial) \
+ 301:Generated_Source\PSoC4/PrISM_1.c ****                                                                 
+ 302:Generated_Source\PSoC4/PrISM_1.c **** {
+ 262              		.loc 1 302 0
+ 263              		.cfi_startproc
+ 264              		@ args = 0, pretend = 0, frame = 0
+ 265              		@ frame_needed = 0, uses_anonymous_args = 0
+ 266              		@ link register save eliminated.
+ 267              	.LVL3:
+ 303:Generated_Source\PSoC4/PrISM_1.c ****     CY_SET_REG8(PrISM_1_POLYNOM_PTR, polynomial);
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 11
+
+
+ 268              		.loc 1 303 0
+ 269 0000 014B     		ldr	r3, .L28
+ 270 0002 1870     		strb	r0, [r3]
+ 304:Generated_Source\PSoC4/PrISM_1.c ****     
+ 305:Generated_Source\PSoC4/PrISM_1.c **** }
+ 271              		.loc 1 305 0
+ 272              		@ sp needed
+ 273 0004 7047     		bx	lr
+ 274              	.L29:
+ 275 0006 C046     		.align	2
+ 276              	.L28:
+ 277 0008 12000F40 		.word	1074724882
+ 278              		.cfi_endproc
+ 279              	.LFE11:
+ 280              		.size	PrISM_1_WritePolynomial, .-PrISM_1_WritePolynomial
+ 281              		.section	.text.PrISM_1_ReadPulse0,"ax",%progbits
+ 282              		.align	2
+ 283              		.global	PrISM_1_ReadPulse0
+ 284              		.code	16
+ 285              		.thumb_func
+ 286              		.type	PrISM_1_ReadPulse0, %function
+ 287              	PrISM_1_ReadPulse0:
+ 288              	.LFB12:
+ 306:Generated_Source\PSoC4/PrISM_1.c **** 
+ 307:Generated_Source\PSoC4/PrISM_1.c **** 
+ 308:Generated_Source\PSoC4/PrISM_1.c **** /*******************************************************************************
+ 309:Generated_Source\PSoC4/PrISM_1.c **** * FUNCTION NAME:   PrISM_1_ReadPulse0
+ 310:Generated_Source\PSoC4/PrISM_1.c **** ********************************************************************************
+ 311:Generated_Source\PSoC4/PrISM_1.c **** *
+ 312:Generated_Source\PSoC4/PrISM_1.c **** * Summary:
+ 313:Generated_Source\PSoC4/PrISM_1.c **** *  Reads the PrISM Pulse Density0 register.
+ 314:Generated_Source\PSoC4/PrISM_1.c **** *
+ 315:Generated_Source\PSoC4/PrISM_1.c **** * Parameters:
+ 316:Generated_Source\PSoC4/PrISM_1.c **** *  None.
+ 317:Generated_Source\PSoC4/PrISM_1.c **** *
+ 318:Generated_Source\PSoC4/PrISM_1.c **** * Return:
+ 319:Generated_Source\PSoC4/PrISM_1.c **** *  Pulse Density0 register value.
+ 320:Generated_Source\PSoC4/PrISM_1.c **** *
+ 321:Generated_Source\PSoC4/PrISM_1.c **** *******************************************************************************/
+ 322:Generated_Source\PSoC4/PrISM_1.c **** uint8 PrISM_1_ReadPulse0(void) 
+ 323:Generated_Source\PSoC4/PrISM_1.c **** {
+ 289              		.loc 1 323 0
+ 290              		.cfi_startproc
+ 291              		@ args = 0, pretend = 0, frame = 0
+ 292              		@ frame_needed = 0, uses_anonymous_args = 0
+ 293              		@ link register save eliminated.
+ 324:Generated_Source\PSoC4/PrISM_1.c ****     return( CY_GET_REG8(PrISM_1_DENSITY0_PTR) );
+ 294              		.loc 1 324 0
+ 295 0000 014B     		ldr	r3, .L31
+ 296 0002 1878     		ldrb	r0, [r3]
+ 297 0004 C0B2     		uxtb	r0, r0
+ 325:Generated_Source\PSoC4/PrISM_1.c **** }
+ 298              		.loc 1 325 0
+ 299              		@ sp needed
+ 300 0006 7047     		bx	lr
+ 301              	.L32:
+ 302              		.align	2
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 12
+
+
+ 303              	.L31:
+ 304 0008 22000F40 		.word	1074724898
+ 305              		.cfi_endproc
+ 306              	.LFE12:
+ 307              		.size	PrISM_1_ReadPulse0, .-PrISM_1_ReadPulse0
+ 308              		.section	.text.PrISM_1_WritePulse0,"ax",%progbits
+ 309              		.align	2
+ 310              		.global	PrISM_1_WritePulse0
+ 311              		.code	16
+ 312              		.thumb_func
+ 313              		.type	PrISM_1_WritePulse0, %function
+ 314              	PrISM_1_WritePulse0:
+ 315              	.LFB13:
+ 326:Generated_Source\PSoC4/PrISM_1.c **** 
+ 327:Generated_Source\PSoC4/PrISM_1.c **** 
+ 328:Generated_Source\PSoC4/PrISM_1.c **** /*******************************************************************************
+ 329:Generated_Source\PSoC4/PrISM_1.c **** * FUNCTION NAME:   PrISM_1_WritePulse0
+ 330:Generated_Source\PSoC4/PrISM_1.c **** ********************************************************************************
+ 331:Generated_Source\PSoC4/PrISM_1.c **** *
+ 332:Generated_Source\PSoC4/PrISM_1.c **** * Summary:
+ 333:Generated_Source\PSoC4/PrISM_1.c **** *  Writes the PrISM Pulse Density0 register with the Pulse Density value.
+ 334:Generated_Source\PSoC4/PrISM_1.c **** *
+ 335:Generated_Source\PSoC4/PrISM_1.c **** * Parameters:
+ 336:Generated_Source\PSoC4/PrISM_1.c **** *  pulseDensity0: Pulse Density value.
+ 337:Generated_Source\PSoC4/PrISM_1.c **** *
+ 338:Generated_Source\PSoC4/PrISM_1.c **** * Return:
+ 339:Generated_Source\PSoC4/PrISM_1.c **** *  None.
+ 340:Generated_Source\PSoC4/PrISM_1.c **** *
+ 341:Generated_Source\PSoC4/PrISM_1.c **** *******************************************************************************/
+ 342:Generated_Source\PSoC4/PrISM_1.c **** void PrISM_1_WritePulse0(uint8 pulseDensity0) \
+ 343:Generated_Source\PSoC4/PrISM_1.c ****                                                                 
+ 344:Generated_Source\PSoC4/PrISM_1.c **** {
+ 316              		.loc 1 344 0
+ 317              		.cfi_startproc
+ 318              		@ args = 0, pretend = 0, frame = 0
+ 319              		@ frame_needed = 0, uses_anonymous_args = 0
+ 320              		@ link register save eliminated.
+ 321              	.LVL4:
+ 345:Generated_Source\PSoC4/PrISM_1.c ****     CY_SET_REG8(PrISM_1_DENSITY0_PTR, pulseDensity0);
+ 322              		.loc 1 345 0
+ 323 0000 014B     		ldr	r3, .L34
+ 324 0002 1870     		strb	r0, [r3]
+ 346:Generated_Source\PSoC4/PrISM_1.c **** }
+ 325              		.loc 1 346 0
+ 326              		@ sp needed
+ 327 0004 7047     		bx	lr
+ 328              	.L35:
+ 329 0006 C046     		.align	2
+ 330              	.L34:
+ 331 0008 22000F40 		.word	1074724898
+ 332              		.cfi_endproc
+ 333              	.LFE13:
+ 334              		.size	PrISM_1_WritePulse0, .-PrISM_1_WritePulse0
+ 335              		.section	.text.PrISM_1_ReadPulse1,"ax",%progbits
+ 336              		.align	2
+ 337              		.global	PrISM_1_ReadPulse1
+ 338              		.code	16
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 13
+
+
+ 339              		.thumb_func
+ 340              		.type	PrISM_1_ReadPulse1, %function
+ 341              	PrISM_1_ReadPulse1:
+ 342              	.LFB14:
+ 347:Generated_Source\PSoC4/PrISM_1.c **** 
+ 348:Generated_Source\PSoC4/PrISM_1.c **** 
+ 349:Generated_Source\PSoC4/PrISM_1.c **** /*******************************************************************************
+ 350:Generated_Source\PSoC4/PrISM_1.c **** * FUNCTION NAME:   PrISM_1_ReadPulse1
+ 351:Generated_Source\PSoC4/PrISM_1.c **** ********************************************************************************
+ 352:Generated_Source\PSoC4/PrISM_1.c **** *
+ 353:Generated_Source\PSoC4/PrISM_1.c **** * Summary:
+ 354:Generated_Source\PSoC4/PrISM_1.c **** *  Reads the PrISM Pulse Density1 register.
+ 355:Generated_Source\PSoC4/PrISM_1.c **** *
+ 356:Generated_Source\PSoC4/PrISM_1.c **** * Parameters:
+ 357:Generated_Source\PSoC4/PrISM_1.c **** *  None.
+ 358:Generated_Source\PSoC4/PrISM_1.c **** *
+ 359:Generated_Source\PSoC4/PrISM_1.c **** * Return:
+ 360:Generated_Source\PSoC4/PrISM_1.c **** *  Pulse Density1 register value.
+ 361:Generated_Source\PSoC4/PrISM_1.c **** *
+ 362:Generated_Source\PSoC4/PrISM_1.c **** *******************************************************************************/
+ 363:Generated_Source\PSoC4/PrISM_1.c **** uint8 PrISM_1_ReadPulse1(void) 
+ 364:Generated_Source\PSoC4/PrISM_1.c **** {
+ 343              		.loc 1 364 0
+ 344              		.cfi_startproc
+ 345              		@ args = 0, pretend = 0, frame = 0
+ 346              		@ frame_needed = 0, uses_anonymous_args = 0
+ 347              		@ link register save eliminated.
+ 365:Generated_Source\PSoC4/PrISM_1.c ****     return( CY_GET_REG8(PrISM_1_DENSITY1_PTR) );
+ 348              		.loc 1 365 0
+ 349 0000 014B     		ldr	r3, .L37
+ 350 0002 1878     		ldrb	r0, [r3]
+ 351 0004 C0B2     		uxtb	r0, r0
+ 366:Generated_Source\PSoC4/PrISM_1.c **** }
+ 352              		.loc 1 366 0
+ 353              		@ sp needed
+ 354 0006 7047     		bx	lr
+ 355              	.L38:
+ 356              		.align	2
+ 357              	.L37:
+ 358 0008 32000F40 		.word	1074724914
+ 359              		.cfi_endproc
+ 360              	.LFE14:
+ 361              		.size	PrISM_1_ReadPulse1, .-PrISM_1_ReadPulse1
+ 362              		.section	.text.PrISM_1_WritePulse1,"ax",%progbits
+ 363              		.align	2
+ 364              		.global	PrISM_1_WritePulse1
+ 365              		.code	16
+ 366              		.thumb_func
+ 367              		.type	PrISM_1_WritePulse1, %function
+ 368              	PrISM_1_WritePulse1:
+ 369              	.LFB15:
+ 367:Generated_Source\PSoC4/PrISM_1.c **** 
+ 368:Generated_Source\PSoC4/PrISM_1.c **** 
+ 369:Generated_Source\PSoC4/PrISM_1.c **** /*******************************************************************************
+ 370:Generated_Source\PSoC4/PrISM_1.c **** * FUNCTION NAME:   PrISM_1_WritePulse1
+ 371:Generated_Source\PSoC4/PrISM_1.c **** ********************************************************************************
+ 372:Generated_Source\PSoC4/PrISM_1.c **** *
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 14
+
+
+ 373:Generated_Source\PSoC4/PrISM_1.c **** * Summary:
+ 374:Generated_Source\PSoC4/PrISM_1.c **** *  Writes the PrISM Pulse Density1 register with the Pulse Density value.
+ 375:Generated_Source\PSoC4/PrISM_1.c **** *
+ 376:Generated_Source\PSoC4/PrISM_1.c **** * Parameters:
+ 377:Generated_Source\PSoC4/PrISM_1.c **** *  pulseDensity1: Pulse Density value.
+ 378:Generated_Source\PSoC4/PrISM_1.c **** *
+ 379:Generated_Source\PSoC4/PrISM_1.c **** * Return:
+ 380:Generated_Source\PSoC4/PrISM_1.c **** *  None.
+ 381:Generated_Source\PSoC4/PrISM_1.c **** *
+ 382:Generated_Source\PSoC4/PrISM_1.c **** *******************************************************************************/
+ 383:Generated_Source\PSoC4/PrISM_1.c **** void PrISM_1_WritePulse1(uint8 pulseDensity1) \
+ 384:Generated_Source\PSoC4/PrISM_1.c ****                                                                     
+ 385:Generated_Source\PSoC4/PrISM_1.c **** {
+ 370              		.loc 1 385 0
+ 371              		.cfi_startproc
+ 372              		@ args = 0, pretend = 0, frame = 0
+ 373              		@ frame_needed = 0, uses_anonymous_args = 0
+ 374              		@ link register save eliminated.
+ 375              	.LVL5:
+ 386:Generated_Source\PSoC4/PrISM_1.c ****     CY_SET_REG8(PrISM_1_DENSITY1_PTR, pulseDensity1);
+ 376              		.loc 1 386 0
+ 377 0000 014B     		ldr	r3, .L40
+ 378 0002 1870     		strb	r0, [r3]
+ 387:Generated_Source\PSoC4/PrISM_1.c **** }
+ 379              		.loc 1 387 0
+ 380              		@ sp needed
+ 381 0004 7047     		bx	lr
+ 382              	.L41:
+ 383 0006 C046     		.align	2
+ 384              	.L40:
+ 385 0008 32000F40 		.word	1074724914
+ 386              		.cfi_endproc
+ 387              	.LFE15:
+ 388              		.size	PrISM_1_WritePulse1, .-PrISM_1_WritePulse1
+ 389              		.section	.text.PrISM_1_Init,"ax",%progbits
+ 390              		.align	2
+ 391              		.global	PrISM_1_Init
+ 392              		.code	16
+ 393              		.thumb_func
+ 394              		.type	PrISM_1_Init, %function
+ 395              	PrISM_1_Init:
+ 396              	.LFB3:
+  83:Generated_Source\PSoC4/PrISM_1.c ****     uint8 enableInterrupts;
+ 397              		.loc 1 83 0
+ 398              		.cfi_startproc
+ 399              		@ args = 0, pretend = 0, frame = 0
+ 400              		@ frame_needed = 0, uses_anonymous_args = 0
+ 401 0000 10B5     		push	{r4, lr}
+ 402              		.cfi_def_cfa_offset 8
+ 403              		.cfi_offset 4, -8
+ 404              		.cfi_offset 14, -4
+  87:Generated_Source\PSoC4/PrISM_1.c ****     PrISM_1_WritePolynomial(PrISM_1_POLYNOM);
+ 405              		.loc 1 87 0
+ 406 0002 FF20     		movs	r0, #255
+ 407 0004 FFF7FEFF 		bl	PrISM_1_WriteSeed
+ 408              	.LVL6:
+  88:Generated_Source\PSoC4/PrISM_1.c ****     PrISM_1_WritePulse0(PrISM_1_DENSITY0);
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 15
+
+
+ 409              		.loc 1 88 0
+ 410 0008 B820     		movs	r0, #184
+ 411 000a FFF7FEFF 		bl	PrISM_1_WritePolynomial
+ 412              	.LVL7:
+  89:Generated_Source\PSoC4/PrISM_1.c ****     PrISM_1_WritePulse1(PrISM_1_DENSITY1);
+ 413              		.loc 1 89 0
+ 414 000e 0120     		movs	r0, #1
+ 415 0010 FFF7FEFF 		bl	PrISM_1_WritePulse0
+ 416              	.LVL8:
+  90:Generated_Source\PSoC4/PrISM_1.c ****     
+ 417              		.loc 1 90 0
+ 418 0014 0120     		movs	r0, #1
+ 419 0016 FFF7FEFF 		bl	PrISM_1_WritePulse1
+ 420              	.LVL9:
+  92:Generated_Source\PSoC4/PrISM_1.c ****     /* Set FIFO0_CLR bit to use FIFO0 as a simple one-byte buffer*/
+ 421              		.loc 1 92 0
+ 422 001a FFF7FEFF 		bl	CyEnterCriticalSection
+ 423              	.LVL10:
+  94:Generated_Source\PSoC4/PrISM_1.c ****                         CY_GET_REG8(PrISM_1_AUX_CONTROL_PTR) | PrISM_1_FIFO0_CLR);
+ 424              		.loc 1 94 0
+ 425 001e 094A     		ldr	r2, .L43
+ 426 0020 1178     		ldrb	r1, [r2]
+ 427 0022 0123     		movs	r3, #1
+ 428 0024 0B43     		orrs	r3, r1
+ 429 0026 DBB2     		uxtb	r3, r3
+ 430 0028 1370     		strb	r3, [r2]
+  96:Generated_Source\PSoC4/PrISM_1.c ****     
+ 431              		.loc 1 96 0
+ 432 002a FFF7FEFF 		bl	CyExitCriticalSection
+ 433              	.LVL11:
+ 103:Generated_Source\PSoC4/PrISM_1.c ****         #endif /* End PrISM_1_COMPARE0 */    
+ 434              		.loc 1 103 0
+ 435 002e 064B     		ldr	r3, .L43+4
+ 436 0030 1A78     		ldrb	r2, [r3]
+ 437 0032 0221     		movs	r1, #2
+ 438 0034 8A43     		bics	r2, r1
+ 439 0036 1A70     		strb	r2, [r3]
+ 109:Generated_Source\PSoC4/PrISM_1.c ****         #endif /* End PrISM_1_COMPARE1 */    
+ 440              		.loc 1 109 0
+ 441 0038 1A78     		ldrb	r2, [r3]
+ 442 003a 0231     		adds	r1, r1, #2
+ 443 003c 8A43     		bics	r2, r1
+ 444 003e 1A70     		strb	r2, [r3]
+ 112:Generated_Source\PSoC4/PrISM_1.c **** 
+ 445              		.loc 1 112 0
+ 446              		@ sp needed
+ 447 0040 10BD     		pop	{r4, pc}
+ 448              	.L44:
+ 449 0042 C046     		.align	2
+ 450              	.L43:
+ 451 0044 92000F40 		.word	1074725010
+ 452 0048 72000F40 		.word	1074724978
+ 453              		.cfi_endproc
+ 454              	.LFE3:
+ 455              		.size	PrISM_1_Init, .-PrISM_1_Init
+ 456              		.section	.text.PrISM_1_Start,"ax",%progbits
+ 457              		.align	2
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 16
+
+
+ 458              		.global	PrISM_1_Start
+ 459              		.code	16
+ 460              		.thumb_func
+ 461              		.type	PrISM_1_Start, %function
+ 462              	PrISM_1_Start:
+ 463              	.LFB2:
+  55:Generated_Source\PSoC4/PrISM_1.c ****     /* If not Initialized then initialize all required hardware and software */
+ 464              		.loc 1 55 0
+ 465              		.cfi_startproc
+ 466              		@ args = 0, pretend = 0, frame = 0
+ 467              		@ frame_needed = 0, uses_anonymous_args = 0
+ 468 0000 10B5     		push	{r4, lr}
+ 469              		.cfi_def_cfa_offset 8
+ 470              		.cfi_offset 4, -8
+ 471              		.cfi_offset 14, -4
+  57:Generated_Source\PSoC4/PrISM_1.c ****     {
+ 472              		.loc 1 57 0
+ 473 0002 064B     		ldr	r3, .L47
+ 474 0004 1B78     		ldrb	r3, [r3]
+ 475 0006 002B     		cmp	r3, #0
+ 476 0008 04D1     		bne	.L46
+  59:Generated_Source\PSoC4/PrISM_1.c ****         PrISM_1_initVar = 1u;
+ 477              		.loc 1 59 0
+ 478 000a FFF7FEFF 		bl	PrISM_1_Init
+ 479              	.LVL12:
+  60:Generated_Source\PSoC4/PrISM_1.c ****     }
+ 480              		.loc 1 60 0
+ 481 000e 0122     		movs	r2, #1
+ 482 0010 024B     		ldr	r3, .L47
+ 483 0012 1A70     		strb	r2, [r3]
+ 484              	.L46:
+  62:Generated_Source\PSoC4/PrISM_1.c **** }
+ 485              		.loc 1 62 0
+ 486 0014 FFF7FEFF 		bl	PrISM_1_Enable
+ 487              	.LVL13:
+  63:Generated_Source\PSoC4/PrISM_1.c **** 
+ 488              		.loc 1 63 0
+ 489              		@ sp needed
+ 490 0018 10BD     		pop	{r4, pc}
+ 491              	.L48:
+ 492 001a C046     		.align	2
+ 493              	.L47:
+ 494 001c 00000000 		.word	.LANCHOR0
+ 495              		.cfi_endproc
+ 496              	.LFE2:
+ 497              		.size	PrISM_1_Start, .-PrISM_1_Start
+ 498              		.global	PrISM_1_initVar
+ 499              		.bss
+ 500              		.set	.LANCHOR0,. + 0
+ 501              		.type	PrISM_1_initVar, %object
+ 502              		.size	PrISM_1_initVar, 1
+ 503              	PrISM_1_initVar:
+ 504 0000 00       		.space	1
+ 505              		.text
+ 506              	.Letext0:
+ 507              		.file 2 "Generated_Source\\PSoC4\\cytypes.h"
+ 508              		.file 3 "Generated_Source\\PSoC4\\CyLib.h"
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 17
+
+
+ 509              		.section	.debug_info,"",%progbits
+ 510              	.Ldebug_info0:
+ 511 0000 CF020000 		.4byte	0x2cf
+ 512 0004 0400     		.2byte	0x4
+ 513 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 514 000a 04       		.byte	0x4
+ 515 000b 01       		.uleb128 0x1
+ 516 000c F1010000 		.4byte	.LASF38
+ 517 0010 0C       		.byte	0xc
+ 518 0011 00000000 		.4byte	.LASF39
+ 519 0015 AB010000 		.4byte	.LASF40
+ 520 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 521 001d 00000000 		.4byte	0
+ 522 0021 00000000 		.4byte	.Ldebug_line0
+ 523 0025 02       		.uleb128 0x2
+ 524 0026 01       		.byte	0x1
+ 525 0027 06       		.byte	0x6
+ 526 0028 0C030000 		.4byte	.LASF0
+ 527 002c 02       		.uleb128 0x2
+ 528 002d 01       		.byte	0x1
+ 529 002e 08       		.byte	0x8
+ 530 002f CF000000 		.4byte	.LASF1
+ 531 0033 02       		.uleb128 0x2
+ 532 0034 02       		.byte	0x2
+ 533 0035 05       		.byte	0x5
+ 534 0036 E2020000 		.4byte	.LASF2
+ 535 003a 02       		.uleb128 0x2
+ 536 003b 02       		.byte	0x2
+ 537 003c 07       		.byte	0x7
+ 538 003d 4E000000 		.4byte	.LASF3
+ 539 0041 02       		.uleb128 0x2
+ 540 0042 04       		.byte	0x4
+ 541 0043 05       		.byte	0x5
+ 542 0044 F7020000 		.4byte	.LASF4
+ 543 0048 02       		.uleb128 0x2
+ 544 0049 04       		.byte	0x4
+ 545 004a 07       		.byte	0x7
+ 546 004b E2000000 		.4byte	.LASF5
+ 547 004f 02       		.uleb128 0x2
+ 548 0050 08       		.byte	0x8
+ 549 0051 05       		.byte	0x5
+ 550 0052 9F020000 		.4byte	.LASF6
+ 551 0056 02       		.uleb128 0x2
+ 552 0057 08       		.byte	0x8
+ 553 0058 07       		.byte	0x7
+ 554 0059 B8000000 		.4byte	.LASF7
+ 555 005d 03       		.uleb128 0x3
+ 556 005e 04       		.byte	0x4
+ 557 005f 05       		.byte	0x5
+ 558 0060 696E7400 		.ascii	"int\000"
+ 559 0064 02       		.uleb128 0x2
+ 560 0065 04       		.byte	0x4
+ 561 0066 07       		.byte	0x7
+ 562 0067 61000000 		.4byte	.LASF8
+ 563 006b 04       		.uleb128 0x4
+ 564 006c EC020000 		.4byte	.LASF12
+ 565 0070 02       		.byte	0x2
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 18
+
+
+ 566 0071 E401     		.2byte	0x1e4
+ 567 0073 2C000000 		.4byte	0x2c
+ 568 0077 02       		.uleb128 0x2
+ 569 0078 04       		.byte	0x4
+ 570 0079 04       		.byte	0x4
+ 571 007a 9C000000 		.4byte	.LASF9
+ 572 007e 02       		.uleb128 0x2
+ 573 007f 08       		.byte	0x8
+ 574 0080 04       		.byte	0x4
+ 575 0081 2A010000 		.4byte	.LASF10
+ 576 0085 02       		.uleb128 0x2
+ 577 0086 01       		.byte	0x1
+ 578 0087 08       		.byte	0x8
+ 579 0088 AD020000 		.4byte	.LASF11
+ 580 008c 04       		.uleb128 0x4
+ 581 008d DD000000 		.4byte	.LASF13
+ 582 0091 02       		.byte	0x2
+ 583 0092 8E02     		.2byte	0x28e
+ 584 0094 98000000 		.4byte	0x98
+ 585 0098 05       		.uleb128 0x5
+ 586 0099 6B000000 		.4byte	0x6b
+ 587 009d 02       		.uleb128 0x2
+ 588 009e 08       		.byte	0x8
+ 589 009f 04       		.byte	0x4
+ 590 00a0 00030000 		.4byte	.LASF14
+ 591 00a4 02       		.uleb128 0x2
+ 592 00a5 04       		.byte	0x4
+ 593 00a6 07       		.byte	0x7
+ 594 00a7 96020000 		.4byte	.LASF15
+ 595 00ab 06       		.uleb128 0x6
+ 596 00ac 6E000000 		.4byte	.LASF16
+ 597 00b0 01       		.byte	0x1
+ 598 00b1 81       		.byte	0x81
+ 599 00b2 00000000 		.4byte	.LFB4
+ 600 00b6 14000000 		.4byte	.LFE4-.LFB4
+ 601 00ba 01       		.uleb128 0x1
+ 602 00bb 9C       		.byte	0x9c
+ 603 00bc 06       		.uleb128 0x6
+ 604 00bd 1D010000 		.4byte	.LASF17
+ 605 00c1 01       		.byte	0x1
+ 606 00c2 98       		.byte	0x98
+ 607 00c3 00000000 		.4byte	.LFB5
+ 608 00c7 10000000 		.4byte	.LFE5-.LFB5
+ 609 00cb 01       		.uleb128 0x1
+ 610 00cc 9C       		.byte	0x9c
+ 611 00cd 07       		.uleb128 0x7
+ 612 00ce A2000000 		.4byte	.LASF18
+ 613 00d2 01       		.byte	0x1
+ 614 00d3 B3       		.byte	0xb3
+ 615 00d4 00000000 		.4byte	.LFB6
+ 616 00d8 24000000 		.4byte	.LFE6-.LFB6
+ 617 00dc 01       		.uleb128 0x1
+ 618 00dd 9C       		.byte	0x9c
+ 619 00de F0000000 		.4byte	0xf0
+ 620 00e2 08       		.uleb128 0x8
+ 621 00e3 7D000000 		.4byte	.LASF20
+ 622 00e7 01       		.byte	0x1
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 19
+
+
+ 623 00e8 B3       		.byte	0xb3
+ 624 00e9 6B000000 		.4byte	0x6b
+ 625 00ed 01       		.uleb128 0x1
+ 626 00ee 50       		.byte	0x50
+ 627 00ef 00       		.byte	0
+ 628 00f0 07       		.uleb128 0x7
+ 629 00f1 47010000 		.4byte	.LASF19
+ 630 00f5 01       		.byte	0x1
+ 631 00f6 CF       		.byte	0xcf
+ 632 00f7 00000000 		.4byte	.LFB7
+ 633 00fb 24000000 		.4byte	.LFE7-.LFB7
+ 634 00ff 01       		.uleb128 0x1
+ 635 0100 9C       		.byte	0x9c
+ 636 0101 13010000 		.4byte	0x113
+ 637 0105 08       		.uleb128 0x8
+ 638 0106 3C010000 		.4byte	.LASF21
+ 639 010a 01       		.byte	0x1
+ 640 010b CF       		.byte	0xcf
+ 641 010c 6B000000 		.4byte	0x6b
+ 642 0110 01       		.uleb128 0x1
+ 643 0111 50       		.byte	0x50
+ 644 0112 00       		.byte	0
+ 645 0113 09       		.uleb128 0x9
+ 646 0114 9A010000 		.4byte	.LASF24
+ 647 0118 01       		.byte	0x1
+ 648 0119 EC       		.byte	0xec
+ 649 011a 6B000000 		.4byte	0x6b
+ 650 011e 00000000 		.4byte	.LFB8
+ 651 0122 0C000000 		.4byte	.LFE8-.LFB8
+ 652 0126 01       		.uleb128 0x1
+ 653 0127 9C       		.byte	0x9c
+ 654 0128 0A       		.uleb128 0xa
+ 655 0129 21000000 		.4byte	.LASF22
+ 656 012d 01       		.byte	0x1
+ 657 012e 0001     		.2byte	0x100
+ 658 0130 00000000 		.4byte	.LFB9
+ 659 0134 18000000 		.4byte	.LFE9-.LFB9
+ 660 0138 01       		.uleb128 0x1
+ 661 0139 9C       		.byte	0x9c
+ 662 013a 4D010000 		.4byte	0x14d
+ 663 013e 0B       		.uleb128 0xb
+ 664 013f F2020000 		.4byte	.LASF23
+ 665 0143 01       		.byte	0x1
+ 666 0144 0001     		.2byte	0x100
+ 667 0146 6B000000 		.4byte	0x6b
+ 668 014a 01       		.uleb128 0x1
+ 669 014b 50       		.byte	0x50
+ 670 014c 00       		.byte	0
+ 671 014d 0C       		.uleb128 0xc
+ 672 014e 7F020000 		.4byte	.LASF25
+ 673 0152 01       		.byte	0x1
+ 674 0153 1801     		.2byte	0x118
+ 675 0155 6B000000 		.4byte	0x6b
+ 676 0159 00000000 		.4byte	.LFB10
+ 677 015d 0C000000 		.4byte	.LFE10-.LFB10
+ 678 0161 01       		.uleb128 0x1
+ 679 0162 9C       		.byte	0x9c
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 20
+
+
+ 680 0163 0A       		.uleb128 0xa
+ 681 0164 F4000000 		.4byte	.LASF26
+ 682 0168 01       		.byte	0x1
+ 683 0169 2C01     		.2byte	0x12c
+ 684 016b 00000000 		.4byte	.LFB11
+ 685 016f 0C000000 		.4byte	.LFE11-.LFB11
+ 686 0173 01       		.uleb128 0x1
+ 687 0174 9C       		.byte	0x9c
+ 688 0175 88010000 		.4byte	0x188
+ 689 0179 0B       		.uleb128 0xb
+ 690 017a 31010000 		.4byte	.LASF27
+ 691 017e 01       		.byte	0x1
+ 692 017f 2C01     		.2byte	0x12c
+ 693 0181 6B000000 		.4byte	0x6b
+ 694 0185 01       		.uleb128 0x1
+ 695 0186 50       		.byte	0x50
+ 696 0187 00       		.byte	0
+ 697 0188 0C       		.uleb128 0xc
+ 698 0189 18030000 		.4byte	.LASF28
+ 699 018d 01       		.byte	0x1
+ 700 018e 4201     		.2byte	0x142
+ 701 0190 6B000000 		.4byte	0x6b
+ 702 0194 00000000 		.4byte	.LFB12
+ 703 0198 0C000000 		.4byte	.LFE12-.LFB12
+ 704 019c 01       		.uleb128 0x1
+ 705 019d 9C       		.byte	0x9c
+ 706 019e 0A       		.uleb128 0xa
+ 707 019f 88000000 		.4byte	.LASF29
+ 708 01a3 01       		.byte	0x1
+ 709 01a4 5601     		.2byte	0x156
+ 710 01a6 00000000 		.4byte	.LFB13
+ 711 01aa 0C000000 		.4byte	.LFE13-.LFB13
+ 712 01ae 01       		.uleb128 0x1
+ 713 01af 9C       		.byte	0x9c
+ 714 01b0 C3010000 		.4byte	0x1c3
+ 715 01b4 0B       		.uleb128 0xb
+ 716 01b5 B2020000 		.4byte	.LASF30
+ 717 01b9 01       		.byte	0x1
+ 718 01ba 5601     		.2byte	0x156
+ 719 01bc 6B000000 		.4byte	0x6b
+ 720 01c0 01       		.uleb128 0x1
+ 721 01c1 50       		.byte	0x50
+ 722 01c2 00       		.byte	0
+ 723 01c3 0C       		.uleb128 0xc
+ 724 01c4 2B030000 		.4byte	.LASF31
+ 725 01c8 01       		.byte	0x1
+ 726 01c9 6B01     		.2byte	0x16b
+ 727 01cb 6B000000 		.4byte	0x6b
+ 728 01cf 00000000 		.4byte	.LFB14
+ 729 01d3 0C000000 		.4byte	.LFE14-.LFB14
+ 730 01d7 01       		.uleb128 0x1
+ 731 01d8 9C       		.byte	0x9c
+ 732 01d9 0A       		.uleb128 0xa
+ 733 01da CE020000 		.4byte	.LASF32
+ 734 01de 01       		.byte	0x1
+ 735 01df 7F01     		.2byte	0x17f
+ 736 01e1 00000000 		.4byte	.LFB15
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 21
+
+
+ 737 01e5 0C000000 		.4byte	.LFE15-.LFB15
+ 738 01e9 01       		.uleb128 0x1
+ 739 01ea 9C       		.byte	0x9c
+ 740 01eb FE010000 		.4byte	0x1fe
+ 741 01ef 0B       		.uleb128 0xb
+ 742 01f0 C0020000 		.4byte	.LASF33
+ 743 01f4 01       		.byte	0x1
+ 744 01f5 7F01     		.2byte	0x17f
+ 745 01f7 6B000000 		.4byte	0x6b
+ 746 01fb 01       		.uleb128 0x1
+ 747 01fc 50       		.byte	0x50
+ 748 01fd 00       		.byte	0
+ 749 01fe 07       		.uleb128 0x7
+ 750 01ff 33000000 		.4byte	.LASF34
+ 751 0203 01       		.byte	0x1
+ 752 0204 52       		.byte	0x52
+ 753 0205 00000000 		.4byte	.LFB3
+ 754 0209 4C000000 		.4byte	.LFE3-.LFB3
+ 755 020d 01       		.uleb128 0x1
+ 756 020e 9C       		.byte	0x9c
+ 757 020f 83020000 		.4byte	0x283
+ 758 0213 0D       		.uleb128 0xd
+ 759 0214 0C010000 		.4byte	.LASF41
+ 760 0218 01       		.byte	0x1
+ 761 0219 54       		.byte	0x54
+ 762 021a 6B000000 		.4byte	0x6b
+ 763 021e 00000000 		.4byte	.LLST0
+ 764 0222 0E       		.uleb128 0xe
+ 765 0223 08000000 		.4byte	.LVL6
+ 766 0227 28010000 		.4byte	0x128
+ 767 022b 36020000 		.4byte	0x236
+ 768 022f 0F       		.uleb128 0xf
+ 769 0230 01       		.uleb128 0x1
+ 770 0231 50       		.byte	0x50
+ 771 0232 02       		.uleb128 0x2
+ 772 0233 09       		.byte	0x9
+ 773 0234 FF       		.byte	0xff
+ 774 0235 00       		.byte	0
+ 775 0236 0E       		.uleb128 0xe
+ 776 0237 0E000000 		.4byte	.LVL7
+ 777 023b 63010000 		.4byte	0x163
+ 778 023f 4A020000 		.4byte	0x24a
+ 779 0243 0F       		.uleb128 0xf
+ 780 0244 01       		.uleb128 0x1
+ 781 0245 50       		.byte	0x50
+ 782 0246 02       		.uleb128 0x2
+ 783 0247 09       		.byte	0x9
+ 784 0248 B8       		.byte	0xb8
+ 785 0249 00       		.byte	0
+ 786 024a 0E       		.uleb128 0xe
+ 787 024b 14000000 		.4byte	.LVL8
+ 788 024f 9E010000 		.4byte	0x19e
+ 789 0253 5D020000 		.4byte	0x25d
+ 790 0257 0F       		.uleb128 0xf
+ 791 0258 01       		.uleb128 0x1
+ 792 0259 50       		.byte	0x50
+ 793 025a 01       		.uleb128 0x1
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 22
+
+
+ 794 025b 31       		.byte	0x31
+ 795 025c 00       		.byte	0
+ 796 025d 0E       		.uleb128 0xe
+ 797 025e 1A000000 		.4byte	.LVL9
+ 798 0262 D9010000 		.4byte	0x1d9
+ 799 0266 70020000 		.4byte	0x270
+ 800 026a 0F       		.uleb128 0xf
+ 801 026b 01       		.uleb128 0x1
+ 802 026c 50       		.byte	0x50
+ 803 026d 01       		.uleb128 0x1
+ 804 026e 31       		.byte	0x31
+ 805 026f 00       		.byte	0
+ 806 0270 10       		.uleb128 0x10
+ 807 0271 1E000000 		.4byte	.LVL10
+ 808 0275 BC020000 		.4byte	0x2bc
+ 809 0279 10       		.uleb128 0x10
+ 810 027a 2E000000 		.4byte	.LVL11
+ 811 027e C7020000 		.4byte	0x2c7
+ 812 0282 00       		.byte	0
+ 813 0283 07       		.uleb128 0x7
+ 814 0284 40000000 		.4byte	.LASF35
+ 815 0288 01       		.byte	0x1
+ 816 0289 36       		.byte	0x36
+ 817 028a 00000000 		.4byte	.LFB2
+ 818 028e 20000000 		.4byte	.LFE2-.LFB2
+ 819 0292 01       		.uleb128 0x1
+ 820 0293 9C       		.byte	0x9c
+ 821 0294 AB020000 		.4byte	0x2ab
+ 822 0298 10       		.uleb128 0x10
+ 823 0299 0E000000 		.4byte	.LVL12
+ 824 029d FE010000 		.4byte	0x1fe
+ 825 02a1 10       		.uleb128 0x10
+ 826 02a2 18000000 		.4byte	.LVL13
+ 827 02a6 AB000000 		.4byte	0xab
+ 828 02aa 00       		.byte	0
+ 829 02ab 11       		.uleb128 0x11
+ 830 02ac 74010000 		.4byte	.LASF42
+ 831 02b0 01       		.byte	0x1
+ 832 02b1 1A       		.byte	0x1a
+ 833 02b2 6B000000 		.4byte	0x6b
+ 834 02b6 05       		.uleb128 0x5
+ 835 02b7 03       		.byte	0x3
+ 836 02b8 00000000 		.4byte	PrISM_1_initVar
+ 837 02bc 12       		.uleb128 0x12
+ 838 02bd 5D010000 		.4byte	.LASF36
+ 839 02c1 5D010000 		.4byte	.LASF36
+ 840 02c5 03       		.byte	0x3
+ 841 02c6 E5       		.byte	0xe5
+ 842 02c7 12       		.uleb128 0x12
+ 843 02c8 84010000 		.4byte	.LASF37
+ 844 02cc 84010000 		.4byte	.LASF37
+ 845 02d0 03       		.byte	0x3
+ 846 02d1 E6       		.byte	0xe6
+ 847 02d2 00       		.byte	0
+ 848              		.section	.debug_abbrev,"",%progbits
+ 849              	.Ldebug_abbrev0:
+ 850 0000 01       		.uleb128 0x1
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 23
+
+
+ 851 0001 11       		.uleb128 0x11
+ 852 0002 01       		.byte	0x1
+ 853 0003 25       		.uleb128 0x25
+ 854 0004 0E       		.uleb128 0xe
+ 855 0005 13       		.uleb128 0x13
+ 856 0006 0B       		.uleb128 0xb
+ 857 0007 03       		.uleb128 0x3
+ 858 0008 0E       		.uleb128 0xe
+ 859 0009 1B       		.uleb128 0x1b
+ 860 000a 0E       		.uleb128 0xe
+ 861 000b 55       		.uleb128 0x55
+ 862 000c 17       		.uleb128 0x17
+ 863 000d 11       		.uleb128 0x11
+ 864 000e 01       		.uleb128 0x1
+ 865 000f 10       		.uleb128 0x10
+ 866 0010 17       		.uleb128 0x17
+ 867 0011 00       		.byte	0
+ 868 0012 00       		.byte	0
+ 869 0013 02       		.uleb128 0x2
+ 870 0014 24       		.uleb128 0x24
+ 871 0015 00       		.byte	0
+ 872 0016 0B       		.uleb128 0xb
+ 873 0017 0B       		.uleb128 0xb
+ 874 0018 3E       		.uleb128 0x3e
+ 875 0019 0B       		.uleb128 0xb
+ 876 001a 03       		.uleb128 0x3
+ 877 001b 0E       		.uleb128 0xe
+ 878 001c 00       		.byte	0
+ 879 001d 00       		.byte	0
+ 880 001e 03       		.uleb128 0x3
+ 881 001f 24       		.uleb128 0x24
+ 882 0020 00       		.byte	0
+ 883 0021 0B       		.uleb128 0xb
+ 884 0022 0B       		.uleb128 0xb
+ 885 0023 3E       		.uleb128 0x3e
+ 886 0024 0B       		.uleb128 0xb
+ 887 0025 03       		.uleb128 0x3
+ 888 0026 08       		.uleb128 0x8
+ 889 0027 00       		.byte	0
+ 890 0028 00       		.byte	0
+ 891 0029 04       		.uleb128 0x4
+ 892 002a 16       		.uleb128 0x16
+ 893 002b 00       		.byte	0
+ 894 002c 03       		.uleb128 0x3
+ 895 002d 0E       		.uleb128 0xe
+ 896 002e 3A       		.uleb128 0x3a
+ 897 002f 0B       		.uleb128 0xb
+ 898 0030 3B       		.uleb128 0x3b
+ 899 0031 05       		.uleb128 0x5
+ 900 0032 49       		.uleb128 0x49
+ 901 0033 13       		.uleb128 0x13
+ 902 0034 00       		.byte	0
+ 903 0035 00       		.byte	0
+ 904 0036 05       		.uleb128 0x5
+ 905 0037 35       		.uleb128 0x35
+ 906 0038 00       		.byte	0
+ 907 0039 49       		.uleb128 0x49
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 24
+
+
+ 908 003a 13       		.uleb128 0x13
+ 909 003b 00       		.byte	0
+ 910 003c 00       		.byte	0
+ 911 003d 06       		.uleb128 0x6
+ 912 003e 2E       		.uleb128 0x2e
+ 913 003f 00       		.byte	0
+ 914 0040 3F       		.uleb128 0x3f
+ 915 0041 19       		.uleb128 0x19
+ 916 0042 03       		.uleb128 0x3
+ 917 0043 0E       		.uleb128 0xe
+ 918 0044 3A       		.uleb128 0x3a
+ 919 0045 0B       		.uleb128 0xb
+ 920 0046 3B       		.uleb128 0x3b
+ 921 0047 0B       		.uleb128 0xb
+ 922 0048 27       		.uleb128 0x27
+ 923 0049 19       		.uleb128 0x19
+ 924 004a 11       		.uleb128 0x11
+ 925 004b 01       		.uleb128 0x1
+ 926 004c 12       		.uleb128 0x12
+ 927 004d 06       		.uleb128 0x6
+ 928 004e 40       		.uleb128 0x40
+ 929 004f 18       		.uleb128 0x18
+ 930 0050 9742     		.uleb128 0x2117
+ 931 0052 19       		.uleb128 0x19
+ 932 0053 00       		.byte	0
+ 933 0054 00       		.byte	0
+ 934 0055 07       		.uleb128 0x7
+ 935 0056 2E       		.uleb128 0x2e
+ 936 0057 01       		.byte	0x1
+ 937 0058 3F       		.uleb128 0x3f
+ 938 0059 19       		.uleb128 0x19
+ 939 005a 03       		.uleb128 0x3
+ 940 005b 0E       		.uleb128 0xe
+ 941 005c 3A       		.uleb128 0x3a
+ 942 005d 0B       		.uleb128 0xb
+ 943 005e 3B       		.uleb128 0x3b
+ 944 005f 0B       		.uleb128 0xb
+ 945 0060 27       		.uleb128 0x27
+ 946 0061 19       		.uleb128 0x19
+ 947 0062 11       		.uleb128 0x11
+ 948 0063 01       		.uleb128 0x1
+ 949 0064 12       		.uleb128 0x12
+ 950 0065 06       		.uleb128 0x6
+ 951 0066 40       		.uleb128 0x40
+ 952 0067 18       		.uleb128 0x18
+ 953 0068 9742     		.uleb128 0x2117
+ 954 006a 19       		.uleb128 0x19
+ 955 006b 01       		.uleb128 0x1
+ 956 006c 13       		.uleb128 0x13
+ 957 006d 00       		.byte	0
+ 958 006e 00       		.byte	0
+ 959 006f 08       		.uleb128 0x8
+ 960 0070 05       		.uleb128 0x5
+ 961 0071 00       		.byte	0
+ 962 0072 03       		.uleb128 0x3
+ 963 0073 0E       		.uleb128 0xe
+ 964 0074 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 25
+
+
+ 965 0075 0B       		.uleb128 0xb
+ 966 0076 3B       		.uleb128 0x3b
+ 967 0077 0B       		.uleb128 0xb
+ 968 0078 49       		.uleb128 0x49
+ 969 0079 13       		.uleb128 0x13
+ 970 007a 02       		.uleb128 0x2
+ 971 007b 18       		.uleb128 0x18
+ 972 007c 00       		.byte	0
+ 973 007d 00       		.byte	0
+ 974 007e 09       		.uleb128 0x9
+ 975 007f 2E       		.uleb128 0x2e
+ 976 0080 00       		.byte	0
+ 977 0081 3F       		.uleb128 0x3f
+ 978 0082 19       		.uleb128 0x19
+ 979 0083 03       		.uleb128 0x3
+ 980 0084 0E       		.uleb128 0xe
+ 981 0085 3A       		.uleb128 0x3a
+ 982 0086 0B       		.uleb128 0xb
+ 983 0087 3B       		.uleb128 0x3b
+ 984 0088 0B       		.uleb128 0xb
+ 985 0089 27       		.uleb128 0x27
+ 986 008a 19       		.uleb128 0x19
+ 987 008b 49       		.uleb128 0x49
+ 988 008c 13       		.uleb128 0x13
+ 989 008d 11       		.uleb128 0x11
+ 990 008e 01       		.uleb128 0x1
+ 991 008f 12       		.uleb128 0x12
+ 992 0090 06       		.uleb128 0x6
+ 993 0091 40       		.uleb128 0x40
+ 994 0092 18       		.uleb128 0x18
+ 995 0093 9742     		.uleb128 0x2117
+ 996 0095 19       		.uleb128 0x19
+ 997 0096 00       		.byte	0
+ 998 0097 00       		.byte	0
+ 999 0098 0A       		.uleb128 0xa
+ 1000 0099 2E       		.uleb128 0x2e
+ 1001 009a 01       		.byte	0x1
+ 1002 009b 3F       		.uleb128 0x3f
+ 1003 009c 19       		.uleb128 0x19
+ 1004 009d 03       		.uleb128 0x3
+ 1005 009e 0E       		.uleb128 0xe
+ 1006 009f 3A       		.uleb128 0x3a
+ 1007 00a0 0B       		.uleb128 0xb
+ 1008 00a1 3B       		.uleb128 0x3b
+ 1009 00a2 05       		.uleb128 0x5
+ 1010 00a3 27       		.uleb128 0x27
+ 1011 00a4 19       		.uleb128 0x19
+ 1012 00a5 11       		.uleb128 0x11
+ 1013 00a6 01       		.uleb128 0x1
+ 1014 00a7 12       		.uleb128 0x12
+ 1015 00a8 06       		.uleb128 0x6
+ 1016 00a9 40       		.uleb128 0x40
+ 1017 00aa 18       		.uleb128 0x18
+ 1018 00ab 9742     		.uleb128 0x2117
+ 1019 00ad 19       		.uleb128 0x19
+ 1020 00ae 01       		.uleb128 0x1
+ 1021 00af 13       		.uleb128 0x13
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 26
+
+
+ 1022 00b0 00       		.byte	0
+ 1023 00b1 00       		.byte	0
+ 1024 00b2 0B       		.uleb128 0xb
+ 1025 00b3 05       		.uleb128 0x5
+ 1026 00b4 00       		.byte	0
+ 1027 00b5 03       		.uleb128 0x3
+ 1028 00b6 0E       		.uleb128 0xe
+ 1029 00b7 3A       		.uleb128 0x3a
+ 1030 00b8 0B       		.uleb128 0xb
+ 1031 00b9 3B       		.uleb128 0x3b
+ 1032 00ba 05       		.uleb128 0x5
+ 1033 00bb 49       		.uleb128 0x49
+ 1034 00bc 13       		.uleb128 0x13
+ 1035 00bd 02       		.uleb128 0x2
+ 1036 00be 18       		.uleb128 0x18
+ 1037 00bf 00       		.byte	0
+ 1038 00c0 00       		.byte	0
+ 1039 00c1 0C       		.uleb128 0xc
+ 1040 00c2 2E       		.uleb128 0x2e
+ 1041 00c3 00       		.byte	0
+ 1042 00c4 3F       		.uleb128 0x3f
+ 1043 00c5 19       		.uleb128 0x19
+ 1044 00c6 03       		.uleb128 0x3
+ 1045 00c7 0E       		.uleb128 0xe
+ 1046 00c8 3A       		.uleb128 0x3a
+ 1047 00c9 0B       		.uleb128 0xb
+ 1048 00ca 3B       		.uleb128 0x3b
+ 1049 00cb 05       		.uleb128 0x5
+ 1050 00cc 27       		.uleb128 0x27
+ 1051 00cd 19       		.uleb128 0x19
+ 1052 00ce 49       		.uleb128 0x49
+ 1053 00cf 13       		.uleb128 0x13
+ 1054 00d0 11       		.uleb128 0x11
+ 1055 00d1 01       		.uleb128 0x1
+ 1056 00d2 12       		.uleb128 0x12
+ 1057 00d3 06       		.uleb128 0x6
+ 1058 00d4 40       		.uleb128 0x40
+ 1059 00d5 18       		.uleb128 0x18
+ 1060 00d6 9742     		.uleb128 0x2117
+ 1061 00d8 19       		.uleb128 0x19
+ 1062 00d9 00       		.byte	0
+ 1063 00da 00       		.byte	0
+ 1064 00db 0D       		.uleb128 0xd
+ 1065 00dc 34       		.uleb128 0x34
+ 1066 00dd 00       		.byte	0
+ 1067 00de 03       		.uleb128 0x3
+ 1068 00df 0E       		.uleb128 0xe
+ 1069 00e0 3A       		.uleb128 0x3a
+ 1070 00e1 0B       		.uleb128 0xb
+ 1071 00e2 3B       		.uleb128 0x3b
+ 1072 00e3 0B       		.uleb128 0xb
+ 1073 00e4 49       		.uleb128 0x49
+ 1074 00e5 13       		.uleb128 0x13
+ 1075 00e6 02       		.uleb128 0x2
+ 1076 00e7 17       		.uleb128 0x17
+ 1077 00e8 00       		.byte	0
+ 1078 00e9 00       		.byte	0
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 27
+
+
+ 1079 00ea 0E       		.uleb128 0xe
+ 1080 00eb 898201   		.uleb128 0x4109
+ 1081 00ee 01       		.byte	0x1
+ 1082 00ef 11       		.uleb128 0x11
+ 1083 00f0 01       		.uleb128 0x1
+ 1084 00f1 31       		.uleb128 0x31
+ 1085 00f2 13       		.uleb128 0x13
+ 1086 00f3 01       		.uleb128 0x1
+ 1087 00f4 13       		.uleb128 0x13
+ 1088 00f5 00       		.byte	0
+ 1089 00f6 00       		.byte	0
+ 1090 00f7 0F       		.uleb128 0xf
+ 1091 00f8 8A8201   		.uleb128 0x410a
+ 1092 00fb 00       		.byte	0
+ 1093 00fc 02       		.uleb128 0x2
+ 1094 00fd 18       		.uleb128 0x18
+ 1095 00fe 9142     		.uleb128 0x2111
+ 1096 0100 18       		.uleb128 0x18
+ 1097 0101 00       		.byte	0
+ 1098 0102 00       		.byte	0
+ 1099 0103 10       		.uleb128 0x10
+ 1100 0104 898201   		.uleb128 0x4109
+ 1101 0107 00       		.byte	0
+ 1102 0108 11       		.uleb128 0x11
+ 1103 0109 01       		.uleb128 0x1
+ 1104 010a 31       		.uleb128 0x31
+ 1105 010b 13       		.uleb128 0x13
+ 1106 010c 00       		.byte	0
+ 1107 010d 00       		.byte	0
+ 1108 010e 11       		.uleb128 0x11
+ 1109 010f 34       		.uleb128 0x34
+ 1110 0110 00       		.byte	0
+ 1111 0111 03       		.uleb128 0x3
+ 1112 0112 0E       		.uleb128 0xe
+ 1113 0113 3A       		.uleb128 0x3a
+ 1114 0114 0B       		.uleb128 0xb
+ 1115 0115 3B       		.uleb128 0x3b
+ 1116 0116 0B       		.uleb128 0xb
+ 1117 0117 49       		.uleb128 0x49
+ 1118 0118 13       		.uleb128 0x13
+ 1119 0119 3F       		.uleb128 0x3f
+ 1120 011a 19       		.uleb128 0x19
+ 1121 011b 02       		.uleb128 0x2
+ 1122 011c 18       		.uleb128 0x18
+ 1123 011d 00       		.byte	0
+ 1124 011e 00       		.byte	0
+ 1125 011f 12       		.uleb128 0x12
+ 1126 0120 2E       		.uleb128 0x2e
+ 1127 0121 00       		.byte	0
+ 1128 0122 3F       		.uleb128 0x3f
+ 1129 0123 19       		.uleb128 0x19
+ 1130 0124 3C       		.uleb128 0x3c
+ 1131 0125 19       		.uleb128 0x19
+ 1132 0126 6E       		.uleb128 0x6e
+ 1133 0127 0E       		.uleb128 0xe
+ 1134 0128 03       		.uleb128 0x3
+ 1135 0129 0E       		.uleb128 0xe
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 28
+
+
+ 1136 012a 3A       		.uleb128 0x3a
+ 1137 012b 0B       		.uleb128 0xb
+ 1138 012c 3B       		.uleb128 0x3b
+ 1139 012d 0B       		.uleb128 0xb
+ 1140 012e 00       		.byte	0
+ 1141 012f 00       		.byte	0
+ 1142 0130 00       		.byte	0
+ 1143              		.section	.debug_loc,"",%progbits
+ 1144              	.Ldebug_loc0:
+ 1145              	.LLST0:
+ 1146 0000 1E000000 		.4byte	.LVL10
+ 1147 0004 2D000000 		.4byte	.LVL11-1
+ 1148 0008 0100     		.2byte	0x1
+ 1149 000a 50       		.byte	0x50
+ 1150 000b 00000000 		.4byte	0
+ 1151 000f 00000000 		.4byte	0
+ 1152              		.section	.debug_aranges,"",%progbits
+ 1153 0000 84000000 		.4byte	0x84
+ 1154 0004 0200     		.2byte	0x2
+ 1155 0006 00000000 		.4byte	.Ldebug_info0
+ 1156 000a 04       		.byte	0x4
+ 1157 000b 00       		.byte	0
+ 1158 000c 0000     		.2byte	0
+ 1159 000e 0000     		.2byte	0
+ 1160 0010 00000000 		.4byte	.LFB4
+ 1161 0014 14000000 		.4byte	.LFE4-.LFB4
+ 1162 0018 00000000 		.4byte	.LFB5
+ 1163 001c 10000000 		.4byte	.LFE5-.LFB5
+ 1164 0020 00000000 		.4byte	.LFB6
+ 1165 0024 24000000 		.4byte	.LFE6-.LFB6
+ 1166 0028 00000000 		.4byte	.LFB7
+ 1167 002c 24000000 		.4byte	.LFE7-.LFB7
+ 1168 0030 00000000 		.4byte	.LFB8
+ 1169 0034 0C000000 		.4byte	.LFE8-.LFB8
+ 1170 0038 00000000 		.4byte	.LFB9
+ 1171 003c 18000000 		.4byte	.LFE9-.LFB9
+ 1172 0040 00000000 		.4byte	.LFB10
+ 1173 0044 0C000000 		.4byte	.LFE10-.LFB10
+ 1174 0048 00000000 		.4byte	.LFB11
+ 1175 004c 0C000000 		.4byte	.LFE11-.LFB11
+ 1176 0050 00000000 		.4byte	.LFB12
+ 1177 0054 0C000000 		.4byte	.LFE12-.LFB12
+ 1178 0058 00000000 		.4byte	.LFB13
+ 1179 005c 0C000000 		.4byte	.LFE13-.LFB13
+ 1180 0060 00000000 		.4byte	.LFB14
+ 1181 0064 0C000000 		.4byte	.LFE14-.LFB14
+ 1182 0068 00000000 		.4byte	.LFB15
+ 1183 006c 0C000000 		.4byte	.LFE15-.LFB15
+ 1184 0070 00000000 		.4byte	.LFB3
+ 1185 0074 4C000000 		.4byte	.LFE3-.LFB3
+ 1186 0078 00000000 		.4byte	.LFB2
+ 1187 007c 20000000 		.4byte	.LFE2-.LFB2
+ 1188 0080 00000000 		.4byte	0
+ 1189 0084 00000000 		.4byte	0
+ 1190              		.section	.debug_ranges,"",%progbits
+ 1191              	.Ldebug_ranges0:
+ 1192 0000 00000000 		.4byte	.LFB4
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 29
+
+
+ 1193 0004 14000000 		.4byte	.LFE4
+ 1194 0008 00000000 		.4byte	.LFB5
+ 1195 000c 10000000 		.4byte	.LFE5
+ 1196 0010 00000000 		.4byte	.LFB6
+ 1197 0014 24000000 		.4byte	.LFE6
+ 1198 0018 00000000 		.4byte	.LFB7
+ 1199 001c 24000000 		.4byte	.LFE7
+ 1200 0020 00000000 		.4byte	.LFB8
+ 1201 0024 0C000000 		.4byte	.LFE8
+ 1202 0028 00000000 		.4byte	.LFB9
+ 1203 002c 18000000 		.4byte	.LFE9
+ 1204 0030 00000000 		.4byte	.LFB10
+ 1205 0034 0C000000 		.4byte	.LFE10
+ 1206 0038 00000000 		.4byte	.LFB11
+ 1207 003c 0C000000 		.4byte	.LFE11
+ 1208 0040 00000000 		.4byte	.LFB12
+ 1209 0044 0C000000 		.4byte	.LFE12
+ 1210 0048 00000000 		.4byte	.LFB13
+ 1211 004c 0C000000 		.4byte	.LFE13
+ 1212 0050 00000000 		.4byte	.LFB14
+ 1213 0054 0C000000 		.4byte	.LFE14
+ 1214 0058 00000000 		.4byte	.LFB15
+ 1215 005c 0C000000 		.4byte	.LFE15
+ 1216 0060 00000000 		.4byte	.LFB3
+ 1217 0064 4C000000 		.4byte	.LFE3
+ 1218 0068 00000000 		.4byte	.LFB2
+ 1219 006c 20000000 		.4byte	.LFE2
+ 1220 0070 00000000 		.4byte	0
+ 1221 0074 00000000 		.4byte	0
+ 1222              		.section	.debug_line,"",%progbits
+ 1223              	.Ldebug_line0:
+ 1224 0000 61010000 		.section	.debug_str,"MS",%progbits,1
+ 1224      02004F00 
+ 1224      00000201 
+ 1224      FB0E0D00 
+ 1224      01010101 
+ 1225              	.LASF39:
+ 1226 0000 47656E65 		.ascii	"Generated_Source\\PSoC4\\PrISM_1.c\000"
+ 1226      72617465 
+ 1226      645F536F 
+ 1226      75726365 
+ 1226      5C50536F 
+ 1227              	.LASF22:
+ 1228 0021 50724953 		.ascii	"PrISM_1_WriteSeed\000"
+ 1228      4D5F315F 
+ 1228      57726974 
+ 1228      65536565 
+ 1228      6400
+ 1229              	.LASF34:
+ 1230 0033 50724953 		.ascii	"PrISM_1_Init\000"
+ 1230      4D5F315F 
+ 1230      496E6974 
+ 1230      00
+ 1231              	.LASF35:
+ 1232 0040 50724953 		.ascii	"PrISM_1_Start\000"
+ 1232      4D5F315F 
+ 1232      53746172 
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 30
+
+
+ 1232      7400
+ 1233              	.LASF3:
+ 1234 004e 73686F72 		.ascii	"short unsigned int\000"
+ 1234      7420756E 
+ 1234      7369676E 
+ 1234      65642069 
+ 1234      6E7400
+ 1235              	.LASF8:
+ 1236 0061 756E7369 		.ascii	"unsigned int\000"
+ 1236      676E6564 
+ 1236      20696E74 
+ 1236      00
+ 1237              	.LASF16:
+ 1238 006e 50724953 		.ascii	"PrISM_1_Enable\000"
+ 1238      4D5F315F 
+ 1238      456E6162 
+ 1238      6C6500
+ 1239              	.LASF20:
+ 1240 007d 70756C73 		.ascii	"pulse0Type\000"
+ 1240      65305479 
+ 1240      706500
+ 1241              	.LASF29:
+ 1242 0088 50724953 		.ascii	"PrISM_1_WritePulse0\000"
+ 1242      4D5F315F 
+ 1242      57726974 
+ 1242      6550756C 
+ 1242      73653000 
+ 1243              	.LASF9:
+ 1244 009c 666C6F61 		.ascii	"float\000"
+ 1244      7400
+ 1245              	.LASF18:
+ 1246 00a2 50724953 		.ascii	"PrISM_1_SetPulse0Mode\000"
+ 1246      4D5F315F 
+ 1246      53657450 
+ 1246      756C7365 
+ 1246      304D6F64 
+ 1247              	.LASF7:
+ 1248 00b8 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1248      206C6F6E 
+ 1248      6720756E 
+ 1248      7369676E 
+ 1248      65642069 
+ 1249              	.LASF1:
+ 1250 00cf 756E7369 		.ascii	"unsigned char\000"
+ 1250      676E6564 
+ 1250      20636861 
+ 1250      7200
+ 1251              	.LASF13:
+ 1252 00dd 72656738 		.ascii	"reg8\000"
+ 1252      00
+ 1253              	.LASF5:
+ 1254 00e2 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1254      20756E73 
+ 1254      69676E65 
+ 1254      6420696E 
+ 1254      7400
+ 1255              	.LASF26:
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 31
+
+
+ 1256 00f4 50724953 		.ascii	"PrISM_1_WritePolynomial\000"
+ 1256      4D5F315F 
+ 1256      57726974 
+ 1256      65506F6C 
+ 1256      796E6F6D 
+ 1257              	.LASF41:
+ 1258 010c 656E6162 		.ascii	"enableInterrupts\000"
+ 1258      6C65496E 
+ 1258      74657272 
+ 1258      75707473 
+ 1258      00
+ 1259              	.LASF17:
+ 1260 011d 50724953 		.ascii	"PrISM_1_Stop\000"
+ 1260      4D5F315F 
+ 1260      53746F70 
+ 1260      00
+ 1261              	.LASF10:
+ 1262 012a 646F7562 		.ascii	"double\000"
+ 1262      6C6500
+ 1263              	.LASF27:
+ 1264 0131 706F6C79 		.ascii	"polynomial\000"
+ 1264      6E6F6D69 
+ 1264      616C00
+ 1265              	.LASF21:
+ 1266 013c 70756C73 		.ascii	"pulse1Type\000"
+ 1266      65315479 
+ 1266      706500
+ 1267              	.LASF19:
+ 1268 0147 50724953 		.ascii	"PrISM_1_SetPulse1Mode\000"
+ 1268      4D5F315F 
+ 1268      53657450 
+ 1268      756C7365 
+ 1268      314D6F64 
+ 1269              	.LASF36:
+ 1270 015d 4379456E 		.ascii	"CyEnterCriticalSection\000"
+ 1270      74657243 
+ 1270      72697469 
+ 1270      63616C53 
+ 1270      65637469 
+ 1271              	.LASF42:
+ 1272 0174 50724953 		.ascii	"PrISM_1_initVar\000"
+ 1272      4D5F315F 
+ 1272      696E6974 
+ 1272      56617200 
+ 1273              	.LASF37:
+ 1274 0184 43794578 		.ascii	"CyExitCriticalSection\000"
+ 1274      69744372 
+ 1274      69746963 
+ 1274      616C5365 
+ 1274      6374696F 
+ 1275              	.LASF24:
+ 1276 019a 50724953 		.ascii	"PrISM_1_ReadSeed\000"
+ 1276      4D5F315F 
+ 1276      52656164 
+ 1276      53656564 
+ 1276      00
+ 1277              	.LASF40:
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 32
+
+
+ 1278 01ab 483A5C52 		.ascii	"H:\\R_D\\Smart_house_PSoC_part\\Workspace0\\Custom_"
+ 1278      5F445C53 
+ 1278      6D617274 
+ 1278      5F686F75 
+ 1278      73655F50 
+ 1279 01da 424C455F 		.ascii	"BLE_Profile_Test.cydsn\000"
+ 1279      50726F66 
+ 1279      696C655F 
+ 1279      54657374 
+ 1279      2E637964 
+ 1280              	.LASF38:
+ 1281 01f1 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1281      43313120 
+ 1281      352E342E 
+ 1281      31203230 
+ 1281      31363036 
+ 1282 0224 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 1282      20726576 
+ 1282      6973696F 
+ 1282      6E203233 
+ 1282      37373135 
+ 1283 0257 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1283      66756E63 
+ 1283      74696F6E 
+ 1283      2D736563 
+ 1283      74696F6E 
+ 1284              	.LASF25:
+ 1285 027f 50724953 		.ascii	"PrISM_1_ReadPolynomial\000"
+ 1285      4D5F315F 
+ 1285      52656164 
+ 1285      506F6C79 
+ 1285      6E6F6D69 
+ 1286              	.LASF15:
+ 1287 0296 73697A65 		.ascii	"sizetype\000"
+ 1287      74797065 
+ 1287      00
+ 1288              	.LASF6:
+ 1289 029f 6C6F6E67 		.ascii	"long long int\000"
+ 1289      206C6F6E 
+ 1289      6720696E 
+ 1289      7400
+ 1290              	.LASF11:
+ 1291 02ad 63686172 		.ascii	"char\000"
+ 1291      00
+ 1292              	.LASF30:
+ 1293 02b2 70756C73 		.ascii	"pulseDensity0\000"
+ 1293      6544656E 
+ 1293      73697479 
+ 1293      3000
+ 1294              	.LASF33:
+ 1295 02c0 70756C73 		.ascii	"pulseDensity1\000"
+ 1295      6544656E 
+ 1295      73697479 
+ 1295      3100
+ 1296              	.LASF32:
+ 1297 02ce 50724953 		.ascii	"PrISM_1_WritePulse1\000"
+ 1297      4D5F315F 
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cco8ZvaV.s 			page 33
+
+
+ 1297      57726974 
+ 1297      6550756C 
+ 1297      73653100 
+ 1298              	.LASF2:
+ 1299 02e2 73686F72 		.ascii	"short int\000"
+ 1299      7420696E 
+ 1299      7400
+ 1300              	.LASF12:
+ 1301 02ec 75696E74 		.ascii	"uint8\000"
+ 1301      3800
+ 1302              	.LASF23:
+ 1303 02f2 73656564 		.ascii	"seed\000"
+ 1303      00
+ 1304              	.LASF4:
+ 1305 02f7 6C6F6E67 		.ascii	"long int\000"
+ 1305      20696E74 
+ 1305      00
+ 1306              	.LASF14:
+ 1307 0300 6C6F6E67 		.ascii	"long double\000"
+ 1307      20646F75 
+ 1307      626C6500 
+ 1308              	.LASF0:
+ 1309 030c 7369676E 		.ascii	"signed char\000"
+ 1309      65642063 
+ 1309      68617200 
+ 1310              	.LASF28:
+ 1311 0318 50724953 		.ascii	"PrISM_1_ReadPulse0\000"
+ 1311      4D5F315F 
+ 1311      52656164 
+ 1311      50756C73 
+ 1311      653000
+ 1312              	.LASF31:
+ 1313 032b 50724953 		.ascii	"PrISM_1_ReadPulse1\000"
+ 1313      4D5F315F 
+ 1313      52656164 
+ 1313      50756C73 
+ 1313      653100
+ 1314              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

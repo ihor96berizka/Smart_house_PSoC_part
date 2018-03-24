@@ -1,0 +1,794 @@
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccboX6Xd.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.InitializeSystem,"ax",%progbits
+  20              		.align	2
+  21              		.global	InitializeSystem
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	InitializeSystem, %function
+  25              	InitializeSystem:
+  26              	.LFB35:
+  27              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #include "BLE_Process.h"
+  13:main.c        **** 
+  14:main.c        **** void InitializeSystem(void)
+  15:main.c        **** {
+  28              		.loc 1 15 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 10B5     		push	{r4, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  16:main.c        ****     /* Enable Global Interrupt Mask */
+  17:main.c        ****     CyGlobalIntEnable;
+  36              		.loc 1 17 0
+  37              		.syntax divided
+  38              	@ 17 "main.c" 1
+  39 0002 62B6     		CPSIE   i
+  40              	@ 0 "" 2
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccboX6Xd.s 			page 2
+
+
+  18:main.c        ****     /* Start BLE stack and register the event callback function. */
+  19:main.c        ****     CyBle_Start(GeneralEventHandler);
+  41              		.loc 1 19 0
+  42              		.thumb
+  43              		.syntax unified
+  44 0004 0C48     		ldr	r0, .L2
+  45 0006 FFF7FEFF 		bl	CyBle_Start
+  46              	.LVL0:
+  20:main.c        ****     /* Start PrISM modules for LED control */
+  21:main.c        ****     PrISM_1_Start();
+  47              		.loc 1 21 0
+  48 000a FFF7FEFF 		bl	PrISM_1_Start
+  49              	.LVL1:
+  22:main.c        ****     PrISM_2_Start();
+  50              		.loc 1 22 0
+  51 000e FFF7FEFF 		bl	PrISM_2_Start
+  52              	.LVL2:
+  23:main.c        ****     /* Switch off the RGB LEDs through PrISM modules */
+  24:main.c        ****     PrISM_1_WritePulse0(RGB_LED_OFF);
+  53              		.loc 1 24 0
+  54 0012 FF20     		movs	r0, #255
+  55 0014 FFF7FEFF 		bl	PrISM_1_WritePulse0
+  56              	.LVL3:
+  25:main.c        ****     PrISM_1_WritePulse1(RGB_LED_OFF);
+  57              		.loc 1 25 0
+  58 0018 FF20     		movs	r0, #255
+  59 001a FFF7FEFF 		bl	PrISM_1_WritePulse1
+  60              	.LVL4:
+  26:main.c        ****     PrISM_2_WritePulse0(RGB_LED_OFF);
+  61              		.loc 1 26 0
+  62 001e FF20     		movs	r0, #255
+  63 0020 FFF7FEFF 		bl	PrISM_2_WritePulse0
+  64              	.LVL5:
+  27:main.c        ****     /* Set Drive modes of the output pins to Strong */
+  28:main.c        ****     RED_SetDriveMode(RED_DM_STRONG);
+  65              		.loc 1 28 0
+  66 0024 0620     		movs	r0, #6
+  67 0026 FFF7FEFF 		bl	RED_SetDriveMode
+  68              	.LVL6:
+  29:main.c        ****     GREEN_SetDriveMode(GREEN_DM_STRONG);
+  69              		.loc 1 29 0
+  70 002a 0620     		movs	r0, #6
+  71 002c FFF7FEFF 		bl	GREEN_SetDriveMode
+  72              	.LVL7:
+  30:main.c        ****     BLUE_SetDriveMode(BLUE_DM_STRONG);
+  73              		.loc 1 30 0
+  74 0030 0620     		movs	r0, #6
+  75 0032 FFF7FEFF 		bl	BLUE_SetDriveMode
+  76              	.LVL8:
+  31:main.c        **** }
+  77              		.loc 1 31 0
+  78              		@ sp needed
+  79 0036 10BD     		pop	{r4, pc}
+  80              	.L3:
+  81              		.align	2
+  82              	.L2:
+  83 0038 00000000 		.word	GeneralEventHandler
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccboX6Xd.s 			page 3
+
+
+  84              		.cfi_endproc
+  85              	.LFE35:
+  86              		.size	InitializeSystem, .-InitializeSystem
+  87              		.section	.text.main,"ax",%progbits
+  88              		.align	2
+  89              		.global	main
+  90              		.code	16
+  91              		.thumb_func
+  92              		.type	main, %function
+  93              	main:
+  94              	.LFB36:
+  32:main.c        **** int main(void)
+  33:main.c        **** {
+  95              		.loc 1 33 0
+  96              		.cfi_startproc
+  97              		@ Volatile: function does not return.
+  98              		@ args = 0, pretend = 0, frame = 0
+  99              		@ frame_needed = 0, uses_anonymous_args = 0
+ 100 0000 10B5     		push	{r4, lr}
+ 101              		.cfi_def_cfa_offset 8
+ 102              		.cfi_offset 4, -8
+ 103              		.cfi_offset 14, -4
+  34:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+ 104              		.loc 1 34 0
+ 105              		.syntax divided
+ 106              	@ 34 "main.c" 1
+ 107 0002 62B6     		CPSIE   i
+ 108              	@ 0 "" 2
+  35:main.c        **** 
+  36:main.c        ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+  37:main.c        ****     InitializeSystem();
+ 109              		.loc 1 37 0
+ 110              		.thumb
+ 111              		.syntax unified
+ 112 0004 FFF7FEFF 		bl	InitializeSystem
+ 113              	.LVL9:
+ 114              	.L5:
+  38:main.c        ****     
+  39:main.c        ****     for(;;)
+  40:main.c        ****     {
+  41:main.c        ****        /* Process BLE Events. This generates events in the callback function */
+  42:main.c        ****         CyBle_ProcessEvents();
+ 115              		.loc 1 42 0 discriminator 1
+ 116 0008 FFF7FEFF 		bl	CyBle_ProcessEvents
+ 117              	.LVL10:
+ 118 000c FCE7     		b	.L5
+ 119              		.cfi_endproc
+ 120              	.LFE36:
+ 121              		.size	main, .-main
+ 122 000e C046     		.text
+ 123              	.Letext0:
+ 124              		.file 2 "Generated_Source\\PSoC4/BLE.h"
+ 125              		.file 3 "Generated_Source\\PSoC4/PrISM_1.h"
+ 126              		.file 4 "Generated_Source\\PSoC4/PrISM_2.h"
+ 127              		.file 5 "Generated_Source\\PSoC4/RED.h"
+ 128              		.file 6 "Generated_Source\\PSoC4/GREEN.h"
+ 129              		.file 7 "Generated_Source\\PSoC4/BLUE.h"
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccboX6Xd.s 			page 4
+
+
+ 130              		.file 8 "Generated_Source\\PSoC4/BLE_Stack.h"
+ 131              		.section	.debug_info,"",%progbits
+ 132              	.Ldebug_info0:
+ 133 0000 C9010000 		.4byte	0x1c9
+ 134 0004 0400     		.2byte	0x4
+ 135 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 136 000a 04       		.byte	0x4
+ 137 000b 01       		.uleb128 0x1
+ 138 000c 23010000 		.4byte	.LASF24
+ 139 0010 0C       		.byte	0xc
+ 140 0011 3F000000 		.4byte	.LASF25
+ 141 0015 FB010000 		.4byte	.LASF26
+ 142 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 143 001d 00000000 		.4byte	0
+ 144 0021 00000000 		.4byte	.Ldebug_line0
+ 145 0025 02       		.uleb128 0x2
+ 146 0026 01       		.byte	0x1
+ 147 0027 06       		.byte	0x6
+ 148 0028 C5010000 		.4byte	.LASF0
+ 149 002c 02       		.uleb128 0x2
+ 150 002d 01       		.byte	0x1
+ 151 002e 08       		.byte	0x8
+ 152 002f C4000000 		.4byte	.LASF1
+ 153 0033 02       		.uleb128 0x2
+ 154 0034 02       		.byte	0x2
+ 155 0035 05       		.byte	0x5
+ 156 0036 E3010000 		.4byte	.LASF2
+ 157 003a 02       		.uleb128 0x2
+ 158 003b 02       		.byte	0x2
+ 159 003c 07       		.byte	0x7
+ 160 003d 0E000000 		.4byte	.LASF3
+ 161 0041 02       		.uleb128 0x2
+ 162 0042 04       		.byte	0x4
+ 163 0043 05       		.byte	0x5
+ 164 0044 FF000000 		.4byte	.LASF4
+ 165 0048 02       		.uleb128 0x2
+ 166 0049 04       		.byte	0x4
+ 167 004a 07       		.byte	0x7
+ 168 004b 85000000 		.4byte	.LASF5
+ 169 004f 02       		.uleb128 0x2
+ 170 0050 08       		.byte	0x8
+ 171 0051 05       		.byte	0x5
+ 172 0052 00000000 		.4byte	.LASF6
+ 173 0056 02       		.uleb128 0x2
+ 174 0057 08       		.byte	0x8
+ 175 0058 07       		.byte	0x7
+ 176 0059 97000000 		.4byte	.LASF7
+ 177 005d 03       		.uleb128 0x3
+ 178 005e 04       		.byte	0x4
+ 179 005f 05       		.byte	0x5
+ 180 0060 696E7400 		.ascii	"int\000"
+ 181 0064 02       		.uleb128 0x2
+ 182 0065 04       		.byte	0x4
+ 183 0066 07       		.byte	0x7
+ 184 0067 21000000 		.4byte	.LASF8
+ 185 006b 02       		.uleb128 0x2
+ 186 006c 04       		.byte	0x4
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccboX6Xd.s 			page 5
+
+
+ 187 006d 04       		.byte	0x4
+ 188 006e DD010000 		.4byte	.LASF9
+ 189 0072 02       		.uleb128 0x2
+ 190 0073 08       		.byte	0x8
+ 191 0074 04       		.byte	0x4
+ 192 0075 1C010000 		.4byte	.LASF10
+ 193 0079 02       		.uleb128 0x2
+ 194 007a 01       		.byte	0x1
+ 195 007b 08       		.byte	0x8
+ 196 007c BF000000 		.4byte	.LASF11
+ 197 0080 02       		.uleb128 0x2
+ 198 0081 08       		.byte	0x8
+ 199 0082 04       		.byte	0x4
+ 200 0083 D1010000 		.4byte	.LASF12
+ 201 0087 02       		.uleb128 0x2
+ 202 0088 04       		.byte	0x4
+ 203 0089 07       		.byte	0x7
+ 204 008a 41020000 		.4byte	.LASF13
+ 205 008e 04       		.uleb128 0x4
+ 206 008f AE000000 		.4byte	.LASF27
+ 207 0093 01       		.byte	0x1
+ 208 0094 0E       		.byte	0xe
+ 209 0095 00000000 		.4byte	.LFB35
+ 210 0099 3C000000 		.4byte	.LFE35-.LFB35
+ 211 009d 01       		.uleb128 0x1
+ 212 009e 9C       		.byte	0x9c
+ 213 009f 30010000 		.4byte	0x130
+ 214 00a3 05       		.uleb128 0x5
+ 215 00a4 0A000000 		.4byte	.LVL0
+ 216 00a8 5C010000 		.4byte	0x15c
+ 217 00ac 05       		.uleb128 0x5
+ 218 00ad 0E000000 		.4byte	.LVL1
+ 219 00b1 68010000 		.4byte	0x168
+ 220 00b5 05       		.uleb128 0x5
+ 221 00b6 12000000 		.4byte	.LVL2
+ 222 00ba 73010000 		.4byte	0x173
+ 223 00be 06       		.uleb128 0x6
+ 224 00bf 18000000 		.4byte	.LVL3
+ 225 00c3 7E010000 		.4byte	0x17e
+ 226 00c7 D2000000 		.4byte	0xd2
+ 227 00cb 07       		.uleb128 0x7
+ 228 00cc 01       		.uleb128 0x1
+ 229 00cd 50       		.byte	0x50
+ 230 00ce 02       		.uleb128 0x2
+ 231 00cf 09       		.byte	0x9
+ 232 00d0 FF       		.byte	0xff
+ 233 00d1 00       		.byte	0
+ 234 00d2 06       		.uleb128 0x6
+ 235 00d3 1E000000 		.4byte	.LVL4
+ 236 00d7 89010000 		.4byte	0x189
+ 237 00db E6000000 		.4byte	0xe6
+ 238 00df 07       		.uleb128 0x7
+ 239 00e0 01       		.uleb128 0x1
+ 240 00e1 50       		.byte	0x50
+ 241 00e2 02       		.uleb128 0x2
+ 242 00e3 09       		.byte	0x9
+ 243 00e4 FF       		.byte	0xff
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccboX6Xd.s 			page 6
+
+
+ 244 00e5 00       		.byte	0
+ 245 00e6 06       		.uleb128 0x6
+ 246 00e7 24000000 		.4byte	.LVL5
+ 247 00eb 94010000 		.4byte	0x194
+ 248 00ef FA000000 		.4byte	0xfa
+ 249 00f3 07       		.uleb128 0x7
+ 250 00f4 01       		.uleb128 0x1
+ 251 00f5 50       		.byte	0x50
+ 252 00f6 02       		.uleb128 0x2
+ 253 00f7 09       		.byte	0x9
+ 254 00f8 FF       		.byte	0xff
+ 255 00f9 00       		.byte	0
+ 256 00fa 06       		.uleb128 0x6
+ 257 00fb 2A000000 		.4byte	.LVL6
+ 258 00ff 9F010000 		.4byte	0x19f
+ 259 0103 0D010000 		.4byte	0x10d
+ 260 0107 07       		.uleb128 0x7
+ 261 0108 01       		.uleb128 0x1
+ 262 0109 50       		.byte	0x50
+ 263 010a 01       		.uleb128 0x1
+ 264 010b 36       		.byte	0x36
+ 265 010c 00       		.byte	0
+ 266 010d 06       		.uleb128 0x6
+ 267 010e 30000000 		.4byte	.LVL7
+ 268 0112 AA010000 		.4byte	0x1aa
+ 269 0116 20010000 		.4byte	0x120
+ 270 011a 07       		.uleb128 0x7
+ 271 011b 01       		.uleb128 0x1
+ 272 011c 50       		.byte	0x50
+ 273 011d 01       		.uleb128 0x1
+ 274 011e 36       		.byte	0x36
+ 275 011f 00       		.byte	0
+ 276 0120 08       		.uleb128 0x8
+ 277 0121 36000000 		.4byte	.LVL8
+ 278 0125 B5010000 		.4byte	0x1b5
+ 279 0129 07       		.uleb128 0x7
+ 280 012a 01       		.uleb128 0x1
+ 281 012b 50       		.byte	0x50
+ 282 012c 01       		.uleb128 0x1
+ 283 012d 36       		.byte	0x36
+ 284 012e 00       		.byte	0
+ 285 012f 00       		.byte	0
+ 286 0130 09       		.uleb128 0x9
+ 287 0131 E6000000 		.4byte	.LASF28
+ 288 0135 01       		.byte	0x1
+ 289 0136 20       		.byte	0x20
+ 290 0137 5D000000 		.4byte	0x5d
+ 291 013b 00000000 		.4byte	.LFB36
+ 292 013f 0E000000 		.4byte	.LFE36-.LFB36
+ 293 0143 01       		.uleb128 0x1
+ 294 0144 9C       		.byte	0x9c
+ 295 0145 5C010000 		.4byte	0x15c
+ 296 0149 05       		.uleb128 0x5
+ 297 014a 08000000 		.4byte	.LVL9
+ 298 014e 8E000000 		.4byte	0x8e
+ 299 0152 05       		.uleb128 0x5
+ 300 0153 0C000000 		.4byte	.LVL10
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccboX6Xd.s 			page 7
+
+
+ 301 0157 C0010000 		.4byte	0x1c0
+ 302 015b 00       		.byte	0
+ 303 015c 0A       		.uleb128 0xa
+ 304 015d 54000000 		.4byte	.LASF14
+ 305 0161 54000000 		.4byte	.LASF14
+ 306 0165 02       		.byte	0x2
+ 307 0166 7002     		.2byte	0x270
+ 308 0168 0B       		.uleb128 0xb
+ 309 0169 ED010000 		.4byte	.LASF15
+ 310 016d ED010000 		.4byte	.LASF15
+ 311 0171 03       		.byte	0x3
+ 312 0172 47       		.byte	0x47
+ 313 0173 0B       		.uleb128 0xb
+ 314 0174 46000000 		.4byte	.LASF16
+ 315 0178 46000000 		.4byte	.LASF16
+ 316 017c 04       		.byte	0x4
+ 317 017d 47       		.byte	0x47
+ 318 017e 0B       		.uleb128 0xb
+ 319 017f EB000000 		.4byte	.LASF17
+ 320 0183 EB000000 		.4byte	.LASF17
+ 321 0187 03       		.byte	0x3
+ 322 0188 51       		.byte	0x51
+ 323 0189 0B       		.uleb128 0xb
+ 324 018a 08010000 		.4byte	.LASF18
+ 325 018e 08010000 		.4byte	.LASF18
+ 326 0192 03       		.byte	0x3
+ 327 0193 54       		.byte	0x54
+ 328 0194 0B       		.uleb128 0xb
+ 329 0195 B1010000 		.4byte	.LASF19
+ 330 0199 B1010000 		.4byte	.LASF19
+ 331 019d 04       		.byte	0x4
+ 332 019e 51       		.byte	0x51
+ 333 019f 0B       		.uleb128 0xb
+ 334 01a0 2E000000 		.4byte	.LASF20
+ 335 01a4 2E000000 		.4byte	.LASF20
+ 336 01a8 05       		.byte	0x5
+ 337 01a9 36       		.byte	0x36
+ 338 01aa 0B       		.uleb128 0xb
+ 339 01ab 60000000 		.4byte	.LASF21
+ 340 01af 60000000 		.4byte	.LASF21
+ 341 01b3 06       		.byte	0x6
+ 342 01b4 36       		.byte	0x36
+ 343 01b5 0B       		.uleb128 0xb
+ 344 01b6 73000000 		.4byte	.LASF22
+ 345 01ba 73000000 		.4byte	.LASF22
+ 346 01be 07       		.byte	0x7
+ 347 01bf 36       		.byte	0x36
+ 348 01c0 0A       		.uleb128 0xa
+ 349 01c1 D2000000 		.4byte	.LASF23
+ 350 01c5 D2000000 		.4byte	.LASF23
+ 351 01c9 08       		.byte	0x8
+ 352 01ca CC07     		.2byte	0x7cc
+ 353 01cc 00       		.byte	0
+ 354              		.section	.debug_abbrev,"",%progbits
+ 355              	.Ldebug_abbrev0:
+ 356 0000 01       		.uleb128 0x1
+ 357 0001 11       		.uleb128 0x11
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccboX6Xd.s 			page 8
+
+
+ 358 0002 01       		.byte	0x1
+ 359 0003 25       		.uleb128 0x25
+ 360 0004 0E       		.uleb128 0xe
+ 361 0005 13       		.uleb128 0x13
+ 362 0006 0B       		.uleb128 0xb
+ 363 0007 03       		.uleb128 0x3
+ 364 0008 0E       		.uleb128 0xe
+ 365 0009 1B       		.uleb128 0x1b
+ 366 000a 0E       		.uleb128 0xe
+ 367 000b 55       		.uleb128 0x55
+ 368 000c 17       		.uleb128 0x17
+ 369 000d 11       		.uleb128 0x11
+ 370 000e 01       		.uleb128 0x1
+ 371 000f 10       		.uleb128 0x10
+ 372 0010 17       		.uleb128 0x17
+ 373 0011 00       		.byte	0
+ 374 0012 00       		.byte	0
+ 375 0013 02       		.uleb128 0x2
+ 376 0014 24       		.uleb128 0x24
+ 377 0015 00       		.byte	0
+ 378 0016 0B       		.uleb128 0xb
+ 379 0017 0B       		.uleb128 0xb
+ 380 0018 3E       		.uleb128 0x3e
+ 381 0019 0B       		.uleb128 0xb
+ 382 001a 03       		.uleb128 0x3
+ 383 001b 0E       		.uleb128 0xe
+ 384 001c 00       		.byte	0
+ 385 001d 00       		.byte	0
+ 386 001e 03       		.uleb128 0x3
+ 387 001f 24       		.uleb128 0x24
+ 388 0020 00       		.byte	0
+ 389 0021 0B       		.uleb128 0xb
+ 390 0022 0B       		.uleb128 0xb
+ 391 0023 3E       		.uleb128 0x3e
+ 392 0024 0B       		.uleb128 0xb
+ 393 0025 03       		.uleb128 0x3
+ 394 0026 08       		.uleb128 0x8
+ 395 0027 00       		.byte	0
+ 396 0028 00       		.byte	0
+ 397 0029 04       		.uleb128 0x4
+ 398 002a 2E       		.uleb128 0x2e
+ 399 002b 01       		.byte	0x1
+ 400 002c 3F       		.uleb128 0x3f
+ 401 002d 19       		.uleb128 0x19
+ 402 002e 03       		.uleb128 0x3
+ 403 002f 0E       		.uleb128 0xe
+ 404 0030 3A       		.uleb128 0x3a
+ 405 0031 0B       		.uleb128 0xb
+ 406 0032 3B       		.uleb128 0x3b
+ 407 0033 0B       		.uleb128 0xb
+ 408 0034 27       		.uleb128 0x27
+ 409 0035 19       		.uleb128 0x19
+ 410 0036 11       		.uleb128 0x11
+ 411 0037 01       		.uleb128 0x1
+ 412 0038 12       		.uleb128 0x12
+ 413 0039 06       		.uleb128 0x6
+ 414 003a 40       		.uleb128 0x40
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccboX6Xd.s 			page 9
+
+
+ 415 003b 18       		.uleb128 0x18
+ 416 003c 9742     		.uleb128 0x2117
+ 417 003e 19       		.uleb128 0x19
+ 418 003f 01       		.uleb128 0x1
+ 419 0040 13       		.uleb128 0x13
+ 420 0041 00       		.byte	0
+ 421 0042 00       		.byte	0
+ 422 0043 05       		.uleb128 0x5
+ 423 0044 898201   		.uleb128 0x4109
+ 424 0047 00       		.byte	0
+ 425 0048 11       		.uleb128 0x11
+ 426 0049 01       		.uleb128 0x1
+ 427 004a 31       		.uleb128 0x31
+ 428 004b 13       		.uleb128 0x13
+ 429 004c 00       		.byte	0
+ 430 004d 00       		.byte	0
+ 431 004e 06       		.uleb128 0x6
+ 432 004f 898201   		.uleb128 0x4109
+ 433 0052 01       		.byte	0x1
+ 434 0053 11       		.uleb128 0x11
+ 435 0054 01       		.uleb128 0x1
+ 436 0055 31       		.uleb128 0x31
+ 437 0056 13       		.uleb128 0x13
+ 438 0057 01       		.uleb128 0x1
+ 439 0058 13       		.uleb128 0x13
+ 440 0059 00       		.byte	0
+ 441 005a 00       		.byte	0
+ 442 005b 07       		.uleb128 0x7
+ 443 005c 8A8201   		.uleb128 0x410a
+ 444 005f 00       		.byte	0
+ 445 0060 02       		.uleb128 0x2
+ 446 0061 18       		.uleb128 0x18
+ 447 0062 9142     		.uleb128 0x2111
+ 448 0064 18       		.uleb128 0x18
+ 449 0065 00       		.byte	0
+ 450 0066 00       		.byte	0
+ 451 0067 08       		.uleb128 0x8
+ 452 0068 898201   		.uleb128 0x4109
+ 453 006b 01       		.byte	0x1
+ 454 006c 11       		.uleb128 0x11
+ 455 006d 01       		.uleb128 0x1
+ 456 006e 31       		.uleb128 0x31
+ 457 006f 13       		.uleb128 0x13
+ 458 0070 00       		.byte	0
+ 459 0071 00       		.byte	0
+ 460 0072 09       		.uleb128 0x9
+ 461 0073 2E       		.uleb128 0x2e
+ 462 0074 01       		.byte	0x1
+ 463 0075 3F       		.uleb128 0x3f
+ 464 0076 19       		.uleb128 0x19
+ 465 0077 03       		.uleb128 0x3
+ 466 0078 0E       		.uleb128 0xe
+ 467 0079 3A       		.uleb128 0x3a
+ 468 007a 0B       		.uleb128 0xb
+ 469 007b 3B       		.uleb128 0x3b
+ 470 007c 0B       		.uleb128 0xb
+ 471 007d 27       		.uleb128 0x27
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccboX6Xd.s 			page 10
+
+
+ 472 007e 19       		.uleb128 0x19
+ 473 007f 49       		.uleb128 0x49
+ 474 0080 13       		.uleb128 0x13
+ 475 0081 8701     		.uleb128 0x87
+ 476 0083 19       		.uleb128 0x19
+ 477 0084 11       		.uleb128 0x11
+ 478 0085 01       		.uleb128 0x1
+ 479 0086 12       		.uleb128 0x12
+ 480 0087 06       		.uleb128 0x6
+ 481 0088 40       		.uleb128 0x40
+ 482 0089 18       		.uleb128 0x18
+ 483 008a 9742     		.uleb128 0x2117
+ 484 008c 19       		.uleb128 0x19
+ 485 008d 01       		.uleb128 0x1
+ 486 008e 13       		.uleb128 0x13
+ 487 008f 00       		.byte	0
+ 488 0090 00       		.byte	0
+ 489 0091 0A       		.uleb128 0xa
+ 490 0092 2E       		.uleb128 0x2e
+ 491 0093 00       		.byte	0
+ 492 0094 3F       		.uleb128 0x3f
+ 493 0095 19       		.uleb128 0x19
+ 494 0096 3C       		.uleb128 0x3c
+ 495 0097 19       		.uleb128 0x19
+ 496 0098 6E       		.uleb128 0x6e
+ 497 0099 0E       		.uleb128 0xe
+ 498 009a 03       		.uleb128 0x3
+ 499 009b 0E       		.uleb128 0xe
+ 500 009c 3A       		.uleb128 0x3a
+ 501 009d 0B       		.uleb128 0xb
+ 502 009e 3B       		.uleb128 0x3b
+ 503 009f 05       		.uleb128 0x5
+ 504 00a0 00       		.byte	0
+ 505 00a1 00       		.byte	0
+ 506 00a2 0B       		.uleb128 0xb
+ 507 00a3 2E       		.uleb128 0x2e
+ 508 00a4 00       		.byte	0
+ 509 00a5 3F       		.uleb128 0x3f
+ 510 00a6 19       		.uleb128 0x19
+ 511 00a7 3C       		.uleb128 0x3c
+ 512 00a8 19       		.uleb128 0x19
+ 513 00a9 6E       		.uleb128 0x6e
+ 514 00aa 0E       		.uleb128 0xe
+ 515 00ab 03       		.uleb128 0x3
+ 516 00ac 0E       		.uleb128 0xe
+ 517 00ad 3A       		.uleb128 0x3a
+ 518 00ae 0B       		.uleb128 0xb
+ 519 00af 3B       		.uleb128 0x3b
+ 520 00b0 0B       		.uleb128 0xb
+ 521 00b1 00       		.byte	0
+ 522 00b2 00       		.byte	0
+ 523 00b3 00       		.byte	0
+ 524              		.section	.debug_aranges,"",%progbits
+ 525 0000 24000000 		.4byte	0x24
+ 526 0004 0200     		.2byte	0x2
+ 527 0006 00000000 		.4byte	.Ldebug_info0
+ 528 000a 04       		.byte	0x4
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccboX6Xd.s 			page 11
+
+
+ 529 000b 00       		.byte	0
+ 530 000c 0000     		.2byte	0
+ 531 000e 0000     		.2byte	0
+ 532 0010 00000000 		.4byte	.LFB35
+ 533 0014 3C000000 		.4byte	.LFE35-.LFB35
+ 534 0018 00000000 		.4byte	.LFB36
+ 535 001c 0E000000 		.4byte	.LFE36-.LFB36
+ 536 0020 00000000 		.4byte	0
+ 537 0024 00000000 		.4byte	0
+ 538              		.section	.debug_ranges,"",%progbits
+ 539              	.Ldebug_ranges0:
+ 540 0000 00000000 		.4byte	.LFB35
+ 541 0004 3C000000 		.4byte	.LFE35
+ 542 0008 00000000 		.4byte	.LFB36
+ 543 000c 0E000000 		.4byte	.LFE36
+ 544 0010 00000000 		.4byte	0
+ 545 0014 00000000 		.4byte	0
+ 546              		.section	.debug_line,"",%progbits
+ 547              	.Ldebug_line0:
+ 548 0000 BA000000 		.section	.debug_str,"MS",%progbits,1
+ 548      02008400 
+ 548      00000201 
+ 548      FB0E0D00 
+ 548      01010101 
+ 549              	.LASF6:
+ 550 0000 6C6F6E67 		.ascii	"long long int\000"
+ 550      206C6F6E 
+ 550      6720696E 
+ 550      7400
+ 551              	.LASF3:
+ 552 000e 73686F72 		.ascii	"short unsigned int\000"
+ 552      7420756E 
+ 552      7369676E 
+ 552      65642069 
+ 552      6E7400
+ 553              	.LASF8:
+ 554 0021 756E7369 		.ascii	"unsigned int\000"
+ 554      676E6564 
+ 554      20696E74 
+ 554      00
+ 555              	.LASF20:
+ 556 002e 5245445F 		.ascii	"RED_SetDriveMode\000"
+ 556      53657444 
+ 556      72697665 
+ 556      4D6F6465 
+ 556      00
+ 557              	.LASF25:
+ 558 003f 6D61696E 		.ascii	"main.c\000"
+ 558      2E6300
+ 559              	.LASF16:
+ 560 0046 50724953 		.ascii	"PrISM_2_Start\000"
+ 560      4D5F325F 
+ 560      53746172 
+ 560      7400
+ 561              	.LASF14:
+ 562 0054 4379426C 		.ascii	"CyBle_Start\000"
+ 562      655F5374 
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccboX6Xd.s 			page 12
+
+
+ 562      61727400 
+ 563              	.LASF21:
+ 564 0060 47524545 		.ascii	"GREEN_SetDriveMode\000"
+ 564      4E5F5365 
+ 564      74447269 
+ 564      76654D6F 
+ 564      646500
+ 565              	.LASF22:
+ 566 0073 424C5545 		.ascii	"BLUE_SetDriveMode\000"
+ 566      5F536574 
+ 566      44726976 
+ 566      654D6F64 
+ 566      6500
+ 567              	.LASF5:
+ 568 0085 6C6F6E67 		.ascii	"long unsigned int\000"
+ 568      20756E73 
+ 568      69676E65 
+ 568      6420696E 
+ 568      7400
+ 569              	.LASF7:
+ 570 0097 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 570      206C6F6E 
+ 570      6720756E 
+ 570      7369676E 
+ 570      65642069 
+ 571              	.LASF27:
+ 572 00ae 496E6974 		.ascii	"InitializeSystem\000"
+ 572      69616C69 
+ 572      7A655379 
+ 572      7374656D 
+ 572      00
+ 573              	.LASF11:
+ 574 00bf 63686172 		.ascii	"char\000"
+ 574      00
+ 575              	.LASF1:
+ 576 00c4 756E7369 		.ascii	"unsigned char\000"
+ 576      676E6564 
+ 576      20636861 
+ 576      7200
+ 577              	.LASF23:
+ 578 00d2 4379426C 		.ascii	"CyBle_ProcessEvents\000"
+ 578      655F5072 
+ 578      6F636573 
+ 578      73457665 
+ 578      6E747300 
+ 579              	.LASF28:
+ 580 00e6 6D61696E 		.ascii	"main\000"
+ 580      00
+ 581              	.LASF17:
+ 582 00eb 50724953 		.ascii	"PrISM_1_WritePulse0\000"
+ 582      4D5F315F 
+ 582      57726974 
+ 582      6550756C 
+ 582      73653000 
+ 583              	.LASF4:
+ 584 00ff 6C6F6E67 		.ascii	"long int\000"
+ 584      20696E74 
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccboX6Xd.s 			page 13
+
+
+ 584      00
+ 585              	.LASF18:
+ 586 0108 50724953 		.ascii	"PrISM_1_WritePulse1\000"
+ 586      4D5F315F 
+ 586      57726974 
+ 586      6550756C 
+ 586      73653100 
+ 587              	.LASF10:
+ 588 011c 646F7562 		.ascii	"double\000"
+ 588      6C6500
+ 589              	.LASF24:
+ 590 0123 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 590      43313120 
+ 590      352E342E 
+ 590      31203230 
+ 590      31363036 
+ 591 0156 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 591      20726576 
+ 591      6973696F 
+ 591      6E203233 
+ 591      37373135 
+ 592 0189 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 592      66756E63 
+ 592      74696F6E 
+ 592      2D736563 
+ 592      74696F6E 
+ 593              	.LASF19:
+ 594 01b1 50724953 		.ascii	"PrISM_2_WritePulse0\000"
+ 594      4D5F325F 
+ 594      57726974 
+ 594      6550756C 
+ 594      73653000 
+ 595              	.LASF0:
+ 596 01c5 7369676E 		.ascii	"signed char\000"
+ 596      65642063 
+ 596      68617200 
+ 597              	.LASF12:
+ 598 01d1 6C6F6E67 		.ascii	"long double\000"
+ 598      20646F75 
+ 598      626C6500 
+ 599              	.LASF9:
+ 600 01dd 666C6F61 		.ascii	"float\000"
+ 600      7400
+ 601              	.LASF2:
+ 602 01e3 73686F72 		.ascii	"short int\000"
+ 602      7420696E 
+ 602      7400
+ 603              	.LASF15:
+ 604 01ed 50724953 		.ascii	"PrISM_1_Start\000"
+ 604      4D5F315F 
+ 604      53746172 
+ 604      7400
+ 605              	.LASF26:
+ 606 01fb 483A5C52 		.ascii	"H:\\R_D\\Smart_house_PSoC_part\\Workspace0\\Custom_"
+ 606      5F445C53 
+ 606      6D617274 
+ 606      5F686F75 
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccboX6Xd.s 			page 14
+
+
+ 606      73655F50 
+ 607 022a 424C455F 		.ascii	"BLE_Profile_Test.cydsn\000"
+ 607      50726F66 
+ 607      696C655F 
+ 607      54657374 
+ 607      2E637964 
+ 608              	.LASF13:
+ 609 0241 73697A65 		.ascii	"sizetype\000"
+ 609      74797065 
+ 609      00
+ 610              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

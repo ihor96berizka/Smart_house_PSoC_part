@@ -1,0 +1,2024 @@
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"BLE_Process.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.GeneralEventHandler,"ax",%progbits
+  20              		.align	2
+  21              		.global	GeneralEventHandler
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	GeneralEventHandler, %function
+  25              	GeneralEventHandler:
+  26              	.LFB35:
+  27              		.file 1 "BLE_Process.c"
+   1:BLE_Process.c **** /* ========================================
+   2:BLE_Process.c ****  *
+   3:BLE_Process.c ****  * Copyright YOUR COMPANY, THE YEAR
+   4:BLE_Process.c ****  * All Rights Reserved
+   5:BLE_Process.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:BLE_Process.c ****  *
+   7:BLE_Process.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:BLE_Process.c ****  * WHICH IS THE PROPERTY OF your company.
+   9:BLE_Process.c ****  *
+  10:BLE_Process.c ****  * ========================================
+  11:BLE_Process.c **** */
+  12:BLE_Process.c **** 
+  13:BLE_Process.c **** #include "BLE_Process.h"
+  14:BLE_Process.c **** 
+  15:BLE_Process.c **** void GeneralEventHandler(uint32 event, void * eventParam)
+  16:BLE_Process.c **** {
+  28              		.loc 1 16 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 8
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 10B5     		push	{r4, lr}
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 4, -8
+  36              		.cfi_offset 14, -4
+  37 0002 82B0     		sub	sp, sp, #8
+  38              		.cfi_def_cfa_offset 16
+  17:BLE_Process.c ****     /* Structure to store data written by Client */
+  18:BLE_Process.c ****     CYBLE_GATTS_WRITE_REQ_PARAM_T *wrReqParam;
+  19:BLE_Process.c ****     /* 'RGBledData[]' is an array to store 4 bytes of RGB LED data*/
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 2
+
+
+  20:BLE_Process.c ****     uint8 RGBledData[RGB_CHAR_DATA_LEN];
+  21:BLE_Process.c ****     switch(event)
+  39              		.loc 1 21 0
+  40 0004 2828     		cmp	r0, #40
+  41 0006 07D0     		beq	.L3
+  42 0008 4C28     		cmp	r0, #76
+  43 000a 18D0     		beq	.L4
+  44 000c 0128     		cmp	r0, #1
+  45 000e 33D1     		bne	.L1
+  22:BLE_Process.c ****      {
+  23:BLE_Process.c ****         case CYBLE_EVT_STACK_ON:
+  24:BLE_Process.c ****         /* This event is generated when BLE stack is ON */
+  25:BLE_Process.c ****         CyBle_GappStartAdvertisement(CYBLE_ADVERTISING_FAST);
+  46              		.loc 1 25 0
+  47 0010 0020     		movs	r0, #0
+  48              	.LVL1:
+  49 0012 FFF7FEFF 		bl	CyBle_GappStartAdvertisement
+  50              	.LVL2:
+  26:BLE_Process.c ****         break;
+  51              		.loc 1 26 0
+  52 0016 2FE0     		b	.L1
+  53              	.LVL3:
+  54              	.L3:
+  27:BLE_Process.c ****         
+  28:BLE_Process.c ****         case CYBLE_EVT_GAP_DEVICE_DISCONNECTED:
+  29:BLE_Process.c ****         /* This event is generated at GAP disconnection. */
+  30:BLE_Process.c ****         /* Reset the color values*/
+  31:BLE_Process.c ****         RGBledData[RED_INDEX] = FALSE;
+  55              		.loc 1 31 0
+  56 0018 01AC     		add	r4, sp, #4
+  57 001a 0023     		movs	r3, #0
+  58 001c 2370     		strb	r3, [r4]
+  32:BLE_Process.c ****         RGBledData[GREEN_INDEX] = FALSE;
+  59              		.loc 1 32 0
+  60 001e 6370     		strb	r3, [r4, #1]
+  33:BLE_Process.c ****         RGBledData[BLUE_INDEX] = FALSE;
+  61              		.loc 1 33 0
+  62 0020 A370     		strb	r3, [r4, #2]
+  34:BLE_Process.c ****         RGBledData[INTENSITY_INDEX] = FALSE;
+  63              		.loc 1 34 0
+  64 0022 E370     		strb	r3, [r4, #3]
+  35:BLE_Process.c ****         /* Switch off LEDs */
+  36:BLE_Process.c ****         UpdateRGBLED(RGBledData, sizeof(RGBledData));
+  65              		.loc 1 36 0
+  66 0024 0421     		movs	r1, #4
+  67              	.LVL4:
+  68 0026 2000     		movs	r0, r4
+  69              	.LVL5:
+  70 0028 FFF7FEFF 		bl	UpdateRGBLED
+  71              	.LVL6:
+  37:BLE_Process.c ****         /* Register the new color in GATT DB*/
+  38:BLE_Process.c ****         UpdateRGBcharacteristic(RGBledData,
+  72              		.loc 1 38 0
+  73 002c 1222     		movs	r2, #18
+  74 002e 0421     		movs	r1, #4
+  75 0030 2000     		movs	r0, r4
+  76 0032 FFF7FEFF 		bl	UpdateRGBcharacteristic
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 3
+
+
+  77              	.LVL7:
+  39:BLE_Process.c ****         sizeof(RGBledData),
+  40:BLE_Process.c ****         CYBLE_RGB_LED_RGB_LED_CONTROL_CHAR_HANDLE);
+  41:BLE_Process.c **** 
+  42:BLE_Process.c ****         CyBle_GappStartAdvertisement(CYBLE_ADVERTISING_FAST);
+  78              		.loc 1 42 0
+  79 0036 0020     		movs	r0, #0
+  80 0038 FFF7FEFF 		bl	CyBle_GappStartAdvertisement
+  81              	.LVL8:
+  43:BLE_Process.c ****         
+  44:BLE_Process.c ****         break;
+  82              		.loc 1 44 0
+  83 003c 1CE0     		b	.L1
+  84              	.LVL9:
+  85              	.L4:
+  45:BLE_Process.c ****         
+  46:BLE_Process.c ****         case CYBLE_EVT_GATTS_WRITE_REQ:
+  47:BLE_Process.c ****         /* This event is generated when the connected Central */
+  48:BLE_Process.c ****         /* device sends a Write request. */
+  49:BLE_Process.c ****         /* The parameter ‘eventParam’ contains the data written */
+  50:BLE_Process.c ****         wrReqParam = (CYBLE_GATTS_WRITE_REQ_PARAM_T *) eventParam;
+  51:BLE_Process.c ****         /* If the attribute handle of the characteristic written to
+  52:BLE_Process.c ****         * is equal to that of RGB_LED characteristic, then extract
+  53:BLE_Process.c ****         * the RGB LED data */
+  54:BLE_Process.c ****         if(CYBLE_RGB_LED_RGB_LED_CONTROL_CHAR_HANDLE ==
+  55:BLE_Process.c ****         wrReqParam->handleValPair.attrHandle)
+  86              		.loc 1 55 0
+  87 003e 8B89     		ldrh	r3, [r1, #12]
+  54:BLE_Process.c ****         wrReqParam->handleValPair.attrHandle)
+  88              		.loc 1 54 0
+  89 0040 122B     		cmp	r3, #18
+  90 0042 12D1     		bne	.L6
+  56:BLE_Process.c ****         {
+  57:BLE_Process.c ****             /* Store RGB LED data in local array */
+  58:BLE_Process.c ****              RGBledData[RED_INDEX] =
+  59:BLE_Process.c ****              wrReqParam->handleValPair.value.val[RED_INDEX];
+  91              		.loc 1 59 0
+  92 0044 4B68     		ldr	r3, [r1, #4]
+  93 0046 1A78     		ldrb	r2, [r3]
+  58:BLE_Process.c ****              wrReqParam->handleValPair.value.val[RED_INDEX];
+  94              		.loc 1 58 0
+  95 0048 01AC     		add	r4, sp, #4
+  96 004a 2270     		strb	r2, [r4]
+  60:BLE_Process.c ****              RGBledData[GREEN_INDEX] =
+  97              		.loc 1 60 0
+  98 004c 5A78     		ldrb	r2, [r3, #1]
+  99 004e 6270     		strb	r2, [r4, #1]
+  61:BLE_Process.c ****              wrReqParam->handleValPair.value.val[GREEN_INDEX];
+  62:BLE_Process.c ****              RGBledData[BLUE_INDEX] =
+ 100              		.loc 1 62 0
+ 101 0050 9A78     		ldrb	r2, [r3, #2]
+ 102 0052 A270     		strb	r2, [r4, #2]
+  63:BLE_Process.c ****              wrReqParam->handleValPair.value.val[BLUE_INDEX];
+  64:BLE_Process.c ****              RGBledData[INTENSITY_INDEX] =
+ 103              		.loc 1 64 0
+ 104 0054 DB78     		ldrb	r3, [r3, #3]
+ 105 0056 E370     		strb	r3, [r4, #3]
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 4
+
+
+  65:BLE_Process.c ****              wrReqParam->handleValPair.value.val[INTENSITY_INDEX];
+  66:BLE_Process.c ****              UpdateRGBLED(RGBledData, sizeof(RGBledData));
+ 106              		.loc 1 66 0
+ 107 0058 0421     		movs	r1, #4
+ 108              	.LVL10:
+ 109 005a 2000     		movs	r0, r4
+ 110              	.LVL11:
+ 111 005c FFF7FEFF 		bl	UpdateRGBLED
+ 112              	.LVL12:
+  67:BLE_Process.c ****             /* Update the GATT DB for RGB LED read characteristics*/
+  68:BLE_Process.c ****              UpdateRGBcharacteristic(RGBledData,
+ 113              		.loc 1 68 0
+ 114 0060 1222     		movs	r2, #18
+ 115 0062 0421     		movs	r1, #4
+ 116 0064 2000     		movs	r0, r4
+ 117 0066 FFF7FEFF 		bl	UpdateRGBcharacteristic
+ 118              	.LVL13:
+ 119              	.L6:
+  69:BLE_Process.c ****              sizeof(RGBledData),
+  70:BLE_Process.c ****              CYBLE_RGB_LED_RGB_LED_CONTROL_CHAR_HANDLE);
+  71:BLE_Process.c ****         }
+  72:BLE_Process.c ****         CyBle_GattsWriteRsp(cyBle_connHandle);
+ 120              		.loc 1 72 0
+ 121 006a 044A     		ldr	r2, .L7
+ 122 006c 1378     		ldrb	r3, [r2]
+ 123 006e 5078     		ldrb	r0, [r2, #1]
+ 124 0070 0002     		lsls	r0, r0, #8
+ 125 0072 1843     		orrs	r0, r3
+ 126 0074 FFF7FEFF 		bl	CyBle_GattsWriteRsp
+ 127              	.LVL14:
+ 128              	.L1:
+  73:BLE_Process.c ****         break;
+  74:BLE_Process.c **** 
+  75:BLE_Process.c ****         default:
+  76:BLE_Process.c ****         break;
+  77:BLE_Process.c ****     }
+  78:BLE_Process.c **** }
+ 129              		.loc 1 78 0
+ 130 0078 02B0     		add	sp, sp, #8
+ 131              		@ sp needed
+ 132 007a 10BD     		pop	{r4, pc}
+ 133              	.L8:
+ 134              		.align	2
+ 135              	.L7:
+ 136 007c 00000000 		.word	cyBle_connHandle
+ 137              		.cfi_endproc
+ 138              	.LFE35:
+ 139              		.size	GeneralEventHandler, .-GeneralEventHandler
+ 140              		.text
+ 141              	.Letext0:
+ 142              		.file 2 "Generated_Source\\PSoC4/cytypes.h"
+ 143              		.file 3 "Generated_Source\\PSoC4/BLE_StackGatt.h"
+ 144              		.file 4 "Generated_Source\\PSoC4/BLE_StackGattServer.h"
+ 145              		.file 5 "Generated_Source\\PSoC4/BLE.h"
+ 146              		.file 6 "led.h"
+ 147              		.file 7 "Generated_Source\\PSoC4/BLE_Stack.h"
+ 148              		.file 8 "Generated_Source\\PSoC4/BLE_eventHandler.h"
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 5
+
+
+ 149              		.section	.debug_info,"",%progbits
+ 150              	.Ldebug_info0:
+ 151 0000 88040000 		.4byte	0x488
+ 152 0004 0400     		.2byte	0x4
+ 153 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 154 000a 04       		.byte	0x4
+ 155 000b 01       		.uleb128 0x1
+ 156 000c 3F020000 		.4byte	.LASF109
+ 157 0010 0C       		.byte	0xc
+ 158 0011 34050000 		.4byte	.LASF110
+ 159 0015 92060000 		.4byte	.LASF111
+ 160 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 161 001d 00000000 		.4byte	0
+ 162 0021 00000000 		.4byte	.Ldebug_line0
+ 163 0025 02       		.uleb128 0x2
+ 164 0026 01       		.byte	0x1
+ 165 0027 06       		.byte	0x6
+ 166 0028 45060000 		.4byte	.LASF0
+ 167 002c 02       		.uleb128 0x2
+ 168 002d 01       		.byte	0x1
+ 169 002e 08       		.byte	0x8
+ 170 002f C7050000 		.4byte	.LASF1
+ 171 0033 02       		.uleb128 0x2
+ 172 0034 02       		.byte	0x2
+ 173 0035 05       		.byte	0x5
+ 174 0036 FE000000 		.4byte	.LASF2
+ 175 003a 02       		.uleb128 0x2
+ 176 003b 02       		.byte	0x2
+ 177 003c 07       		.byte	0x7
+ 178 003d CF070000 		.4byte	.LASF3
+ 179 0041 02       		.uleb128 0x2
+ 180 0042 04       		.byte	0x4
+ 181 0043 05       		.byte	0x5
+ 182 0044 42040000 		.4byte	.LASF4
+ 183 0048 02       		.uleb128 0x2
+ 184 0049 04       		.byte	0x4
+ 185 004a 07       		.byte	0x7
+ 186 004b 1C070000 		.4byte	.LASF5
+ 187 004f 02       		.uleb128 0x2
+ 188 0050 08       		.byte	0x8
+ 189 0051 05       		.byte	0x5
+ 190 0052 8A010000 		.4byte	.LASF6
+ 191 0056 02       		.uleb128 0x2
+ 192 0057 08       		.byte	0x8
+ 193 0058 07       		.byte	0x7
+ 194 0059 0A040000 		.4byte	.LASF7
+ 195 005d 03       		.uleb128 0x3
+ 196 005e 04       		.byte	0x4
+ 197 005f 05       		.byte	0x5
+ 198 0060 696E7400 		.ascii	"int\000"
+ 199 0064 02       		.uleb128 0x2
+ 200 0065 04       		.byte	0x4
+ 201 0066 07       		.byte	0x7
+ 202 0067 F4060000 		.4byte	.LASF8
+ 203 006b 04       		.uleb128 0x4
+ 204 006c 60080000 		.4byte	.LASF9
+ 205 0070 02       		.byte	0x2
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 6
+
+
+ 206 0071 E401     		.2byte	0x1e4
+ 207 0073 2C000000 		.4byte	0x2c
+ 208 0077 04       		.uleb128 0x4
+ 209 0078 8C080000 		.4byte	.LASF10
+ 210 007c 02       		.byte	0x2
+ 211 007d E501     		.2byte	0x1e5
+ 212 007f 3A000000 		.4byte	0x3a
+ 213 0083 04       		.uleb128 0x4
+ 214 0084 D0080000 		.4byte	.LASF11
+ 215 0088 02       		.byte	0x2
+ 216 0089 E601     		.2byte	0x1e6
+ 217 008b 48000000 		.4byte	0x48
+ 218 008f 02       		.uleb128 0x2
+ 219 0090 04       		.byte	0x4
+ 220 0091 04       		.byte	0x4
+ 221 0092 A1030000 		.4byte	.LASF12
+ 222 0096 02       		.uleb128 0x2
+ 223 0097 08       		.byte	0x8
+ 224 0098 04       		.byte	0x4
+ 225 0099 23090000 		.4byte	.LASF13
+ 226 009d 02       		.uleb128 0x2
+ 227 009e 01       		.byte	0x1
+ 228 009f 08       		.byte	0x8
+ 229 00a0 2C080000 		.4byte	.LASF14
+ 230 00a4 02       		.uleb128 0x2
+ 231 00a5 08       		.byte	0x8
+ 232 00a6 04       		.byte	0x4
+ 233 00a7 00000000 		.4byte	.LASF15
+ 234 00ab 02       		.uleb128 0x2
+ 235 00ac 04       		.byte	0x4
+ 236 00ad 07       		.byte	0x7
+ 237 00ae 40010000 		.4byte	.LASF16
+ 238 00b2 05       		.uleb128 0x5
+ 239 00b3 04       		.byte	0x4
+ 240 00b4 06       		.uleb128 0x6
+ 241 00b5 01       		.byte	0x1
+ 242 00b6 2C000000 		.4byte	0x2c
+ 243 00ba 07       		.byte	0x7
+ 244 00bb 3201     		.2byte	0x132
+ 245 00bd 72020000 		.4byte	0x272
+ 246 00c1 07       		.uleb128 0x7
+ 247 00c2 31030000 		.4byte	.LASF17
+ 248 00c6 00       		.byte	0
+ 249 00c7 07       		.uleb128 0x7
+ 250 00c8 D9010000 		.4byte	.LASF18
+ 251 00cc 01       		.byte	0x1
+ 252 00cd 07       		.uleb128 0x7
+ 253 00ce 8C0A0000 		.4byte	.LASF19
+ 254 00d2 02       		.byte	0x2
+ 255 00d3 07       		.uleb128 0x7
+ 256 00d4 9D090000 		.4byte	.LASF20
+ 257 00d8 03       		.byte	0x3
+ 258 00d9 07       		.uleb128 0x7
+ 259 00da 6A010000 		.4byte	.LASF21
+ 260 00de 04       		.byte	0x4
+ 261 00df 07       		.uleb128 0x7
+ 262 00e0 D4040000 		.4byte	.LASF22
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 7
+
+
+ 263 00e4 05       		.byte	0x5
+ 264 00e5 07       		.uleb128 0x7
+ 265 00e6 66000000 		.4byte	.LASF23
+ 266 00ea 06       		.byte	0x6
+ 267 00eb 07       		.uleb128 0x7
+ 268 00ec FB090000 		.4byte	.LASF24
+ 269 00f0 20       		.byte	0x20
+ 270 00f1 07       		.uleb128 0x7
+ 271 00f2 2E070000 		.4byte	.LASF25
+ 272 00f6 21       		.byte	0x21
+ 273 00f7 07       		.uleb128 0x7
+ 274 00f8 0C000000 		.4byte	.LASF26
+ 275 00fc 22       		.byte	0x22
+ 276 00fd 07       		.uleb128 0x7
+ 277 00fe 0E050000 		.4byte	.LASF27
+ 278 0102 23       		.byte	0x23
+ 279 0103 07       		.uleb128 0x7
+ 280 0104 D8060000 		.4byte	.LASF28
+ 281 0108 24       		.byte	0x24
+ 282 0109 07       		.uleb128 0x7
+ 283 010a 08010000 		.4byte	.LASF29
+ 284 010e 25       		.byte	0x25
+ 285 010f 07       		.uleb128 0x7
+ 286 0110 8B040000 		.4byte	.LASF30
+ 287 0114 26       		.byte	0x26
+ 288 0115 07       		.uleb128 0x7
+ 289 0116 6C040000 		.4byte	.LASF31
+ 290 011a 27       		.byte	0x27
+ 291 011b 07       		.uleb128 0x7
+ 292 011c 99000000 		.4byte	.LASF32
+ 293 0120 28       		.byte	0x28
+ 294 0121 07       		.uleb128 0x7
+ 295 0122 6C070000 		.4byte	.LASF33
+ 296 0126 29       		.byte	0x29
+ 297 0127 07       		.uleb128 0x7
+ 298 0128 3D000000 		.4byte	.LASF34
+ 299 012c 2A       		.byte	0x2a
+ 300 012d 07       		.uleb128 0x7
+ 301 012e C20A0000 		.4byte	.LASF35
+ 302 0132 2B       		.byte	0x2b
+ 303 0133 07       		.uleb128 0x7
+ 304 0134 CD020000 		.4byte	.LASF36
+ 305 0138 2C       		.byte	0x2c
+ 306 0139 07       		.uleb128 0x7
+ 307 013a C0030000 		.4byte	.LASF37
+ 308 013e 2D       		.byte	0x2d
+ 309 013f 07       		.uleb128 0x7
+ 310 0140 DA000000 		.4byte	.LASF38
+ 311 0144 2E       		.byte	0x2e
+ 312 0145 07       		.uleb128 0x7
+ 313 0146 B10B0000 		.4byte	.LASF39
+ 314 014a 2F       		.byte	0x2f
+ 315 014b 07       		.uleb128 0x7
+ 316 014c 49010000 		.4byte	.LASF40
+ 317 0150 30       		.byte	0x30
+ 318 0151 07       		.uleb128 0x7
+ 319 0152 60050000 		.4byte	.LASF41
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 8
+
+
+ 320 0156 31       		.byte	0x31
+ 321 0157 07       		.uleb128 0x7
+ 322 0158 E9030000 		.4byte	.LASF42
+ 323 015c 32       		.byte	0x32
+ 324 015d 07       		.uleb128 0x7
+ 325 015e 05080000 		.4byte	.LASF43
+ 326 0162 33       		.byte	0x33
+ 327 0163 07       		.uleb128 0x7
+ 328 0164 94070000 		.4byte	.LASF44
+ 329 0168 34       		.byte	0x34
+ 330 0169 07       		.uleb128 0x7
+ 331 016a 80090000 		.4byte	.LASF45
+ 332 016e 35       		.byte	0x35
+ 333 016f 07       		.uleb128 0x7
+ 334 0170 21040000 		.4byte	.LASF46
+ 335 0174 36       		.byte	0x36
+ 336 0175 07       		.uleb128 0x7
+ 337 0176 EC010000 		.4byte	.LASF47
+ 338 017a 37       		.byte	0x37
+ 339 017b 07       		.uleb128 0x7
+ 340 017c 7F000000 		.4byte	.LASF48
+ 341 0180 40       		.byte	0x40
+ 342 0181 07       		.uleb128 0x7
+ 343 0182 01070000 		.4byte	.LASF49
+ 344 0186 41       		.byte	0x41
+ 345 0187 07       		.uleb128 0x7
+ 346 0188 22010000 		.4byte	.LASF50
+ 347 018c 42       		.byte	0x42
+ 348 018d 07       		.uleb128 0x7
+ 349 018e 21020000 		.4byte	.LASF51
+ 350 0192 43       		.byte	0x43
+ 351 0193 07       		.uleb128 0x7
+ 352 0194 6E0A0000 		.4byte	.LASF52
+ 353 0198 44       		.byte	0x44
+ 354 0199 07       		.uleb128 0x7
+ 355 019a 290A0000 		.4byte	.LASF53
+ 356 019e 45       		.byte	0x45
+ 357 019f 07       		.uleb128 0x7
+ 358 01a0 B8010000 		.4byte	.LASF54
+ 359 01a4 46       		.byte	0x46
+ 360 01a5 07       		.uleb128 0x7
+ 361 01a6 27060000 		.4byte	.LASF55
+ 362 01aa 47       		.byte	0x47
+ 363 01ab 07       		.uleb128 0x7
+ 364 01ac 6B060000 		.4byte	.LASF56
+ 365 01b0 48       		.byte	0x48
+ 366 01b1 07       		.uleb128 0x7
+ 367 01b2 A7030000 		.4byte	.LASF57
+ 368 01b6 49       		.byte	0x49
+ 369 01b7 07       		.uleb128 0x7
+ 370 01b8 93080000 		.4byte	.LASF58
+ 371 01bc 4A       		.byte	0x4a
+ 372 01bd 07       		.uleb128 0x7
+ 373 01be F1020000 		.4byte	.LASF59
+ 374 01c2 4B       		.byte	0x4b
+ 375 01c3 07       		.uleb128 0x7
+ 376 01c4 51060000 		.4byte	.LASF60
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 9
+
+
+ 377 01c8 4C       		.byte	0x4c
+ 378 01c9 07       		.uleb128 0x7
+ 379 01ca 9E010000 		.4byte	.LASF61
+ 380 01ce 4D       		.byte	0x4d
+ 381 01cf 07       		.uleb128 0x7
+ 382 01d0 500A0000 		.4byte	.LASF62
+ 383 01d4 4E       		.byte	0x4e
+ 384 01d5 07       		.uleb128 0x7
+ 385 01d6 D5050000 		.4byte	.LASF63
+ 386 01da 4F       		.byte	0x4f
+ 387 01db 07       		.uleb128 0x7
+ 388 01dc BB000000 		.4byte	.LASF64
+ 389 01e0 50       		.byte	0x50
+ 390 01e1 07       		.uleb128 0x7
+ 391 01e2 B1080000 		.4byte	.LASF65
+ 392 01e6 51       		.byte	0x51
+ 393 01e7 07       		.uleb128 0x7
+ 394 01e8 B3040000 		.4byte	.LASF66
+ 395 01ec 52       		.byte	0x52
+ 396 01ed 07       		.uleb128 0x7
+ 397 01ee 4B040000 		.4byte	.LASF67
+ 398 01f2 53       		.byte	0x53
+ 399 01f3 07       		.uleb128 0x7
+ 400 01f4 10030000 		.4byte	.LASF68
+ 401 01f8 54       		.byte	0x54
+ 402 01f9 07       		.uleb128 0x7
+ 403 01fa 7B0B0000 		.4byte	.LASF69
+ 404 01fe 55       		.byte	0x55
+ 405 01ff 07       		.uleb128 0x7
+ 406 0200 180B0000 		.4byte	.LASF70
+ 407 0204 56       		.byte	0x56
+ 408 0205 07       		.uleb128 0x7
+ 409 0206 EF0A0000 		.4byte	.LASF71
+ 410 020a 57       		.byte	0x57
+ 411 020b 07       		.uleb128 0x7
+ 412 020c AC070000 		.4byte	.LASF72
+ 413 0210 58       		.byte	0x58
+ 414 0211 07       		.uleb128 0x7
+ 415 0212 A1050000 		.4byte	.LASF73
+ 416 0216 70       		.byte	0x70
+ 417 0217 07       		.uleb128 0x7
+ 418 0218 D5090000 		.4byte	.LASF74
+ 419 021c 71       		.byte	0x71
+ 420 021d 07       		.uleb128 0x7
+ 421 021e 44080000 		.4byte	.LASF75
+ 422 0222 72       		.byte	0x72
+ 423 0223 07       		.uleb128 0x7
+ 424 0224 59030000 		.4byte	.LASF76
+ 425 0228 73       		.byte	0x73
+ 426 0229 07       		.uleb128 0x7
+ 427 022a 42050000 		.4byte	.LASF77
+ 428 022e 74       		.byte	0x74
+ 429 022f 07       		.uleb128 0x7
+ 430 0230 4B070000 		.4byte	.LASF78
+ 431 0234 75       		.byte	0x75
+ 432 0235 07       		.uleb128 0x7
+ 433 0236 77030000 		.4byte	.LASF79
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 10
+
+
+ 434 023a 76       		.byte	0x76
+ 435 023b 07       		.uleb128 0x7
+ 436 023c B6090000 		.4byte	.LASF80
+ 437 0240 77       		.byte	0x77
+ 438 0241 07       		.uleb128 0x7
+ 439 0242 F5080000 		.4byte	.LASF81
+ 440 0246 78       		.byte	0x78
+ 441 0247 07       		.uleb128 0x7
+ 442 0248 5D090000 		.4byte	.LASF82
+ 443 024c 79       		.byte	0x79
+ 444 024d 07       		.uleb128 0x7
+ 445 024e 9E0A0000 		.4byte	.LASF83
+ 446 0252 7A       		.byte	0x7a
+ 447 0253 07       		.uleb128 0x7
+ 448 0254 D7080000 		.4byte	.LASF84
+ 449 0258 FA       		.byte	0xfa
+ 450 0259 07       		.uleb128 0x7
+ 451 025a 08060000 		.4byte	.LASF85
+ 452 025e FB       		.byte	0xfb
+ 453 025f 07       		.uleb128 0x7
+ 454 0260 9F0B0000 		.4byte	.LASF86
+ 455 0264 FC       		.byte	0xfc
+ 456 0265 07       		.uleb128 0x7
+ 457 0266 E2070000 		.4byte	.LASF87
+ 458 026a FD       		.byte	0xfd
+ 459 026b 07       		.uleb128 0x7
+ 460 026c E10A0000 		.4byte	.LASF88
+ 461 0270 FF       		.byte	0xff
+ 462 0271 00       		.byte	0
+ 463 0272 08       		.uleb128 0x8
+ 464 0273 04       		.byte	0x4
+ 465 0274 6B000000 		.4byte	0x6b
+ 466 0278 04       		.uleb128 0x4
+ 467 0279 540B0000 		.4byte	.LASF89
+ 468 027d 03       		.byte	0x3
+ 469 027e 8901     		.2byte	0x189
+ 470 0280 77000000 		.4byte	0x77
+ 471 0284 09       		.uleb128 0x9
+ 472 0285 02       		.byte	0x2
+ 473 0286 03       		.byte	0x3
+ 474 0287 9301     		.2byte	0x193
+ 475 0289 A8020000 		.4byte	0x2a8
+ 476 028d 0A       		.uleb128 0xa
+ 477 028e 98030000 		.4byte	.LASF90
+ 478 0292 03       		.byte	0x3
+ 479 0293 9A01     		.2byte	0x19a
+ 480 0295 6B000000 		.4byte	0x6b
+ 481 0299 00       		.byte	0
+ 482 029a 0A       		.uleb128 0xa
+ 483 029b 45070000 		.4byte	.LASF91
+ 484 029f 03       		.byte	0x3
+ 485 02a0 A001     		.2byte	0x1a0
+ 486 02a2 6B000000 		.4byte	0x6b
+ 487 02a6 01       		.byte	0x1
+ 488 02a7 00       		.byte	0
+ 489 02a8 04       		.uleb128 0x4
+ 490 02a9 2A090000 		.4byte	.LASF92
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 11
+
+
+ 491 02ad 03       		.byte	0x3
+ 492 02ae A201     		.2byte	0x1a2
+ 493 02b0 84020000 		.4byte	0x284
+ 494 02b4 09       		.uleb128 0x9
+ 495 02b5 08       		.byte	0x8
+ 496 02b6 03       		.byte	0x3
+ 497 02b7 BE01     		.2byte	0x1be
+ 498 02b9 E5020000 		.4byte	0x2e5
+ 499 02bd 0B       		.uleb128 0xb
+ 500 02be 76616C00 		.ascii	"val\000"
+ 501 02c2 03       		.byte	0x3
+ 502 02c3 C101     		.2byte	0x1c1
+ 503 02c5 72020000 		.4byte	0x272
+ 504 02c9 00       		.byte	0
+ 505 02ca 0B       		.uleb128 0xb
+ 506 02cb 6C656E00 		.ascii	"len\000"
+ 507 02cf 03       		.byte	0x3
+ 508 02d0 C401     		.2byte	0x1c4
+ 509 02d2 77000000 		.4byte	0x77
+ 510 02d6 04       		.byte	0x4
+ 511 02d7 0A       		.uleb128 0xa
+ 512 02d8 1F0A0000 		.4byte	.LASF93
+ 513 02dc 03       		.byte	0x3
+ 514 02dd CB01     		.2byte	0x1cb
+ 515 02df 77000000 		.4byte	0x77
+ 516 02e3 06       		.byte	0x6
+ 517 02e4 00       		.byte	0
+ 518 02e5 04       		.uleb128 0x4
+ 519 02e6 31080000 		.4byte	.LASF94
+ 520 02ea 03       		.byte	0x3
+ 521 02eb CD01     		.2byte	0x1cd
+ 522 02ed B4020000 		.4byte	0x2b4
+ 523 02f1 09       		.uleb128 0x9
+ 524 02f2 0C       		.byte	0xc
+ 525 02f3 03       		.byte	0x3
+ 526 02f4 D001     		.2byte	0x1d0
+ 527 02f6 15030000 		.4byte	0x315
+ 528 02fa 0A       		.uleb128 0xa
+ 529 02fb 3A0B0000 		.4byte	.LASF95
+ 530 02ff 03       		.byte	0x3
+ 531 0300 D301     		.2byte	0x1d3
+ 532 0302 E5020000 		.4byte	0x2e5
+ 533 0306 00       		.byte	0
+ 534 0307 0A       		.uleb128 0xa
+ 535 0308 18090000 		.4byte	.LASF96
+ 536 030c 03       		.byte	0x3
+ 537 030d D601     		.2byte	0x1d6
+ 538 030f 78020000 		.4byte	0x278
+ 539 0313 08       		.byte	0x8
+ 540 0314 00       		.byte	0
+ 541 0315 04       		.uleb128 0x4
+ 542 0316 3E090000 		.4byte	.LASF97
+ 543 031a 03       		.byte	0x3
+ 544 031b D801     		.2byte	0x1d8
+ 545 031d F1020000 		.4byte	0x2f1
+ 546 0321 0C       		.uleb128 0xc
+ 547 0322 10       		.byte	0x10
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 12
+
+
+ 548 0323 04       		.byte	0x4
+ 549 0324 8A       		.byte	0x8a
+ 550 0325 42030000 		.4byte	0x342
+ 551 0329 0D       		.uleb128 0xd
+ 552 032a 89070000 		.4byte	.LASF98
+ 553 032e 04       		.byte	0x4
+ 554 032f 8D       		.byte	0x8d
+ 555 0330 A8020000 		.4byte	0x2a8
+ 556 0334 00       		.byte	0
+ 557 0335 0D       		.uleb128 0xd
+ 558 0336 66080000 		.4byte	.LASF99
+ 559 033a 04       		.byte	0x4
+ 560 033b 90       		.byte	0x90
+ 561 033c 15030000 		.4byte	0x315
+ 562 0340 04       		.byte	0x4
+ 563 0341 00       		.byte	0
+ 564 0342 0E       		.uleb128 0xe
+ 565 0343 F0040000 		.4byte	.LASF100
+ 566 0347 04       		.byte	0x4
+ 567 0348 92       		.byte	0x92
+ 568 0349 21030000 		.4byte	0x321
+ 569 034d 0F       		.uleb128 0xf
+ 570 034e 400B0000 		.4byte	.LASF112
+ 571 0352 01       		.byte	0x1
+ 572 0353 0F       		.byte	0xf
+ 573 0354 00000000 		.4byte	.LFB35
+ 574 0358 80000000 		.4byte	.LFE35-.LFB35
+ 575 035c 01       		.uleb128 0x1
+ 576 035d 9C       		.byte	0x9c
+ 577 035e 3B040000 		.4byte	0x43b
+ 578 0362 10       		.uleb128 0x10
+ 579 0363 98010000 		.4byte	.LASF101
+ 580 0367 01       		.byte	0x1
+ 581 0368 0F       		.byte	0xf
+ 582 0369 83000000 		.4byte	0x83
+ 583 036d 00000000 		.4byte	.LLST0
+ 584 0371 10       		.uleb128 0x10
+ 585 0372 700B0000 		.4byte	.LASF102
+ 586 0376 01       		.byte	0x1
+ 587 0377 0F       		.byte	0xf
+ 588 0378 B2000000 		.4byte	0xb2
+ 589 037c 53000000 		.4byte	.LLST1
+ 590 0380 11       		.uleb128 0x11
+ 591 0381 7F010000 		.4byte	.LASF103
+ 592 0385 01       		.byte	0x1
+ 593 0386 12       		.byte	0x12
+ 594 0387 3B040000 		.4byte	0x43b
+ 595 038b A6000000 		.4byte	.LLST2
+ 596 038f 12       		.uleb128 0x12
+ 597 0390 FA070000 		.4byte	.LASF104
+ 598 0394 01       		.byte	0x1
+ 599 0395 14       		.byte	0x14
+ 600 0396 41040000 		.4byte	0x441
+ 601 039a 02       		.uleb128 0x2
+ 602 039b 91       		.byte	0x91
+ 603 039c 74       		.sleb128 -12
+ 604 039d 13       		.uleb128 0x13
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 13
+
+
+ 605 039e 16000000 		.4byte	.LVL2
+ 606 03a2 5D040000 		.4byte	0x45d
+ 607 03a6 B0030000 		.4byte	0x3b0
+ 608 03aa 14       		.uleb128 0x14
+ 609 03ab 01       		.uleb128 0x1
+ 610 03ac 50       		.byte	0x50
+ 611 03ad 01       		.uleb128 0x1
+ 612 03ae 30       		.byte	0x30
+ 613 03af 00       		.byte	0
+ 614 03b0 13       		.uleb128 0x13
+ 615 03b1 2C000000 		.4byte	.LVL6
+ 616 03b5 69040000 		.4byte	0x469
+ 617 03b9 C9030000 		.4byte	0x3c9
+ 618 03bd 14       		.uleb128 0x14
+ 619 03be 01       		.uleb128 0x1
+ 620 03bf 50       		.byte	0x50
+ 621 03c0 02       		.uleb128 0x2
+ 622 03c1 74       		.byte	0x74
+ 623 03c2 00       		.sleb128 0
+ 624 03c3 14       		.uleb128 0x14
+ 625 03c4 01       		.uleb128 0x1
+ 626 03c5 51       		.byte	0x51
+ 627 03c6 01       		.uleb128 0x1
+ 628 03c7 34       		.byte	0x34
+ 629 03c8 00       		.byte	0
+ 630 03c9 13       		.uleb128 0x13
+ 631 03ca 36000000 		.4byte	.LVL7
+ 632 03ce 74040000 		.4byte	0x474
+ 633 03d2 E7030000 		.4byte	0x3e7
+ 634 03d6 14       		.uleb128 0x14
+ 635 03d7 01       		.uleb128 0x1
+ 636 03d8 50       		.byte	0x50
+ 637 03d9 02       		.uleb128 0x2
+ 638 03da 74       		.byte	0x74
+ 639 03db 00       		.sleb128 0
+ 640 03dc 14       		.uleb128 0x14
+ 641 03dd 01       		.uleb128 0x1
+ 642 03de 51       		.byte	0x51
+ 643 03df 01       		.uleb128 0x1
+ 644 03e0 34       		.byte	0x34
+ 645 03e1 14       		.uleb128 0x14
+ 646 03e2 01       		.uleb128 0x1
+ 647 03e3 52       		.byte	0x52
+ 648 03e4 01       		.uleb128 0x1
+ 649 03e5 42       		.byte	0x42
+ 650 03e6 00       		.byte	0
+ 651 03e7 13       		.uleb128 0x13
+ 652 03e8 3C000000 		.4byte	.LVL8
+ 653 03ec 5D040000 		.4byte	0x45d
+ 654 03f0 FA030000 		.4byte	0x3fa
+ 655 03f4 14       		.uleb128 0x14
+ 656 03f5 01       		.uleb128 0x1
+ 657 03f6 50       		.byte	0x50
+ 658 03f7 01       		.uleb128 0x1
+ 659 03f8 30       		.byte	0x30
+ 660 03f9 00       		.byte	0
+ 661 03fa 13       		.uleb128 0x13
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 14
+
+
+ 662 03fb 60000000 		.4byte	.LVL12
+ 663 03ff 69040000 		.4byte	0x469
+ 664 0403 13040000 		.4byte	0x413
+ 665 0407 14       		.uleb128 0x14
+ 666 0408 01       		.uleb128 0x1
+ 667 0409 50       		.byte	0x50
+ 668 040a 02       		.uleb128 0x2
+ 669 040b 74       		.byte	0x74
+ 670 040c 00       		.sleb128 0
+ 671 040d 14       		.uleb128 0x14
+ 672 040e 01       		.uleb128 0x1
+ 673 040f 51       		.byte	0x51
+ 674 0410 01       		.uleb128 0x1
+ 675 0411 34       		.byte	0x34
+ 676 0412 00       		.byte	0
+ 677 0413 13       		.uleb128 0x13
+ 678 0414 6A000000 		.4byte	.LVL13
+ 679 0418 74040000 		.4byte	0x474
+ 680 041c 31040000 		.4byte	0x431
+ 681 0420 14       		.uleb128 0x14
+ 682 0421 01       		.uleb128 0x1
+ 683 0422 50       		.byte	0x50
+ 684 0423 02       		.uleb128 0x2
+ 685 0424 74       		.byte	0x74
+ 686 0425 00       		.sleb128 0
+ 687 0426 14       		.uleb128 0x14
+ 688 0427 01       		.uleb128 0x1
+ 689 0428 51       		.byte	0x51
+ 690 0429 01       		.uleb128 0x1
+ 691 042a 34       		.byte	0x34
+ 692 042b 14       		.uleb128 0x14
+ 693 042c 01       		.uleb128 0x1
+ 694 042d 52       		.byte	0x52
+ 695 042e 01       		.uleb128 0x1
+ 696 042f 42       		.byte	0x42
+ 697 0430 00       		.byte	0
+ 698 0431 15       		.uleb128 0x15
+ 699 0432 78000000 		.4byte	.LVL14
+ 700 0436 7F040000 		.4byte	0x47f
+ 701 043a 00       		.byte	0
+ 702 043b 08       		.uleb128 0x8
+ 703 043c 04       		.byte	0x4
+ 704 043d 42030000 		.4byte	0x342
+ 705 0441 16       		.uleb128 0x16
+ 706 0442 6B000000 		.4byte	0x6b
+ 707 0446 51040000 		.4byte	0x451
+ 708 044a 17       		.uleb128 0x17
+ 709 044b AB000000 		.4byte	0xab
+ 710 044f 03       		.byte	0x3
+ 711 0450 00       		.byte	0
+ 712 0451 18       		.uleb128 0x18
+ 713 0452 48030000 		.4byte	.LASF113
+ 714 0456 08       		.byte	0x8
+ 715 0457 B40A     		.2byte	0xab4
+ 716 0459 A8020000 		.4byte	0x2a8
+ 717 045d 19       		.uleb128 0x19
+ 718 045e 84050000 		.4byte	.LASF105
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 15
+
+
+ 719 0462 84050000 		.4byte	.LASF105
+ 720 0466 05       		.byte	0x5
+ 721 0467 8002     		.2byte	0x280
+ 722 0469 1A       		.uleb128 0x1a
+ 723 046a 30000000 		.4byte	.LASF106
+ 724 046e 30000000 		.4byte	.LASF106
+ 725 0472 06       		.byte	0x6
+ 726 0473 1E       		.byte	0x1e
+ 727 0474 1A       		.uleb128 0x1a
+ 728 0475 74080000 		.4byte	.LASF107
+ 729 0479 74080000 		.4byte	.LASF107
+ 730 047d 06       		.byte	0x6
+ 731 047e 1D       		.byte	0x1d
+ 732 047f 19       		.uleb128 0x19
+ 733 0480 F4050000 		.4byte	.LASF108
+ 734 0484 F4050000 		.4byte	.LASF108
+ 735 0488 04       		.byte	0x4
+ 736 0489 C201     		.2byte	0x1c2
+ 737 048b 00       		.byte	0
+ 738              		.section	.debug_abbrev,"",%progbits
+ 739              	.Ldebug_abbrev0:
+ 740 0000 01       		.uleb128 0x1
+ 741 0001 11       		.uleb128 0x11
+ 742 0002 01       		.byte	0x1
+ 743 0003 25       		.uleb128 0x25
+ 744 0004 0E       		.uleb128 0xe
+ 745 0005 13       		.uleb128 0x13
+ 746 0006 0B       		.uleb128 0xb
+ 747 0007 03       		.uleb128 0x3
+ 748 0008 0E       		.uleb128 0xe
+ 749 0009 1B       		.uleb128 0x1b
+ 750 000a 0E       		.uleb128 0xe
+ 751 000b 55       		.uleb128 0x55
+ 752 000c 17       		.uleb128 0x17
+ 753 000d 11       		.uleb128 0x11
+ 754 000e 01       		.uleb128 0x1
+ 755 000f 10       		.uleb128 0x10
+ 756 0010 17       		.uleb128 0x17
+ 757 0011 00       		.byte	0
+ 758 0012 00       		.byte	0
+ 759 0013 02       		.uleb128 0x2
+ 760 0014 24       		.uleb128 0x24
+ 761 0015 00       		.byte	0
+ 762 0016 0B       		.uleb128 0xb
+ 763 0017 0B       		.uleb128 0xb
+ 764 0018 3E       		.uleb128 0x3e
+ 765 0019 0B       		.uleb128 0xb
+ 766 001a 03       		.uleb128 0x3
+ 767 001b 0E       		.uleb128 0xe
+ 768 001c 00       		.byte	0
+ 769 001d 00       		.byte	0
+ 770 001e 03       		.uleb128 0x3
+ 771 001f 24       		.uleb128 0x24
+ 772 0020 00       		.byte	0
+ 773 0021 0B       		.uleb128 0xb
+ 774 0022 0B       		.uleb128 0xb
+ 775 0023 3E       		.uleb128 0x3e
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 16
+
+
+ 776 0024 0B       		.uleb128 0xb
+ 777 0025 03       		.uleb128 0x3
+ 778 0026 08       		.uleb128 0x8
+ 779 0027 00       		.byte	0
+ 780 0028 00       		.byte	0
+ 781 0029 04       		.uleb128 0x4
+ 782 002a 16       		.uleb128 0x16
+ 783 002b 00       		.byte	0
+ 784 002c 03       		.uleb128 0x3
+ 785 002d 0E       		.uleb128 0xe
+ 786 002e 3A       		.uleb128 0x3a
+ 787 002f 0B       		.uleb128 0xb
+ 788 0030 3B       		.uleb128 0x3b
+ 789 0031 05       		.uleb128 0x5
+ 790 0032 49       		.uleb128 0x49
+ 791 0033 13       		.uleb128 0x13
+ 792 0034 00       		.byte	0
+ 793 0035 00       		.byte	0
+ 794 0036 05       		.uleb128 0x5
+ 795 0037 0F       		.uleb128 0xf
+ 796 0038 00       		.byte	0
+ 797 0039 0B       		.uleb128 0xb
+ 798 003a 0B       		.uleb128 0xb
+ 799 003b 00       		.byte	0
+ 800 003c 00       		.byte	0
+ 801 003d 06       		.uleb128 0x6
+ 802 003e 04       		.uleb128 0x4
+ 803 003f 01       		.byte	0x1
+ 804 0040 0B       		.uleb128 0xb
+ 805 0041 0B       		.uleb128 0xb
+ 806 0042 49       		.uleb128 0x49
+ 807 0043 13       		.uleb128 0x13
+ 808 0044 3A       		.uleb128 0x3a
+ 809 0045 0B       		.uleb128 0xb
+ 810 0046 3B       		.uleb128 0x3b
+ 811 0047 05       		.uleb128 0x5
+ 812 0048 01       		.uleb128 0x1
+ 813 0049 13       		.uleb128 0x13
+ 814 004a 00       		.byte	0
+ 815 004b 00       		.byte	0
+ 816 004c 07       		.uleb128 0x7
+ 817 004d 28       		.uleb128 0x28
+ 818 004e 00       		.byte	0
+ 819 004f 03       		.uleb128 0x3
+ 820 0050 0E       		.uleb128 0xe
+ 821 0051 1C       		.uleb128 0x1c
+ 822 0052 0B       		.uleb128 0xb
+ 823 0053 00       		.byte	0
+ 824 0054 00       		.byte	0
+ 825 0055 08       		.uleb128 0x8
+ 826 0056 0F       		.uleb128 0xf
+ 827 0057 00       		.byte	0
+ 828 0058 0B       		.uleb128 0xb
+ 829 0059 0B       		.uleb128 0xb
+ 830 005a 49       		.uleb128 0x49
+ 831 005b 13       		.uleb128 0x13
+ 832 005c 00       		.byte	0
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 17
+
+
+ 833 005d 00       		.byte	0
+ 834 005e 09       		.uleb128 0x9
+ 835 005f 13       		.uleb128 0x13
+ 836 0060 01       		.byte	0x1
+ 837 0061 0B       		.uleb128 0xb
+ 838 0062 0B       		.uleb128 0xb
+ 839 0063 3A       		.uleb128 0x3a
+ 840 0064 0B       		.uleb128 0xb
+ 841 0065 3B       		.uleb128 0x3b
+ 842 0066 05       		.uleb128 0x5
+ 843 0067 01       		.uleb128 0x1
+ 844 0068 13       		.uleb128 0x13
+ 845 0069 00       		.byte	0
+ 846 006a 00       		.byte	0
+ 847 006b 0A       		.uleb128 0xa
+ 848 006c 0D       		.uleb128 0xd
+ 849 006d 00       		.byte	0
+ 850 006e 03       		.uleb128 0x3
+ 851 006f 0E       		.uleb128 0xe
+ 852 0070 3A       		.uleb128 0x3a
+ 853 0071 0B       		.uleb128 0xb
+ 854 0072 3B       		.uleb128 0x3b
+ 855 0073 05       		.uleb128 0x5
+ 856 0074 49       		.uleb128 0x49
+ 857 0075 13       		.uleb128 0x13
+ 858 0076 38       		.uleb128 0x38
+ 859 0077 0B       		.uleb128 0xb
+ 860 0078 00       		.byte	0
+ 861 0079 00       		.byte	0
+ 862 007a 0B       		.uleb128 0xb
+ 863 007b 0D       		.uleb128 0xd
+ 864 007c 00       		.byte	0
+ 865 007d 03       		.uleb128 0x3
+ 866 007e 08       		.uleb128 0x8
+ 867 007f 3A       		.uleb128 0x3a
+ 868 0080 0B       		.uleb128 0xb
+ 869 0081 3B       		.uleb128 0x3b
+ 870 0082 05       		.uleb128 0x5
+ 871 0083 49       		.uleb128 0x49
+ 872 0084 13       		.uleb128 0x13
+ 873 0085 38       		.uleb128 0x38
+ 874 0086 0B       		.uleb128 0xb
+ 875 0087 00       		.byte	0
+ 876 0088 00       		.byte	0
+ 877 0089 0C       		.uleb128 0xc
+ 878 008a 13       		.uleb128 0x13
+ 879 008b 01       		.byte	0x1
+ 880 008c 0B       		.uleb128 0xb
+ 881 008d 0B       		.uleb128 0xb
+ 882 008e 3A       		.uleb128 0x3a
+ 883 008f 0B       		.uleb128 0xb
+ 884 0090 3B       		.uleb128 0x3b
+ 885 0091 0B       		.uleb128 0xb
+ 886 0092 01       		.uleb128 0x1
+ 887 0093 13       		.uleb128 0x13
+ 888 0094 00       		.byte	0
+ 889 0095 00       		.byte	0
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 18
+
+
+ 890 0096 0D       		.uleb128 0xd
+ 891 0097 0D       		.uleb128 0xd
+ 892 0098 00       		.byte	0
+ 893 0099 03       		.uleb128 0x3
+ 894 009a 0E       		.uleb128 0xe
+ 895 009b 3A       		.uleb128 0x3a
+ 896 009c 0B       		.uleb128 0xb
+ 897 009d 3B       		.uleb128 0x3b
+ 898 009e 0B       		.uleb128 0xb
+ 899 009f 49       		.uleb128 0x49
+ 900 00a0 13       		.uleb128 0x13
+ 901 00a1 38       		.uleb128 0x38
+ 902 00a2 0B       		.uleb128 0xb
+ 903 00a3 00       		.byte	0
+ 904 00a4 00       		.byte	0
+ 905 00a5 0E       		.uleb128 0xe
+ 906 00a6 16       		.uleb128 0x16
+ 907 00a7 00       		.byte	0
+ 908 00a8 03       		.uleb128 0x3
+ 909 00a9 0E       		.uleb128 0xe
+ 910 00aa 3A       		.uleb128 0x3a
+ 911 00ab 0B       		.uleb128 0xb
+ 912 00ac 3B       		.uleb128 0x3b
+ 913 00ad 0B       		.uleb128 0xb
+ 914 00ae 49       		.uleb128 0x49
+ 915 00af 13       		.uleb128 0x13
+ 916 00b0 00       		.byte	0
+ 917 00b1 00       		.byte	0
+ 918 00b2 0F       		.uleb128 0xf
+ 919 00b3 2E       		.uleb128 0x2e
+ 920 00b4 01       		.byte	0x1
+ 921 00b5 3F       		.uleb128 0x3f
+ 922 00b6 19       		.uleb128 0x19
+ 923 00b7 03       		.uleb128 0x3
+ 924 00b8 0E       		.uleb128 0xe
+ 925 00b9 3A       		.uleb128 0x3a
+ 926 00ba 0B       		.uleb128 0xb
+ 927 00bb 3B       		.uleb128 0x3b
+ 928 00bc 0B       		.uleb128 0xb
+ 929 00bd 27       		.uleb128 0x27
+ 930 00be 19       		.uleb128 0x19
+ 931 00bf 11       		.uleb128 0x11
+ 932 00c0 01       		.uleb128 0x1
+ 933 00c1 12       		.uleb128 0x12
+ 934 00c2 06       		.uleb128 0x6
+ 935 00c3 40       		.uleb128 0x40
+ 936 00c4 18       		.uleb128 0x18
+ 937 00c5 9742     		.uleb128 0x2117
+ 938 00c7 19       		.uleb128 0x19
+ 939 00c8 01       		.uleb128 0x1
+ 940 00c9 13       		.uleb128 0x13
+ 941 00ca 00       		.byte	0
+ 942 00cb 00       		.byte	0
+ 943 00cc 10       		.uleb128 0x10
+ 944 00cd 05       		.uleb128 0x5
+ 945 00ce 00       		.byte	0
+ 946 00cf 03       		.uleb128 0x3
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 19
+
+
+ 947 00d0 0E       		.uleb128 0xe
+ 948 00d1 3A       		.uleb128 0x3a
+ 949 00d2 0B       		.uleb128 0xb
+ 950 00d3 3B       		.uleb128 0x3b
+ 951 00d4 0B       		.uleb128 0xb
+ 952 00d5 49       		.uleb128 0x49
+ 953 00d6 13       		.uleb128 0x13
+ 954 00d7 02       		.uleb128 0x2
+ 955 00d8 17       		.uleb128 0x17
+ 956 00d9 00       		.byte	0
+ 957 00da 00       		.byte	0
+ 958 00db 11       		.uleb128 0x11
+ 959 00dc 34       		.uleb128 0x34
+ 960 00dd 00       		.byte	0
+ 961 00de 03       		.uleb128 0x3
+ 962 00df 0E       		.uleb128 0xe
+ 963 00e0 3A       		.uleb128 0x3a
+ 964 00e1 0B       		.uleb128 0xb
+ 965 00e2 3B       		.uleb128 0x3b
+ 966 00e3 0B       		.uleb128 0xb
+ 967 00e4 49       		.uleb128 0x49
+ 968 00e5 13       		.uleb128 0x13
+ 969 00e6 02       		.uleb128 0x2
+ 970 00e7 17       		.uleb128 0x17
+ 971 00e8 00       		.byte	0
+ 972 00e9 00       		.byte	0
+ 973 00ea 12       		.uleb128 0x12
+ 974 00eb 34       		.uleb128 0x34
+ 975 00ec 00       		.byte	0
+ 976 00ed 03       		.uleb128 0x3
+ 977 00ee 0E       		.uleb128 0xe
+ 978 00ef 3A       		.uleb128 0x3a
+ 979 00f0 0B       		.uleb128 0xb
+ 980 00f1 3B       		.uleb128 0x3b
+ 981 00f2 0B       		.uleb128 0xb
+ 982 00f3 49       		.uleb128 0x49
+ 983 00f4 13       		.uleb128 0x13
+ 984 00f5 02       		.uleb128 0x2
+ 985 00f6 18       		.uleb128 0x18
+ 986 00f7 00       		.byte	0
+ 987 00f8 00       		.byte	0
+ 988 00f9 13       		.uleb128 0x13
+ 989 00fa 898201   		.uleb128 0x4109
+ 990 00fd 01       		.byte	0x1
+ 991 00fe 11       		.uleb128 0x11
+ 992 00ff 01       		.uleb128 0x1
+ 993 0100 31       		.uleb128 0x31
+ 994 0101 13       		.uleb128 0x13
+ 995 0102 01       		.uleb128 0x1
+ 996 0103 13       		.uleb128 0x13
+ 997 0104 00       		.byte	0
+ 998 0105 00       		.byte	0
+ 999 0106 14       		.uleb128 0x14
+ 1000 0107 8A8201   		.uleb128 0x410a
+ 1001 010a 00       		.byte	0
+ 1002 010b 02       		.uleb128 0x2
+ 1003 010c 18       		.uleb128 0x18
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 20
+
+
+ 1004 010d 9142     		.uleb128 0x2111
+ 1005 010f 18       		.uleb128 0x18
+ 1006 0110 00       		.byte	0
+ 1007 0111 00       		.byte	0
+ 1008 0112 15       		.uleb128 0x15
+ 1009 0113 898201   		.uleb128 0x4109
+ 1010 0116 00       		.byte	0
+ 1011 0117 11       		.uleb128 0x11
+ 1012 0118 01       		.uleb128 0x1
+ 1013 0119 31       		.uleb128 0x31
+ 1014 011a 13       		.uleb128 0x13
+ 1015 011b 00       		.byte	0
+ 1016 011c 00       		.byte	0
+ 1017 011d 16       		.uleb128 0x16
+ 1018 011e 01       		.uleb128 0x1
+ 1019 011f 01       		.byte	0x1
+ 1020 0120 49       		.uleb128 0x49
+ 1021 0121 13       		.uleb128 0x13
+ 1022 0122 01       		.uleb128 0x1
+ 1023 0123 13       		.uleb128 0x13
+ 1024 0124 00       		.byte	0
+ 1025 0125 00       		.byte	0
+ 1026 0126 17       		.uleb128 0x17
+ 1027 0127 21       		.uleb128 0x21
+ 1028 0128 00       		.byte	0
+ 1029 0129 49       		.uleb128 0x49
+ 1030 012a 13       		.uleb128 0x13
+ 1031 012b 2F       		.uleb128 0x2f
+ 1032 012c 0B       		.uleb128 0xb
+ 1033 012d 00       		.byte	0
+ 1034 012e 00       		.byte	0
+ 1035 012f 18       		.uleb128 0x18
+ 1036 0130 34       		.uleb128 0x34
+ 1037 0131 00       		.byte	0
+ 1038 0132 03       		.uleb128 0x3
+ 1039 0133 0E       		.uleb128 0xe
+ 1040 0134 3A       		.uleb128 0x3a
+ 1041 0135 0B       		.uleb128 0xb
+ 1042 0136 3B       		.uleb128 0x3b
+ 1043 0137 05       		.uleb128 0x5
+ 1044 0138 49       		.uleb128 0x49
+ 1045 0139 13       		.uleb128 0x13
+ 1046 013a 3F       		.uleb128 0x3f
+ 1047 013b 19       		.uleb128 0x19
+ 1048 013c 3C       		.uleb128 0x3c
+ 1049 013d 19       		.uleb128 0x19
+ 1050 013e 00       		.byte	0
+ 1051 013f 00       		.byte	0
+ 1052 0140 19       		.uleb128 0x19
+ 1053 0141 2E       		.uleb128 0x2e
+ 1054 0142 00       		.byte	0
+ 1055 0143 3F       		.uleb128 0x3f
+ 1056 0144 19       		.uleb128 0x19
+ 1057 0145 3C       		.uleb128 0x3c
+ 1058 0146 19       		.uleb128 0x19
+ 1059 0147 6E       		.uleb128 0x6e
+ 1060 0148 0E       		.uleb128 0xe
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 21
+
+
+ 1061 0149 03       		.uleb128 0x3
+ 1062 014a 0E       		.uleb128 0xe
+ 1063 014b 3A       		.uleb128 0x3a
+ 1064 014c 0B       		.uleb128 0xb
+ 1065 014d 3B       		.uleb128 0x3b
+ 1066 014e 05       		.uleb128 0x5
+ 1067 014f 00       		.byte	0
+ 1068 0150 00       		.byte	0
+ 1069 0151 1A       		.uleb128 0x1a
+ 1070 0152 2E       		.uleb128 0x2e
+ 1071 0153 00       		.byte	0
+ 1072 0154 3F       		.uleb128 0x3f
+ 1073 0155 19       		.uleb128 0x19
+ 1074 0156 3C       		.uleb128 0x3c
+ 1075 0157 19       		.uleb128 0x19
+ 1076 0158 6E       		.uleb128 0x6e
+ 1077 0159 0E       		.uleb128 0xe
+ 1078 015a 03       		.uleb128 0x3
+ 1079 015b 0E       		.uleb128 0xe
+ 1080 015c 3A       		.uleb128 0x3a
+ 1081 015d 0B       		.uleb128 0xb
+ 1082 015e 3B       		.uleb128 0x3b
+ 1083 015f 0B       		.uleb128 0xb
+ 1084 0160 00       		.byte	0
+ 1085 0161 00       		.byte	0
+ 1086 0162 00       		.byte	0
+ 1087              		.section	.debug_loc,"",%progbits
+ 1088              	.Ldebug_loc0:
+ 1089              	.LLST0:
+ 1090 0000 00000000 		.4byte	.LVL0
+ 1091 0004 12000000 		.4byte	.LVL1
+ 1092 0008 0100     		.2byte	0x1
+ 1093 000a 50       		.byte	0x50
+ 1094 000b 12000000 		.4byte	.LVL1
+ 1095 000f 18000000 		.4byte	.LVL3
+ 1096 0013 0400     		.2byte	0x4
+ 1097 0015 F3       		.byte	0xf3
+ 1098 0016 01       		.uleb128 0x1
+ 1099 0017 50       		.byte	0x50
+ 1100 0018 9F       		.byte	0x9f
+ 1101 0019 18000000 		.4byte	.LVL3
+ 1102 001d 28000000 		.4byte	.LVL5
+ 1103 0021 0100     		.2byte	0x1
+ 1104 0023 50       		.byte	0x50
+ 1105 0024 28000000 		.4byte	.LVL5
+ 1106 0028 3E000000 		.4byte	.LVL9
+ 1107 002c 0400     		.2byte	0x4
+ 1108 002e F3       		.byte	0xf3
+ 1109 002f 01       		.uleb128 0x1
+ 1110 0030 50       		.byte	0x50
+ 1111 0031 9F       		.byte	0x9f
+ 1112 0032 3E000000 		.4byte	.LVL9
+ 1113 0036 5C000000 		.4byte	.LVL11
+ 1114 003a 0100     		.2byte	0x1
+ 1115 003c 50       		.byte	0x50
+ 1116 003d 5C000000 		.4byte	.LVL11
+ 1117 0041 80000000 		.4byte	.LFE35
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 22
+
+
+ 1118 0045 0400     		.2byte	0x4
+ 1119 0047 F3       		.byte	0xf3
+ 1120 0048 01       		.uleb128 0x1
+ 1121 0049 50       		.byte	0x50
+ 1122 004a 9F       		.byte	0x9f
+ 1123 004b 00000000 		.4byte	0
+ 1124 004f 00000000 		.4byte	0
+ 1125              	.LLST1:
+ 1126 0053 00000000 		.4byte	.LVL0
+ 1127 0057 15000000 		.4byte	.LVL2-1
+ 1128 005b 0100     		.2byte	0x1
+ 1129 005d 51       		.byte	0x51
+ 1130 005e 15000000 		.4byte	.LVL2-1
+ 1131 0062 18000000 		.4byte	.LVL3
+ 1132 0066 0400     		.2byte	0x4
+ 1133 0068 F3       		.byte	0xf3
+ 1134 0069 01       		.uleb128 0x1
+ 1135 006a 51       		.byte	0x51
+ 1136 006b 9F       		.byte	0x9f
+ 1137 006c 18000000 		.4byte	.LVL3
+ 1138 0070 26000000 		.4byte	.LVL4
+ 1139 0074 0100     		.2byte	0x1
+ 1140 0076 51       		.byte	0x51
+ 1141 0077 26000000 		.4byte	.LVL4
+ 1142 007b 3E000000 		.4byte	.LVL9
+ 1143 007f 0400     		.2byte	0x4
+ 1144 0081 F3       		.byte	0xf3
+ 1145 0082 01       		.uleb128 0x1
+ 1146 0083 51       		.byte	0x51
+ 1147 0084 9F       		.byte	0x9f
+ 1148 0085 3E000000 		.4byte	.LVL9
+ 1149 0089 5A000000 		.4byte	.LVL10
+ 1150 008d 0100     		.2byte	0x1
+ 1151 008f 51       		.byte	0x51
+ 1152 0090 5A000000 		.4byte	.LVL10
+ 1153 0094 80000000 		.4byte	.LFE35
+ 1154 0098 0400     		.2byte	0x4
+ 1155 009a F3       		.byte	0xf3
+ 1156 009b 01       		.uleb128 0x1
+ 1157 009c 51       		.byte	0x51
+ 1158 009d 9F       		.byte	0x9f
+ 1159 009e 00000000 		.4byte	0
+ 1160 00a2 00000000 		.4byte	0
+ 1161              	.LLST2:
+ 1162 00a6 3E000000 		.4byte	.LVL9
+ 1163 00aa 5A000000 		.4byte	.LVL10
+ 1164 00ae 0100     		.2byte	0x1
+ 1165 00b0 51       		.byte	0x51
+ 1166 00b1 5A000000 		.4byte	.LVL10
+ 1167 00b5 78000000 		.4byte	.LVL14
+ 1168 00b9 0400     		.2byte	0x4
+ 1169 00bb F3       		.byte	0xf3
+ 1170 00bc 01       		.uleb128 0x1
+ 1171 00bd 51       		.byte	0x51
+ 1172 00be 9F       		.byte	0x9f
+ 1173 00bf 00000000 		.4byte	0
+ 1174 00c3 00000000 		.4byte	0
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 23
+
+
+ 1175              		.section	.debug_aranges,"",%progbits
+ 1176 0000 1C000000 		.4byte	0x1c
+ 1177 0004 0200     		.2byte	0x2
+ 1178 0006 00000000 		.4byte	.Ldebug_info0
+ 1179 000a 04       		.byte	0x4
+ 1180 000b 00       		.byte	0
+ 1181 000c 0000     		.2byte	0
+ 1182 000e 0000     		.2byte	0
+ 1183 0010 00000000 		.4byte	.LFB35
+ 1184 0014 80000000 		.4byte	.LFE35-.LFB35
+ 1185 0018 00000000 		.4byte	0
+ 1186 001c 00000000 		.4byte	0
+ 1187              		.section	.debug_ranges,"",%progbits
+ 1188              	.Ldebug_ranges0:
+ 1189 0000 00000000 		.4byte	.LFB35
+ 1190 0004 80000000 		.4byte	.LFE35
+ 1191 0008 00000000 		.4byte	0
+ 1192 000c 00000000 		.4byte	0
+ 1193              		.section	.debug_line,"",%progbits
+ 1194              	.Ldebug_line0:
+ 1195 0000 D8000000 		.section	.debug_str,"MS",%progbits,1
+ 1195      0200AB00 
+ 1195      00000201 
+ 1195      FB0E0D00 
+ 1195      01010101 
+ 1196              	.LASF15:
+ 1197 0000 6C6F6E67 		.ascii	"long double\000"
+ 1197      20646F75 
+ 1197      626C6500 
+ 1198              	.LASF26:
+ 1199 000c 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_ENTRY_REQUEST\000"
+ 1199      455F4556 
+ 1199      545F4741 
+ 1199      505F5041 
+ 1199      53534B45 
+ 1200              	.LASF106:
+ 1201 0030 55706461 		.ascii	"UpdateRGBLED\000"
+ 1201      74655247 
+ 1201      424C4544 
+ 1201      00
+ 1202              	.LASF34:
+ 1203 003d 4359424C 		.ascii	"CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE\000"
+ 1203      455F4556 
+ 1203      545F4741 
+ 1203      505F434F 
+ 1203      4E4E4543 
+ 1204              	.LASF23:
+ 1205 0066 4359424C 		.ascii	"CYBLE_EVT_MEMORY_REQUEST\000"
+ 1205      455F4556 
+ 1205      545F4D45 
+ 1205      4D4F5259 
+ 1205      5F524551 
+ 1206              	.LASF48:
+ 1207 007f 4359424C 		.ascii	"CYBLE_EVT_GATTC_ERROR_RSP\000"
+ 1207      455F4556 
+ 1207      545F4741 
+ 1207      5454435F 
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 24
+
+
+ 1207      4552524F 
+ 1208              	.LASF32:
+ 1209 0099 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_DISCONNECTED\000"
+ 1209      455F4556 
+ 1209      545F4741 
+ 1209      505F4445 
+ 1209      56494345 
+ 1210              	.LASF64:
+ 1211 00bb 4359424C 		.ascii	"CYBLE_EVT_GATTS_EXEC_WRITE_REQ\000"
+ 1211      455F4556 
+ 1211      545F4741 
+ 1211      5454535F 
+ 1211      45584543 
+ 1212              	.LASF38:
+ 1213 00da 4359424C 		.ascii	"CYBLE_EVT_GAP_KEYPRESS_NOTIFICATION\000"
+ 1213      455F4556 
+ 1213      545F4741 
+ 1213      505F4B45 
+ 1213      59505245 
+ 1214              	.LASF2:
+ 1215 00fe 73686F72 		.ascii	"short int\000"
+ 1215      7420696E 
+ 1215      7400
+ 1216              	.LASF29:
+ 1217 0108 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_FAILED\000"
+ 1217      455F4556 
+ 1217      545F4741 
+ 1217      505F4155 
+ 1217      54485F46 
+ 1218              	.LASF50:
+ 1219 0122 4359424C 		.ascii	"CYBLE_EVT_GATT_DISCONNECT_IND\000"
+ 1219      455F4556 
+ 1219      545F4741 
+ 1219      54545F44 
+ 1219      4953434F 
+ 1220              	.LASF16:
+ 1221 0140 73697A65 		.ascii	"sizetype\000"
+ 1221      74797065 
+ 1221      00
+ 1222              	.LASF40:
+ 1223 0149 4359424C 		.ascii	"CYBLE_EVT_GAP_DATA_LENGTH_CHANGE\000"
+ 1223      455F4556 
+ 1223      545F4741 
+ 1223      505F4441 
+ 1223      54415F4C 
+ 1224              	.LASF21:
+ 1225 016a 4359424C 		.ascii	"CYBLE_EVT_HCI_STATUS\000"
+ 1225      455F4556 
+ 1225      545F4843 
+ 1225      495F5354 
+ 1225      41545553 
+ 1226              	.LASF103:
+ 1227 017f 77725265 		.ascii	"wrReqParam\000"
+ 1227      71506172 
+ 1227      616D00
+ 1228              	.LASF6:
+ 1229 018a 6C6F6E67 		.ascii	"long long int\000"
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 25
+
+
+ 1229      206C6F6E 
+ 1229      6720696E 
+ 1229      7400
+ 1230              	.LASF101:
+ 1231 0198 6576656E 		.ascii	"event\000"
+ 1231      7400
+ 1232              	.LASF61:
+ 1233 019e 4359424C 		.ascii	"CYBLE_EVT_GATTC_WRITE_RSP\000"
+ 1233      455F4556 
+ 1233      545F4741 
+ 1233      5454435F 
+ 1233      57524954 
+ 1234              	.LASF54:
+ 1235 01b8 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_TYPE_RSP\000"
+ 1235      455F4556 
+ 1235      545F4741 
+ 1235      5454435F 
+ 1235      52454144 
+ 1236              	.LASF18:
+ 1237 01d9 4359424C 		.ascii	"CYBLE_EVT_STACK_ON\000"
+ 1237      455F4556 
+ 1237      545F5354 
+ 1237      41434B5F 
+ 1237      4F4E00
+ 1238              	.LASF47:
+ 1239 01ec 4359424C 		.ascii	"CYBLE_EVT_GAP_SMP_LOC_P256_KEYS_GEN_AND_SET_COMPLET"
+ 1239      455F4556 
+ 1239      545F4741 
+ 1239      505F534D 
+ 1239      505F4C4F 
+ 1240 021f 4500     		.ascii	"E\000"
+ 1241              	.LASF51:
+ 1242 0221 4359424C 		.ascii	"CYBLE_EVT_GATTS_XCNHG_MTU_REQ\000"
+ 1242      455F4556 
+ 1242      545F4741 
+ 1242      5454535F 
+ 1242      58434E48 
+ 1243              	.LASF109:
+ 1244 023f 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1244      43313120 
+ 1244      352E342E 
+ 1244      31203230 
+ 1244      31363036 
+ 1245 0272 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 1245      20726576 
+ 1245      6973696F 
+ 1245      6E203233 
+ 1245      37373135 
+ 1246 02a5 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1246      66756E63 
+ 1246      74696F6E 
+ 1246      2D736563 
+ 1246      74696F6E 
+ 1247              	.LASF36:
+ 1248 02cd 4359424C 		.ascii	"CYBLE_EVT_GAP_KEYINFO_EXCHNGE_CMPLT\000"
+ 1248      455F4556 
+ 1248      545F4741 
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 26
+
+
+ 1248      505F4B45 
+ 1248      59494E46 
+ 1249              	.LASF59:
+ 1250 02f1 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_MULTI_RSP\000"
+ 1250      455F4556 
+ 1250      545F4741 
+ 1250      5454435F 
+ 1250      52454144 
+ 1251              	.LASF68:
+ 1252 0310 4359424C 		.ascii	"CYBLE_EVT_GATTS_HANDLE_VALUE_CNF\000"
+ 1252      455F4556 
+ 1252      545F4741 
+ 1252      5454535F 
+ 1252      48414E44 
+ 1253              	.LASF17:
+ 1254 0331 4359424C 		.ascii	"CYBLE_EVT_HOST_INVALID\000"
+ 1254      455F4556 
+ 1254      545F484F 
+ 1254      53545F49 
+ 1254      4E56414C 
+ 1255              	.LASF113:
+ 1256 0348 6379426C 		.ascii	"cyBle_connHandle\000"
+ 1256      655F636F 
+ 1256      6E6E4861 
+ 1256      6E646C65 
+ 1256      00
+ 1257              	.LASF76:
+ 1258 0359 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_IND\000"
+ 1258      455F4556 
+ 1258      545F4C32 
+ 1258      4341505F 
+ 1258      43424643 
+ 1259              	.LASF79:
+ 1260 0377 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_CNF\000"
+ 1260      455F4556 
+ 1260      545F4C32 
+ 1260      4341505F 
+ 1260      43424643 
+ 1261              	.LASF90:
+ 1262 0398 62644861 		.ascii	"bdHandle\000"
+ 1262      6E646C65 
+ 1262      00
+ 1263              	.LASF12:
+ 1264 03a1 666C6F61 		.ascii	"float\000"
+ 1264      7400
+ 1265              	.LASF57:
+ 1266 03a7 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_RSP\000"
+ 1266      455F4556 
+ 1266      545F4741 
+ 1266      5454435F 
+ 1266      52454144 
+ 1267              	.LASF37:
+ 1268 03c0 4359424C 		.ascii	"CYBLE_EVT_GAP_NUMERIC_COMPARISON_REQUEST\000"
+ 1268      455F4556 
+ 1268      545F4741 
+ 1268      505F4E55 
+ 1268      4D455249 
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 27
+
+
+ 1269              	.LASF42:
+ 1270 03e9 4359424C 		.ascii	"CYBLE_EVT_GAPC_DIRECT_ADV_REPORT\000"
+ 1270      455F4556 
+ 1270      545F4741 
+ 1270      50435F44 
+ 1270      49524543 
+ 1271              	.LASF7:
+ 1272 040a 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1272      206C6F6E 
+ 1272      6720756E 
+ 1272      7369676E 
+ 1272      65642069 
+ 1273              	.LASF46:
+ 1274 0421 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_REQ_REPLY_ERR\000"
+ 1274      455F4556 
+ 1274      545F4741 
+ 1274      505F4155 
+ 1274      54485F52 
+ 1275              	.LASF4:
+ 1276 0442 6C6F6E67 		.ascii	"long int\000"
+ 1276      20696E74 
+ 1276      00
+ 1277              	.LASF67:
+ 1278 044b 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_IND\000"
+ 1278      455F4556 
+ 1278      545F4741 
+ 1278      5454435F 
+ 1278      48414E44 
+ 1279              	.LASF31:
+ 1280 046c 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_CONNECTED\000"
+ 1280      455F4556 
+ 1280      545F4741 
+ 1280      505F4445 
+ 1280      56494345 
+ 1281              	.LASF30:
+ 1282 048b 4359424C 		.ascii	"CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP\000"
+ 1282      455F4556 
+ 1282      545F4741 
+ 1282      50505F41 
+ 1282      44564552 
+ 1283              	.LASF66:
+ 1284 04b3 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_NTF\000"
+ 1284      455F4556 
+ 1284      545F4741 
+ 1284      5454435F 
+ 1284      48414E44 
+ 1285              	.LASF22:
+ 1286 04d4 4359424C 		.ascii	"CYBLE_EVT_STACK_BUSY_STATUS\000"
+ 1286      455F4556 
+ 1286      545F5354 
+ 1286      41434B5F 
+ 1286      42555359 
+ 1287              	.LASF100:
+ 1288 04f0 4359424C 		.ascii	"CYBLE_GATTS_WRITE_REQ_PARAM_T\000"
+ 1288      455F4741 
+ 1288      5454535F 
+ 1288      57524954 
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 28
+
+
+ 1288      455F5245 
+ 1289              	.LASF27:
+ 1290 050e 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_DISPLAY_REQUEST\000"
+ 1290      455F4556 
+ 1290      545F4741 
+ 1290      505F5041 
+ 1290      53534B45 
+ 1291              	.LASF110:
+ 1292 0534 424C455F 		.ascii	"BLE_Process.c\000"
+ 1292      50726F63 
+ 1292      6573732E 
+ 1292      6300
+ 1293              	.LASF77:
+ 1294 0542 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_CNF\000"
+ 1294      455F4556 
+ 1294      545F4C32 
+ 1294      4341505F 
+ 1294      43424643 
+ 1295              	.LASF41:
+ 1296 0560 4359424C 		.ascii	"CYBLE_EVT_GAP_ENHANCE_CONN_COMPLETE\000"
+ 1296      455F4556 
+ 1296      545F4741 
+ 1296      505F454E 
+ 1296      48414E43 
+ 1297              	.LASF105:
+ 1298 0584 4379426C 		.ascii	"CyBle_GappStartAdvertisement\000"
+ 1298      655F4761 
+ 1298      70705374 
+ 1298      61727441 
+ 1298      64766572 
+ 1299              	.LASF73:
+ 1300 05a1 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_REQ\000"
+ 1300      455F4556 
+ 1300      545F4C32 
+ 1300      4341505F 
+ 1300      434F4E4E 
+ 1301              	.LASF1:
+ 1302 05c7 756E7369 		.ascii	"unsigned char\000"
+ 1302      676E6564 
+ 1302      20636861 
+ 1302      7200
+ 1303              	.LASF63:
+ 1304 05d5 4359424C 		.ascii	"CYBLE_EVT_GATTS_PREP_WRITE_REQ\000"
+ 1304      455F4556 
+ 1304      545F4741 
+ 1304      5454535F 
+ 1304      50524550 
+ 1305              	.LASF108:
+ 1306 05f4 4379426C 		.ascii	"CyBle_GattsWriteRsp\000"
+ 1306      655F4761 
+ 1306      74747357 
+ 1306      72697465 
+ 1306      52737000 
+ 1307              	.LASF85:
+ 1308 0608 4359424C 		.ascii	"CYBLE_EVT_LE_PING_AUTH_TIMEOUT\000"
+ 1308      455F4556 
+ 1308      545F4C45 
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 29
+
+
+ 1308      5F50494E 
+ 1308      475F4155 
+ 1309              	.LASF55:
+ 1310 0627 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_INFO_RSP\000"
+ 1310      455F4556 
+ 1310      545F4741 
+ 1310      5454435F 
+ 1310      46494E44 
+ 1311              	.LASF0:
+ 1312 0645 7369676E 		.ascii	"signed char\000"
+ 1312      65642063 
+ 1312      68617200 
+ 1313              	.LASF60:
+ 1314 0651 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_REQ\000"
+ 1314      455F4556 
+ 1314      545F4741 
+ 1314      5454535F 
+ 1314      57524954 
+ 1315              	.LASF56:
+ 1316 066b 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_BY_TYPE_VALUE_RSP\000"
+ 1316      455F4556 
+ 1316      545F4741 
+ 1316      5454435F 
+ 1316      46494E44 
+ 1317              	.LASF111:
+ 1318 0692 483A5C52 		.ascii	"H:\\R_D\\Smart_house_PSoC_part\\Workspace0\\Custom_"
+ 1318      5F445C53 
+ 1318      6D617274 
+ 1318      5F686F75 
+ 1318      73655F50 
+ 1319 06c1 424C455F 		.ascii	"BLE_Profile_Test.cydsn\000"
+ 1319      50726F66 
+ 1319      696C655F 
+ 1319      54657374 
+ 1319      2E637964 
+ 1320              	.LASF28:
+ 1321 06d8 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_COMPLETE\000"
+ 1321      455F4556 
+ 1321      545F4741 
+ 1321      505F4155 
+ 1321      54485F43 
+ 1322              	.LASF8:
+ 1323 06f4 756E7369 		.ascii	"unsigned int\000"
+ 1323      676E6564 
+ 1323      20696E74 
+ 1323      00
+ 1324              	.LASF49:
+ 1325 0701 4359424C 		.ascii	"CYBLE_EVT_GATT_CONNECT_IND\000"
+ 1325      455F4556 
+ 1325      545F4741 
+ 1325      54545F43 
+ 1325      4F4E4E45 
+ 1326              	.LASF5:
+ 1327 071c 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1327      20756E73 
+ 1327      69676E65 
+ 1327      6420696E 
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 30
+
+
+ 1327      7400
+ 1328              	.LASF25:
+ 1329 072e 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_REQ\000"
+ 1329      455F4556 
+ 1329      545F4741 
+ 1329      505F4155 
+ 1329      54485F52 
+ 1330              	.LASF91:
+ 1331 0745 61747449 		.ascii	"attId\000"
+ 1331      6400
+ 1332              	.LASF78:
+ 1333 074b 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_IND\000"
+ 1333      455F4556 
+ 1333      545F4C32 
+ 1333      4341505F 
+ 1333      43424643 
+ 1334              	.LASF33:
+ 1335 076c 4359424C 		.ascii	"CYBLE_EVT_GAP_ENCRYPT_CHANGE\000"
+ 1335      455F4556 
+ 1335      545F4741 
+ 1335      505F454E 
+ 1335      43525950 
+ 1336              	.LASF98:
+ 1337 0789 636F6E6E 		.ascii	"connHandle\000"
+ 1337      48616E64 
+ 1337      6C6500
+ 1338              	.LASF44:
+ 1339 0794 4359424C 		.ascii	"CYBLE_EVT_GAP_CONN_ESTB\000"
+ 1339      455F4556 
+ 1339      545F4741 
+ 1339      505F434F 
+ 1339      4E4E5F45 
+ 1340              	.LASF72:
+ 1341 07ac 4359424C 		.ascii	"CYBLE_EVT_GATTC_LONG_PROCEDURE_END\000"
+ 1341      455F4556 
+ 1341      545F4741 
+ 1341      5454435F 
+ 1341      4C4F4E47 
+ 1342              	.LASF3:
+ 1343 07cf 73686F72 		.ascii	"short unsigned int\000"
+ 1343      7420756E 
+ 1343      7369676E 
+ 1343      65642069 
+ 1343      6E7400
+ 1344              	.LASF87:
+ 1345 07e2 4359424C 		.ascii	"CYBLE_EVT_FLASH_CORRUPT\000"
+ 1345      455F4556 
+ 1345      545F464C 
+ 1345      4153485F 
+ 1345      434F5252 
+ 1346              	.LASF104:
+ 1347 07fa 5247426C 		.ascii	"RGBledData\000"
+ 1347      65644461 
+ 1347      746100
+ 1348              	.LASF43:
+ 1349 0805 4359424C 		.ascii	"CYBLE_EVT_GAP_SMP_NEGOTIATED_AUTH_INFO\000"
+ 1349      455F4556 
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 31
+
+
+ 1349      545F4741 
+ 1349      505F534D 
+ 1349      505F4E45 
+ 1350              	.LASF14:
+ 1351 082c 63686172 		.ascii	"char\000"
+ 1351      00
+ 1352              	.LASF94:
+ 1353 0831 4359424C 		.ascii	"CYBLE_GATT_VALUE_T\000"
+ 1353      455F4741 
+ 1353      54545F56 
+ 1353      414C5545 
+ 1353      5F5400
+ 1354              	.LASF75:
+ 1355 0844 4359424C 		.ascii	"CYBLE_EVT_L2CAP_COMMAND_REJ\000"
+ 1355      455F4556 
+ 1355      545F4C32 
+ 1355      4341505F 
+ 1355      434F4D4D 
+ 1356              	.LASF9:
+ 1357 0860 75696E74 		.ascii	"uint8\000"
+ 1357      3800
+ 1358              	.LASF99:
+ 1359 0866 68616E64 		.ascii	"handleValPair\000"
+ 1359      6C655661 
+ 1359      6C506169 
+ 1359      7200
+ 1360              	.LASF107:
+ 1361 0874 55706461 		.ascii	"UpdateRGBcharacteristic\000"
+ 1361      74655247 
+ 1361      42636861 
+ 1361      72616374 
+ 1361      65726973 
+ 1362              	.LASF10:
+ 1363 088c 75696E74 		.ascii	"uint16\000"
+ 1363      313600
+ 1364              	.LASF58:
+ 1365 0893 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BLOB_RSP\000"
+ 1365      455F4556 
+ 1365      545F4741 
+ 1365      5454435F 
+ 1365      52454144 
+ 1366              	.LASF65:
+ 1367 08b1 4359424C 		.ascii	"CYBLE_EVT_GATTC_EXEC_WRITE_RSP\000"
+ 1367      455F4556 
+ 1367      545F4741 
+ 1367      5454435F 
+ 1367      45584543 
+ 1368              	.LASF11:
+ 1369 08d0 75696E74 		.ascii	"uint32\000"
+ 1369      333200
+ 1370              	.LASF84:
+ 1371 08d7 4359424C 		.ascii	"CYBLE_EVT_PENDING_FLASH_WRITE\000"
+ 1371      455F4556 
+ 1371      545F5045 
+ 1371      4E44494E 
+ 1371      475F464C 
+ 1372              	.LASF81:
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 32
+
+
+ 1373 08f5 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_RX_CREDIT_IND\000"
+ 1373      455F4556 
+ 1373      545F4C32 
+ 1373      4341505F 
+ 1373      43424643 
+ 1374              	.LASF96:
+ 1375 0918 61747472 		.ascii	"attrHandle\000"
+ 1375      48616E64 
+ 1375      6C6500
+ 1376              	.LASF13:
+ 1377 0923 646F7562 		.ascii	"double\000"
+ 1377      6C6500
+ 1378              	.LASF92:
+ 1379 092a 4359424C 		.ascii	"CYBLE_CONN_HANDLE_T\000"
+ 1379      455F434F 
+ 1379      4E4E5F48 
+ 1379      414E444C 
+ 1379      455F5400 
+ 1380              	.LASF97:
+ 1381 093e 4359424C 		.ascii	"CYBLE_GATT_HANDLE_VALUE_PAIR_T\000"
+ 1381      455F4741 
+ 1381      54545F48 
+ 1381      414E444C 
+ 1381      455F5641 
+ 1382              	.LASF82:
+ 1383 095d 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_TX_CREDIT_IND\000"
+ 1383      455F4556 
+ 1383      545F4C32 
+ 1383      4341505F 
+ 1383      43424643 
+ 1384              	.LASF45:
+ 1385 0980 4359424C 		.ascii	"CYBLE_EVT_GAP_SCAN_REQ_RECVD\000"
+ 1385      455F4556 
+ 1385      545F4741 
+ 1385      505F5343 
+ 1385      414E5F52 
+ 1386              	.LASF20:
+ 1387 099d 4359424C 		.ascii	"CYBLE_EVT_HARDWARE_ERROR\000"
+ 1387      455F4556 
+ 1387      545F4841 
+ 1387      52445741 
+ 1387      52455F45 
+ 1388              	.LASF80:
+ 1389 09b6 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_READ\000"
+ 1389      455F4556 
+ 1389      545F4C32 
+ 1389      4341505F 
+ 1389      43424643 
+ 1390              	.LASF74:
+ 1391 09d5 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_RSP\000"
+ 1391      455F4556 
+ 1391      545F4C32 
+ 1391      4341505F 
+ 1391      434F4E4E 
+ 1392              	.LASF24:
+ 1393 09fb 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT\000"
+ 1393      455F4556 
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 33
+
+
+ 1393      545F4741 
+ 1393      50435F53 
+ 1393      43414E5F 
+ 1394              	.LASF93:
+ 1395 0a1f 61637475 		.ascii	"actualLen\000"
+ 1395      616C4C65 
+ 1395      6E00
+ 1396              	.LASF53:
+ 1397 0a29 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_GROUP_TYPE_RSP\000"
+ 1397      455F4556 
+ 1397      545F4741 
+ 1397      5454435F 
+ 1397      52454144 
+ 1398              	.LASF62:
+ 1399 0a50 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_CMD_REQ\000"
+ 1399      455F4556 
+ 1399      545F4741 
+ 1399      5454535F 
+ 1399      57524954 
+ 1400              	.LASF52:
+ 1401 0a6e 4359424C 		.ascii	"CYBLE_EVT_GATTC_XCHNG_MTU_RSP\000"
+ 1401      455F4556 
+ 1401      545F4741 
+ 1401      5454435F 
+ 1401      5843484E 
+ 1402              	.LASF19:
+ 1403 0a8c 4359424C 		.ascii	"CYBLE_EVT_TIMEOUT\000"
+ 1403      455F4556 
+ 1403      545F5449 
+ 1403      4D454F55 
+ 1403      5400
+ 1404              	.LASF83:
+ 1405 0a9e 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_WRITE_IND\000"
+ 1405      455F4556 
+ 1405      545F4C32 
+ 1405      4341505F 
+ 1405      43424643 
+ 1406              	.LASF35:
+ 1407 0ac2 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_START_STOP\000"
+ 1407      455F4556 
+ 1407      545F4741 
+ 1407      50435F53 
+ 1407      43414E5F 
+ 1408              	.LASF88:
+ 1409 0ae1 4359424C 		.ascii	"CYBLE_EVT_MAX\000"
+ 1409      455F4556 
+ 1409      545F4D41 
+ 1409      5800
+ 1410              	.LASF71:
+ 1411 0aef 4359424C 		.ascii	"CYBLE_EVT_GATTS_READ_CHAR_VAL_ACCESS_REQ\000"
+ 1411      455F4556 
+ 1411      545F4741 
+ 1411      5454535F 
+ 1411      52454144 
+ 1412              	.LASF70:
+ 1413 0b18 4359424C 		.ascii	"CYBLE_EVT_GATTC_STOP_CMD_COMPLETE\000"
+ 1413      455F4556 
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\ccxJiG1t.s 			page 34
+
+
+ 1413      545F4741 
+ 1413      5454435F 
+ 1413      53544F50 
+ 1414              	.LASF95:
+ 1415 0b3a 76616C75 		.ascii	"value\000"
+ 1415      6500
+ 1416              	.LASF112:
+ 1417 0b40 47656E65 		.ascii	"GeneralEventHandler\000"
+ 1417      72616C45 
+ 1417      76656E74 
+ 1417      48616E64 
+ 1417      6C657200 
+ 1418              	.LASF89:
+ 1419 0b54 4359424C 		.ascii	"CYBLE_GATT_DB_ATTR_HANDLE_T\000"
+ 1419      455F4741 
+ 1419      54545F44 
+ 1419      425F4154 
+ 1419      54525F48 
+ 1420              	.LASF102:
+ 1421 0b70 6576656E 		.ascii	"eventParam\000"
+ 1421      74506172 
+ 1421      616D00
+ 1422              	.LASF69:
+ 1423 0b7b 4359424C 		.ascii	"CYBLE_EVT_GATTS_DATA_SIGNED_CMD_REQ\000"
+ 1423      455F4556 
+ 1423      545F4741 
+ 1423      5454535F 
+ 1423      44415441 
+ 1424              	.LASF86:
+ 1425 0b9f 4359424C 		.ascii	"CYBLE_EVT_HCI_PKT\000"
+ 1425      455F4556 
+ 1425      545F4843 
+ 1425      495F504B 
+ 1425      5400
+ 1426              	.LASF39:
+ 1427 0bb1 4359424C 		.ascii	"CYBLE_EVT_GAP_OOB_GENERATED_NOTIFICATION\000"
+ 1427      455F4556 
+ 1427      545F4741 
+ 1427      505F4F4F 
+ 1427      425F4745 
+ 1428              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

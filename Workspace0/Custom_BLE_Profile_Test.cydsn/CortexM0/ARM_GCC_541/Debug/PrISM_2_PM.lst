@@ -1,0 +1,1096 @@
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cc3M2mGc.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"PrISM_2_PM.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.PrISM_2_SaveConfig,"ax",%progbits
+  20              		.align	2
+  21              		.global	PrISM_2_SaveConfig
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	PrISM_2_SaveConfig, %function
+  25              	PrISM_2_SaveConfig:
+  26              	.LFB2:
+  27              		.file 1 "Generated_Source\\PSoC4\\PrISM_2_PM.c"
+   1:Generated_Source\PSoC4/PrISM_2_PM.c **** /*******************************************************************************
+   2:Generated_Source\PSoC4/PrISM_2_PM.c **** * File Name: PrISM_2_PM.c
+   3:Generated_Source\PSoC4/PrISM_2_PM.c **** * Version 2.20
+   4:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+   5:Generated_Source\PSoC4/PrISM_2_PM.c **** * Description:
+   6:Generated_Source\PSoC4/PrISM_2_PM.c **** *  This file provides Sleep/WakeUp APIs functionality of the PrISM component
+   7:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+   8:Generated_Source\PSoC4/PrISM_2_PM.c **** * Note:
+   9:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+  10:Generated_Source\PSoC4/PrISM_2_PM.c **** ********************************************************************************
+  11:Generated_Source\PSoC4/PrISM_2_PM.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  12:Generated_Source\PSoC4/PrISM_2_PM.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  13:Generated_Source\PSoC4/PrISM_2_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  14:Generated_Source\PSoC4/PrISM_2_PM.c **** * the software package with which this file was provided.
+  15:Generated_Source\PSoC4/PrISM_2_PM.c **** *******************************************************************************/
+  16:Generated_Source\PSoC4/PrISM_2_PM.c **** 
+  17:Generated_Source\PSoC4/PrISM_2_PM.c **** #include "PrISM_2.h"
+  18:Generated_Source\PSoC4/PrISM_2_PM.c **** 
+  19:Generated_Source\PSoC4/PrISM_2_PM.c **** 
+  20:Generated_Source\PSoC4/PrISM_2_PM.c **** /***************************************
+  21:Generated_Source\PSoC4/PrISM_2_PM.c **** * Local data allocation
+  22:Generated_Source\PSoC4/PrISM_2_PM.c **** ***************************************/
+  23:Generated_Source\PSoC4/PrISM_2_PM.c **** static PrISM_2_BACKUP_STRUCT  PrISM_2_backup = 
+  24:Generated_Source\PSoC4/PrISM_2_PM.c **** {
+  25:Generated_Source\PSoC4/PrISM_2_PM.c ****     /* enableState */
+  26:Generated_Source\PSoC4/PrISM_2_PM.c ****     0u,
+  27:Generated_Source\PSoC4/PrISM_2_PM.c ****     /* cr */
+  28:Generated_Source\PSoC4/PrISM_2_PM.c ****     #if(!PrISM_2_PULSE_TYPE_HARDCODED)
+  29:Generated_Source\PSoC4/PrISM_2_PM.c ****        (((PrISM_2_GREATERTHAN_OR_EQUAL == PrISM_2_COMPARE0) ? \
+  30:Generated_Source\PSoC4/PrISM_2_PM.c ****                                                 PrISM_2_CTRL_COMPARE_TYPE0_GREATER_THAN_OR_EQUAL : 
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cc3M2mGc.s 			page 2
+
+
+  31:Generated_Source\PSoC4/PrISM_2_PM.c ****         ((PrISM_2_GREATERTHAN_OR_EQUAL == PrISM_2_COMPARE1) ? \
+  32:Generated_Source\PSoC4/PrISM_2_PM.c ****                                                 PrISM_2_CTRL_COMPARE_TYPE1_GREATER_THAN_OR_EQUAL : 
+  33:Generated_Source\PSoC4/PrISM_2_PM.c ****     #endif /* End PrISM_2_PULSE_TYPE_HARDCODED */
+  34:Generated_Source\PSoC4/PrISM_2_PM.c ****     /* seed */    
+  35:Generated_Source\PSoC4/PrISM_2_PM.c ****     PrISM_2_SEED,
+  36:Generated_Source\PSoC4/PrISM_2_PM.c ****     /* seed_copy */    
+  37:Generated_Source\PSoC4/PrISM_2_PM.c ****     PrISM_2_SEED,
+  38:Generated_Source\PSoC4/PrISM_2_PM.c ****     /* polynom */
+  39:Generated_Source\PSoC4/PrISM_2_PM.c ****     PrISM_2_POLYNOM,
+  40:Generated_Source\PSoC4/PrISM_2_PM.c ****     #if(CY_UDB_V0)
+  41:Generated_Source\PSoC4/PrISM_2_PM.c ****         /* density0 */
+  42:Generated_Source\PSoC4/PrISM_2_PM.c ****         PrISM_2_DENSITY0,
+  43:Generated_Source\PSoC4/PrISM_2_PM.c ****         /* density1 */
+  44:Generated_Source\PSoC4/PrISM_2_PM.c ****         PrISM_2_DENSITY1,
+  45:Generated_Source\PSoC4/PrISM_2_PM.c ****     #endif /*End CY_UDB_V0*/
+  46:Generated_Source\PSoC4/PrISM_2_PM.c **** };
+  47:Generated_Source\PSoC4/PrISM_2_PM.c **** 
+  48:Generated_Source\PSoC4/PrISM_2_PM.c **** 
+  49:Generated_Source\PSoC4/PrISM_2_PM.c **** /*******************************************************************************
+  50:Generated_Source\PSoC4/PrISM_2_PM.c **** * Function Name: PrISM_2_SaveConfig
+  51:Generated_Source\PSoC4/PrISM_2_PM.c **** ********************************************************************************
+  52:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+  53:Generated_Source\PSoC4/PrISM_2_PM.c **** * Summary:
+  54:Generated_Source\PSoC4/PrISM_2_PM.c **** *  Saves the current user configuration.
+  55:Generated_Source\PSoC4/PrISM_2_PM.c **** *  
+  56:Generated_Source\PSoC4/PrISM_2_PM.c **** * Parameters:  
+  57:Generated_Source\PSoC4/PrISM_2_PM.c **** *  None.
+  58:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+  59:Generated_Source\PSoC4/PrISM_2_PM.c **** * Return: 
+  60:Generated_Source\PSoC4/PrISM_2_PM.c **** *  None.
+  61:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+  62:Generated_Source\PSoC4/PrISM_2_PM.c **** * Global Variables:
+  63:Generated_Source\PSoC4/PrISM_2_PM.c **** *  PrISM_2_backup - modified when non-retention registers are saved.
+  64:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+  65:Generated_Source\PSoC4/PrISM_2_PM.c **** * Reentrant:
+  66:Generated_Source\PSoC4/PrISM_2_PM.c **** *  No.
+  67:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+  68:Generated_Source\PSoC4/PrISM_2_PM.c **** *******************************************************************************/
+  69:Generated_Source\PSoC4/PrISM_2_PM.c **** void PrISM_2_SaveConfig(void) 
+  70:Generated_Source\PSoC4/PrISM_2_PM.c **** {
+  28              		.loc 1 70 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 10B5     		push	{r4, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  71:Generated_Source\PSoC4/PrISM_2_PM.c ****     #if (CY_UDB_V0)
+  72:Generated_Source\PSoC4/PrISM_2_PM.c ****         #if(!PrISM_2_PULSE_TYPE_HARDCODED)
+  73:Generated_Source\PSoC4/PrISM_2_PM.c ****             PrISM_2_backup.cr = PrISM_2_CONTROL_REG;
+  74:Generated_Source\PSoC4/PrISM_2_PM.c ****         #endif /* End PrISM_2_PULSE_TYPE_HARDCODED */
+  75:Generated_Source\PSoC4/PrISM_2_PM.c ****         PrISM_2_backup.seed = PrISM_2_ReadSeed();
+  76:Generated_Source\PSoC4/PrISM_2_PM.c ****         PrISM_2_backup.seed_copy = CY_GET_REG8(PrISM_2_SEED_COPY_PTR);
+  77:Generated_Source\PSoC4/PrISM_2_PM.c ****         PrISM_2_backup.polynom = PrISM_2_ReadPolynomial();
+  78:Generated_Source\PSoC4/PrISM_2_PM.c ****         PrISM_2_backup.density0 = PrISM_2_ReadPulse0();
+  79:Generated_Source\PSoC4/PrISM_2_PM.c ****         PrISM_2_backup.density1 = PrISM_2_ReadPulse1();
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cc3M2mGc.s 			page 3
+
+
+  80:Generated_Source\PSoC4/PrISM_2_PM.c ****     #else /* CY_UDB_V1 */
+  81:Generated_Source\PSoC4/PrISM_2_PM.c ****         #if(!PrISM_2_PULSE_TYPE_HARDCODED)
+  82:Generated_Source\PSoC4/PrISM_2_PM.c ****             PrISM_2_backup.cr = PrISM_2_CONTROL_REG;
+  36              		.loc 1 82 0
+  37 0002 074B     		ldr	r3, .L2
+  38 0004 1B78     		ldrb	r3, [r3]
+  39 0006 074C     		ldr	r4, .L2+4
+  40 0008 6370     		strb	r3, [r4, #1]
+  83:Generated_Source\PSoC4/PrISM_2_PM.c ****         #endif /* End PrISM_2_PULSE_TYPE_HARDCODED */
+  84:Generated_Source\PSoC4/PrISM_2_PM.c ****         PrISM_2_backup.seed = PrISM_2_ReadSeed();
+  41              		.loc 1 84 0
+  42 000a FFF7FEFF 		bl	PrISM_2_ReadSeed
+  43              	.LVL0:
+  44 000e A070     		strb	r0, [r4, #2]
+  85:Generated_Source\PSoC4/PrISM_2_PM.c ****         PrISM_2_backup.seed_copy = CY_GET_REG8(PrISM_2_SEED_COPY_PTR);
+  45              		.loc 1 85 0
+  46 0010 054B     		ldr	r3, .L2+8
+  47 0012 1B78     		ldrb	r3, [r3]
+  48 0014 E370     		strb	r3, [r4, #3]
+  86:Generated_Source\PSoC4/PrISM_2_PM.c ****         PrISM_2_backup.polynom = PrISM_2_ReadPolynomial();
+  49              		.loc 1 86 0
+  50 0016 FFF7FEFF 		bl	PrISM_2_ReadPolynomial
+  51              	.LVL1:
+  52 001a 2071     		strb	r0, [r4, #4]
+  87:Generated_Source\PSoC4/PrISM_2_PM.c ****     #endif  /* CY_UDB_V0 */
+  88:Generated_Source\PSoC4/PrISM_2_PM.c **** }
+  53              		.loc 1 88 0
+  54              		@ sp needed
+  55 001c 10BD     		pop	{r4, pc}
+  56              	.L3:
+  57 001e C046     		.align	2
+  58              	.L2:
+  59 0020 73000F40 		.word	1074724979
+  60 0024 00000000 		.word	.LANCHOR0
+  61 0028 43000F40 		.word	1074724931
+  62              		.cfi_endproc
+  63              	.LFE2:
+  64              		.size	PrISM_2_SaveConfig, .-PrISM_2_SaveConfig
+  65              		.section	.text.PrISM_2_RestoreConfig,"ax",%progbits
+  66              		.align	2
+  67              		.global	PrISM_2_RestoreConfig
+  68              		.code	16
+  69              		.thumb_func
+  70              		.type	PrISM_2_RestoreConfig, %function
+  71              	PrISM_2_RestoreConfig:
+  72              	.LFB3:
+  89:Generated_Source\PSoC4/PrISM_2_PM.c **** 
+  90:Generated_Source\PSoC4/PrISM_2_PM.c **** 
+  91:Generated_Source\PSoC4/PrISM_2_PM.c **** /*******************************************************************************
+  92:Generated_Source\PSoC4/PrISM_2_PM.c **** * Function Name: PrISM_2_RestoreConfig
+  93:Generated_Source\PSoC4/PrISM_2_PM.c **** ********************************************************************************
+  94:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+  95:Generated_Source\PSoC4/PrISM_2_PM.c **** * Summary:
+  96:Generated_Source\PSoC4/PrISM_2_PM.c **** *  Restores the current user configuration.
+  97:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+  98:Generated_Source\PSoC4/PrISM_2_PM.c **** * Parameters:  
+  99:Generated_Source\PSoC4/PrISM_2_PM.c **** *  None.
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cc3M2mGc.s 			page 4
+
+
+ 100:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+ 101:Generated_Source\PSoC4/PrISM_2_PM.c **** * Return: 
+ 102:Generated_Source\PSoC4/PrISM_2_PM.c **** *  None.
+ 103:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+ 104:Generated_Source\PSoC4/PrISM_2_PM.c **** * Global Variables:
+ 105:Generated_Source\PSoC4/PrISM_2_PM.c **** *  PrISM_2_backup - used when non-retention registers are restored.
+ 106:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+ 107:Generated_Source\PSoC4/PrISM_2_PM.c **** *******************************************************************************/
+ 108:Generated_Source\PSoC4/PrISM_2_PM.c **** void PrISM_2_RestoreConfig(void) 
+ 109:Generated_Source\PSoC4/PrISM_2_PM.c **** {
+  73              		.loc 1 109 0
+  74              		.cfi_startproc
+  75              		@ args = 0, pretend = 0, frame = 0
+  76              		@ frame_needed = 0, uses_anonymous_args = 0
+  77 0000 10B5     		push	{r4, lr}
+  78              		.cfi_def_cfa_offset 8
+  79              		.cfi_offset 4, -8
+  80              		.cfi_offset 14, -4
+ 110:Generated_Source\PSoC4/PrISM_2_PM.c ****     #if (CY_UDB_V0)
+ 111:Generated_Source\PSoC4/PrISM_2_PM.c ****     
+ 112:Generated_Source\PSoC4/PrISM_2_PM.c ****         uint8 enableInterrupts;
+ 113:Generated_Source\PSoC4/PrISM_2_PM.c ****         
+ 114:Generated_Source\PSoC4/PrISM_2_PM.c ****         #if(!PrISM_2_PULSE_TYPE_HARDCODED)
+ 115:Generated_Source\PSoC4/PrISM_2_PM.c ****             PrISM_2_CONTROL_REG = PrISM_2_backup.cr;
+ 116:Generated_Source\PSoC4/PrISM_2_PM.c ****         #endif /* End PrISM_2_PULSE_TYPE_HARDCODED */
+ 117:Generated_Source\PSoC4/PrISM_2_PM.c **** 
+ 118:Generated_Source\PSoC4/PrISM_2_PM.c ****         CY_SET_REG8(PrISM_2_SEED_COPY_PTR, PrISM_2_backup.seed_copy);
+ 119:Generated_Source\PSoC4/PrISM_2_PM.c ****         CY_SET_REG8(PrISM_2_SEED_PTR, PrISM_2_backup.seed);
+ 120:Generated_Source\PSoC4/PrISM_2_PM.c ****         PrISM_2_WritePolynomial(PrISM_2_backup.polynom);
+ 121:Generated_Source\PSoC4/PrISM_2_PM.c ****         PrISM_2_WritePulse0(PrISM_2_backup.density0);
+ 122:Generated_Source\PSoC4/PrISM_2_PM.c ****         PrISM_2_WritePulse1(PrISM_2_backup.density1);
+ 123:Generated_Source\PSoC4/PrISM_2_PM.c ****         
+ 124:Generated_Source\PSoC4/PrISM_2_PM.c ****         enableInterrupts = CyEnterCriticalSection();
+ 125:Generated_Source\PSoC4/PrISM_2_PM.c ****         /* Set FIFO0_CLR bit to use FIFO0 as a simple one-byte buffer*/
+ 126:Generated_Source\PSoC4/PrISM_2_PM.c ****         CY_SET_REG8(PrISM_2_AUX_CONTROL_PTR, 
+ 127:Generated_Source\PSoC4/PrISM_2_PM.c ****                         CY_GET_REG8(PrISM_2_AUX_CONTROL_PTR) | PrISM_2_FIFO0_CLR);
+ 128:Generated_Source\PSoC4/PrISM_2_PM.c ****         CyExitCriticalSection(enableInterrupts);
+ 129:Generated_Source\PSoC4/PrISM_2_PM.c **** 
+ 130:Generated_Source\PSoC4/PrISM_2_PM.c ****     #else   /* CY_UDB_V1 */
+ 131:Generated_Source\PSoC4/PrISM_2_PM.c **** 
+ 132:Generated_Source\PSoC4/PrISM_2_PM.c ****         #if(!PrISM_2_PULSE_TYPE_HARDCODED)
+ 133:Generated_Source\PSoC4/PrISM_2_PM.c ****             PrISM_2_CONTROL_REG = PrISM_2_backup.cr;
+  81              		.loc 1 133 0
+  82 0002 074B     		ldr	r3, .L5
+  83 0004 5978     		ldrb	r1, [r3, #1]
+  84 0006 074A     		ldr	r2, .L5+4
+  85 0008 1170     		strb	r1, [r2]
+ 134:Generated_Source\PSoC4/PrISM_2_PM.c ****         #endif /* End PrISM_2_PULSE_TYPE_HARDCODED */
+ 135:Generated_Source\PSoC4/PrISM_2_PM.c **** 
+ 136:Generated_Source\PSoC4/PrISM_2_PM.c ****         CY_SET_REG8(PrISM_2_SEED_COPY_PTR, PrISM_2_backup.seed_copy);
+  86              		.loc 1 136 0
+  87 000a D978     		ldrb	r1, [r3, #3]
+  88 000c 064A     		ldr	r2, .L5+8
+  89 000e 1170     		strb	r1, [r2]
+ 137:Generated_Source\PSoC4/PrISM_2_PM.c ****         CY_SET_REG8(PrISM_2_SEED_PTR, PrISM_2_backup.seed);
+  90              		.loc 1 137 0
+  91 0010 9978     		ldrb	r1, [r3, #2]
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cc3M2mGc.s 			page 5
+
+
+  92 0012 064A     		ldr	r2, .L5+12
+  93 0014 1170     		strb	r1, [r2]
+ 138:Generated_Source\PSoC4/PrISM_2_PM.c ****         PrISM_2_WritePolynomial(PrISM_2_backup.polynom);
+  94              		.loc 1 138 0
+  95 0016 1879     		ldrb	r0, [r3, #4]
+  96 0018 FFF7FEFF 		bl	PrISM_2_WritePolynomial
+  97              	.LVL2:
+ 139:Generated_Source\PSoC4/PrISM_2_PM.c ****     
+ 140:Generated_Source\PSoC4/PrISM_2_PM.c ****     #endif  /* End CY_UDB_V0 */
+ 141:Generated_Source\PSoC4/PrISM_2_PM.c **** }
+  98              		.loc 1 141 0
+  99              		@ sp needed
+ 100 001c 10BD     		pop	{r4, pc}
+ 101              	.L6:
+ 102 001e C046     		.align	2
+ 103              	.L5:
+ 104 0020 00000000 		.word	.LANCHOR0
+ 105 0024 73000F40 		.word	1074724979
+ 106 0028 43000F40 		.word	1074724931
+ 107 002c 03000F40 		.word	1074724867
+ 108              		.cfi_endproc
+ 109              	.LFE3:
+ 110              		.size	PrISM_2_RestoreConfig, .-PrISM_2_RestoreConfig
+ 111              		.section	.text.PrISM_2_Sleep,"ax",%progbits
+ 112              		.align	2
+ 113              		.global	PrISM_2_Sleep
+ 114              		.code	16
+ 115              		.thumb_func
+ 116              		.type	PrISM_2_Sleep, %function
+ 117              	PrISM_2_Sleep:
+ 118              	.LFB4:
+ 142:Generated_Source\PSoC4/PrISM_2_PM.c **** 
+ 143:Generated_Source\PSoC4/PrISM_2_PM.c **** 
+ 144:Generated_Source\PSoC4/PrISM_2_PM.c **** /*******************************************************************************
+ 145:Generated_Source\PSoC4/PrISM_2_PM.c **** * Function Name: PrISM_2_Sleep
+ 146:Generated_Source\PSoC4/PrISM_2_PM.c **** ********************************************************************************
+ 147:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+ 148:Generated_Source\PSoC4/PrISM_2_PM.c **** * Summary:
+ 149:Generated_Source\PSoC4/PrISM_2_PM.c **** *  Stops and saves the user configuration
+ 150:Generated_Source\PSoC4/PrISM_2_PM.c **** *  
+ 151:Generated_Source\PSoC4/PrISM_2_PM.c **** * Parameters:  
+ 152:Generated_Source\PSoC4/PrISM_2_PM.c **** *  None.
+ 153:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+ 154:Generated_Source\PSoC4/PrISM_2_PM.c **** * Return: 
+ 155:Generated_Source\PSoC4/PrISM_2_PM.c **** *  None.
+ 156:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+ 157:Generated_Source\PSoC4/PrISM_2_PM.c **** * Global Variables:
+ 158:Generated_Source\PSoC4/PrISM_2_PM.c **** *  PrISM_2_backup - modified when non-retention registers are saved.
+ 159:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+ 160:Generated_Source\PSoC4/PrISM_2_PM.c **** * Reentrant:
+ 161:Generated_Source\PSoC4/PrISM_2_PM.c **** *  No.
+ 162:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+ 163:Generated_Source\PSoC4/PrISM_2_PM.c **** *******************************************************************************/
+ 164:Generated_Source\PSoC4/PrISM_2_PM.c **** void PrISM_2_Sleep(void) 
+ 165:Generated_Source\PSoC4/PrISM_2_PM.c **** {
+ 119              		.loc 1 165 0
+ 120              		.cfi_startproc
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cc3M2mGc.s 			page 6
+
+
+ 121              		@ args = 0, pretend = 0, frame = 0
+ 122              		@ frame_needed = 0, uses_anonymous_args = 0
+ 123 0000 10B5     		push	{r4, lr}
+ 124              		.cfi_def_cfa_offset 8
+ 125              		.cfi_offset 4, -8
+ 126              		.cfi_offset 14, -4
+ 166:Generated_Source\PSoC4/PrISM_2_PM.c ****     #if(!PrISM_2_PULSE_TYPE_HARDCODED)
+ 167:Generated_Source\PSoC4/PrISM_2_PM.c ****         if((PrISM_2_CONTROL_REG & PrISM_2_CTRL_ENABLE) != 0u) 
+ 127              		.loc 1 167 0
+ 128 0002 084B     		ldr	r3, .L10
+ 129 0004 1B78     		ldrb	r3, [r3]
+ 130 0006 DB07     		lsls	r3, r3, #31
+ 131 0008 03D5     		bpl	.L8
+ 168:Generated_Source\PSoC4/PrISM_2_PM.c ****         {
+ 169:Generated_Source\PSoC4/PrISM_2_PM.c ****             PrISM_2_backup.enableState = 1u;
+ 132              		.loc 1 169 0
+ 133 000a 0122     		movs	r2, #1
+ 134 000c 064B     		ldr	r3, .L10+4
+ 135 000e 1A70     		strb	r2, [r3]
+ 136 0010 02E0     		b	.L9
+ 137              	.L8:
+ 170:Generated_Source\PSoC4/PrISM_2_PM.c ****         }
+ 171:Generated_Source\PSoC4/PrISM_2_PM.c ****         else
+ 172:Generated_Source\PSoC4/PrISM_2_PM.c ****         {
+ 173:Generated_Source\PSoC4/PrISM_2_PM.c ****             PrISM_2_backup.enableState = 0u;
+ 138              		.loc 1 173 0
+ 139 0012 0022     		movs	r2, #0
+ 140 0014 044B     		ldr	r3, .L10+4
+ 141 0016 1A70     		strb	r2, [r3]
+ 142              	.L9:
+ 174:Generated_Source\PSoC4/PrISM_2_PM.c ****         }
+ 175:Generated_Source\PSoC4/PrISM_2_PM.c ****     #endif /* End PrISM_2_PULSE_TYPE_HARDCODED */
+ 176:Generated_Source\PSoC4/PrISM_2_PM.c ****     PrISM_2_Stop();
+ 143              		.loc 1 176 0
+ 144 0018 FFF7FEFF 		bl	PrISM_2_Stop
+ 145              	.LVL3:
+ 177:Generated_Source\PSoC4/PrISM_2_PM.c ****     PrISM_2_SaveConfig();
+ 146              		.loc 1 177 0
+ 147 001c FFF7FEFF 		bl	PrISM_2_SaveConfig
+ 148              	.LVL4:
+ 178:Generated_Source\PSoC4/PrISM_2_PM.c **** }
+ 149              		.loc 1 178 0
+ 150              		@ sp needed
+ 151 0020 10BD     		pop	{r4, pc}
+ 152              	.L11:
+ 153 0022 C046     		.align	2
+ 154              	.L10:
+ 155 0024 73000F40 		.word	1074724979
+ 156 0028 00000000 		.word	.LANCHOR0
+ 157              		.cfi_endproc
+ 158              	.LFE4:
+ 159              		.size	PrISM_2_Sleep, .-PrISM_2_Sleep
+ 160              		.section	.text.PrISM_2_Wakeup,"ax",%progbits
+ 161              		.align	2
+ 162              		.global	PrISM_2_Wakeup
+ 163              		.code	16
+ 164              		.thumb_func
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cc3M2mGc.s 			page 7
+
+
+ 165              		.type	PrISM_2_Wakeup, %function
+ 166              	PrISM_2_Wakeup:
+ 167              	.LFB5:
+ 179:Generated_Source\PSoC4/PrISM_2_PM.c **** 
+ 180:Generated_Source\PSoC4/PrISM_2_PM.c **** 
+ 181:Generated_Source\PSoC4/PrISM_2_PM.c **** /*******************************************************************************
+ 182:Generated_Source\PSoC4/PrISM_2_PM.c **** * Function Name: PrISM_2_Wakeup
+ 183:Generated_Source\PSoC4/PrISM_2_PM.c **** ********************************************************************************
+ 184:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+ 185:Generated_Source\PSoC4/PrISM_2_PM.c **** * Summary:
+ 186:Generated_Source\PSoC4/PrISM_2_PM.c **** *  Restores and enables the user configuration
+ 187:Generated_Source\PSoC4/PrISM_2_PM.c **** *  
+ 188:Generated_Source\PSoC4/PrISM_2_PM.c **** * Parameters:  
+ 189:Generated_Source\PSoC4/PrISM_2_PM.c **** *  None.
+ 190:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+ 191:Generated_Source\PSoC4/PrISM_2_PM.c **** * Return: 
+ 192:Generated_Source\PSoC4/PrISM_2_PM.c **** *  None.
+ 193:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+ 194:Generated_Source\PSoC4/PrISM_2_PM.c **** * Global Variables:
+ 195:Generated_Source\PSoC4/PrISM_2_PM.c **** *  PrISM_2_backup - used when non-retention registers are restored.
+ 196:Generated_Source\PSoC4/PrISM_2_PM.c **** *
+ 197:Generated_Source\PSoC4/PrISM_2_PM.c **** *******************************************************************************/
+ 198:Generated_Source\PSoC4/PrISM_2_PM.c **** void PrISM_2_Wakeup(void) 
+ 199:Generated_Source\PSoC4/PrISM_2_PM.c **** {
+ 168              		.loc 1 199 0
+ 169              		.cfi_startproc
+ 170              		@ args = 0, pretend = 0, frame = 0
+ 171              		@ frame_needed = 0, uses_anonymous_args = 0
+ 172 0000 10B5     		push	{r4, lr}
+ 173              		.cfi_def_cfa_offset 8
+ 174              		.cfi_offset 4, -8
+ 175              		.cfi_offset 14, -4
+ 200:Generated_Source\PSoC4/PrISM_2_PM.c ****     PrISM_2_RestoreConfig();
+ 176              		.loc 1 200 0
+ 177 0002 FFF7FEFF 		bl	PrISM_2_RestoreConfig
+ 178              	.LVL5:
+ 201:Generated_Source\PSoC4/PrISM_2_PM.c ****     if(PrISM_2_backup.enableState != 0u)
+ 179              		.loc 1 201 0
+ 180 0006 034B     		ldr	r3, .L14
+ 181 0008 1B78     		ldrb	r3, [r3]
+ 182 000a 002B     		cmp	r3, #0
+ 183 000c 01D0     		beq	.L12
+ 202:Generated_Source\PSoC4/PrISM_2_PM.c ****     {
+ 203:Generated_Source\PSoC4/PrISM_2_PM.c ****         PrISM_2_Enable();
+ 184              		.loc 1 203 0
+ 185 000e FFF7FEFF 		bl	PrISM_2_Enable
+ 186              	.LVL6:
+ 187              	.L12:
+ 204:Generated_Source\PSoC4/PrISM_2_PM.c ****     } 
+ 205:Generated_Source\PSoC4/PrISM_2_PM.c **** }
+ 188              		.loc 1 205 0
+ 189              		@ sp needed
+ 190 0012 10BD     		pop	{r4, pc}
+ 191              	.L15:
+ 192              		.align	2
+ 193              	.L14:
+ 194 0014 00000000 		.word	.LANCHOR0
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cc3M2mGc.s 			page 8
+
+
+ 195              		.cfi_endproc
+ 196              	.LFE5:
+ 197              		.size	PrISM_2_Wakeup, .-PrISM_2_Wakeup
+ 198              		.data
+ 199              		.align	2
+ 200              		.set	.LANCHOR0,. + 0
+ 201              		.type	PrISM_2_backup, %object
+ 202              		.size	PrISM_2_backup, 5
+ 203              	PrISM_2_backup:
+ 204 0000 00       		.byte	0
+ 205 0001 00       		.byte	0
+ 206 0002 FF       		.byte	-1
+ 207 0003 FF       		.byte	-1
+ 208 0004 B8       		.byte	-72
+ 209              		.text
+ 210              	.Letext0:
+ 211              		.file 2 "Generated_Source\\PSoC4\\cytypes.h"
+ 212              		.file 3 "Generated_Source\\PSoC4\\PrISM_2.h"
+ 213              		.section	.debug_info,"",%progbits
+ 214              	.Ldebug_info0:
+ 215 0000 D6010000 		.4byte	0x1d6
+ 216 0004 0400     		.2byte	0x4
+ 217 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 218 000a 04       		.byte	0x4
+ 219 000b 01       		.uleb128 0x1
+ 220 000c 36010000 		.4byte	.LASF30
+ 221 0010 0C       		.byte	0xc
+ 222 0011 A8000000 		.4byte	.LASF31
+ 223 0015 F0000000 		.4byte	.LASF32
+ 224 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 225 001d 00000000 		.4byte	0
+ 226 0021 00000000 		.4byte	.Ldebug_line0
+ 227 0025 02       		.uleb128 0x2
+ 228 0026 01       		.byte	0x1
+ 229 0027 06       		.byte	0x6
+ 230 0028 6E020000 		.4byte	.LASF0
+ 231 002c 02       		.uleb128 0x2
+ 232 002d 01       		.byte	0x1
+ 233 002e 08       		.byte	0x8
+ 234 002f 5D000000 		.4byte	.LASF1
+ 235 0033 02       		.uleb128 0x2
+ 236 0034 02       		.byte	0x2
+ 237 0035 05       		.byte	0x5
+ 238 0036 1F020000 		.4byte	.LASF2
+ 239 003a 02       		.uleb128 0x2
+ 240 003b 02       		.byte	0x2
+ 241 003c 07       		.byte	0x7
+ 242 003d 2E000000 		.4byte	.LASF3
+ 243 0041 02       		.uleb128 0x2
+ 244 0042 04       		.byte	0x4
+ 245 0043 05       		.byte	0x5
+ 246 0044 4D020000 		.4byte	.LASF4
+ 247 0048 02       		.uleb128 0x2
+ 248 0049 04       		.byte	0x4
+ 249 004a 07       		.byte	0x7
+ 250 004b 70000000 		.4byte	.LASF5
+ 251 004f 02       		.uleb128 0x2
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cc3M2mGc.s 			page 9
+
+
+ 252 0050 08       		.byte	0x8
+ 253 0051 05       		.byte	0x5
+ 254 0052 DA010000 		.4byte	.LASF6
+ 255 0056 02       		.uleb128 0x2
+ 256 0057 08       		.byte	0x8
+ 257 0058 07       		.byte	0x7
+ 258 0059 D9000000 		.4byte	.LASF7
+ 259 005d 03       		.uleb128 0x3
+ 260 005e 04       		.byte	0x4
+ 261 005f 05       		.byte	0x5
+ 262 0060 696E7400 		.ascii	"int\000"
+ 263 0064 02       		.uleb128 0x2
+ 264 0065 04       		.byte	0x4
+ 265 0066 07       		.byte	0x7
+ 266 0067 CC000000 		.4byte	.LASF8
+ 267 006b 04       		.uleb128 0x4
+ 268 006c 82000000 		.4byte	.LASF12
+ 269 0070 02       		.byte	0x2
+ 270 0071 E401     		.2byte	0x1e4
+ 271 0073 2C000000 		.4byte	0x2c
+ 272 0077 02       		.uleb128 0x2
+ 273 0078 04       		.byte	0x4
+ 274 0079 04       		.byte	0x4
+ 275 007a 41000000 		.4byte	.LASF9
+ 276 007e 02       		.uleb128 0x2
+ 277 007f 08       		.byte	0x8
+ 278 0080 04       		.byte	0x4
+ 279 0081 97000000 		.4byte	.LASF10
+ 280 0085 02       		.uleb128 0x2
+ 281 0086 01       		.byte	0x1
+ 282 0087 08       		.byte	0x8
+ 283 0088 F6010000 		.4byte	.LASF11
+ 284 008c 04       		.uleb128 0x4
+ 285 008d 6B000000 		.4byte	.LASF13
+ 286 0091 02       		.byte	0x2
+ 287 0092 8E02     		.2byte	0x28e
+ 288 0094 98000000 		.4byte	0x98
+ 289 0098 05       		.uleb128 0x5
+ 290 0099 6B000000 		.4byte	0x6b
+ 291 009d 02       		.uleb128 0x2
+ 292 009e 08       		.byte	0x8
+ 293 009f 04       		.byte	0x4
+ 294 00a0 62020000 		.4byte	.LASF14
+ 295 00a4 02       		.uleb128 0x2
+ 296 00a5 04       		.byte	0x4
+ 297 00a6 07       		.byte	0x7
+ 298 00a7 D1010000 		.4byte	.LASF15
+ 299 00ab 06       		.uleb128 0x6
+ 300 00ac 05       		.byte	0x5
+ 301 00ad 03       		.byte	0x3
+ 302 00ae 33       		.byte	0x33
+ 303 00af EF000000 		.4byte	0xef
+ 304 00b3 07       		.uleb128 0x7
+ 305 00b4 56020000 		.4byte	.LASF16
+ 306 00b8 03       		.byte	0x3
+ 307 00b9 35       		.byte	0x35
+ 308 00ba 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cc3M2mGc.s 			page 10
+
+
+ 309 00be 00       		.byte	0
+ 310 00bf 08       		.uleb128 0x8
+ 311 00c0 637200   		.ascii	"cr\000"
+ 312 00c3 03       		.byte	0x3
+ 313 00c4 37       		.byte	0x37
+ 314 00c5 6B000000 		.4byte	0x6b
+ 315 00c9 01       		.byte	0x1
+ 316 00ca 07       		.uleb128 0x7
+ 317 00cb 29020000 		.4byte	.LASF17
+ 318 00cf 03       		.byte	0x3
+ 319 00d0 39       		.byte	0x39
+ 320 00d1 6B000000 		.4byte	0x6b
+ 321 00d5 02       		.byte	0x2
+ 322 00d6 07       		.uleb128 0x7
+ 323 00d7 9E000000 		.4byte	.LASF18
+ 324 00db 03       		.byte	0x3
+ 325 00dc 3A       		.byte	0x3a
+ 326 00dd 6B000000 		.4byte	0x6b
+ 327 00e1 03       		.byte	0x3
+ 328 00e2 07       		.uleb128 0x7
+ 329 00e3 45020000 		.4byte	.LASF19
+ 330 00e7 03       		.byte	0x3
+ 331 00e8 3B       		.byte	0x3b
+ 332 00e9 6B000000 		.4byte	0x6b
+ 333 00ed 04       		.byte	0x4
+ 334 00ee 00       		.byte	0
+ 335 00ef 09       		.uleb128 0x9
+ 336 00f0 47000000 		.4byte	.LASF20
+ 337 00f4 03       		.byte	0x3
+ 338 00f5 40       		.byte	0x40
+ 339 00f6 AB000000 		.4byte	0xab
+ 340 00fa 0A       		.uleb128 0xa
+ 341 00fb 0C020000 		.4byte	.LASF21
+ 342 00ff 01       		.byte	0x1
+ 343 0100 45       		.byte	0x45
+ 344 0101 00000000 		.4byte	.LFB2
+ 345 0105 2C000000 		.4byte	.LFE2-.LFB2
+ 346 0109 01       		.uleb128 0x1
+ 347 010a 9C       		.byte	0x9c
+ 348 010b 22010000 		.4byte	0x122
+ 349 010f 0B       		.uleb128 0xb
+ 350 0110 0E000000 		.4byte	.LVL0
+ 351 0114 A2010000 		.4byte	0x1a2
+ 352 0118 0B       		.uleb128 0xb
+ 353 0119 1A000000 		.4byte	.LVL1
+ 354 011d AD010000 		.4byte	0x1ad
+ 355 0121 00       		.byte	0
+ 356 0122 0A       		.uleb128 0xa
+ 357 0123 00000000 		.4byte	.LASF22
+ 358 0127 01       		.byte	0x1
+ 359 0128 6C       		.byte	0x6c
+ 360 0129 00000000 		.4byte	.LFB3
+ 361 012d 30000000 		.4byte	.LFE3-.LFB3
+ 362 0131 01       		.uleb128 0x1
+ 363 0132 9C       		.byte	0x9c
+ 364 0133 41010000 		.4byte	0x141
+ 365 0137 0B       		.uleb128 0xb
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cc3M2mGc.s 			page 11
+
+
+ 366 0138 1C000000 		.4byte	.LVL2
+ 367 013c B8010000 		.4byte	0x1b8
+ 368 0140 00       		.byte	0
+ 369 0141 0A       		.uleb128 0xa
+ 370 0142 E8010000 		.4byte	.LASF23
+ 371 0146 01       		.byte	0x1
+ 372 0147 A4       		.byte	0xa4
+ 373 0148 00000000 		.4byte	.LFB4
+ 374 014c 2C000000 		.4byte	.LFE4-.LFB4
+ 375 0150 01       		.uleb128 0x1
+ 376 0151 9C       		.byte	0x9c
+ 377 0152 69010000 		.4byte	0x169
+ 378 0156 0B       		.uleb128 0xb
+ 379 0157 1C000000 		.4byte	.LVL3
+ 380 015b C3010000 		.4byte	0x1c3
+ 381 015f 0B       		.uleb128 0xb
+ 382 0160 20000000 		.4byte	.LVL4
+ 383 0164 FA000000 		.4byte	0xfa
+ 384 0168 00       		.byte	0
+ 385 0169 0A       		.uleb128 0xa
+ 386 016a 88000000 		.4byte	.LASF24
+ 387 016e 01       		.byte	0x1
+ 388 016f C6       		.byte	0xc6
+ 389 0170 00000000 		.4byte	.LFB5
+ 390 0174 18000000 		.4byte	.LFE5-.LFB5
+ 391 0178 01       		.uleb128 0x1
+ 392 0179 9C       		.byte	0x9c
+ 393 017a 91010000 		.4byte	0x191
+ 394 017e 0B       		.uleb128 0xb
+ 395 017f 06000000 		.4byte	.LVL5
+ 396 0183 22010000 		.4byte	0x122
+ 397 0187 0B       		.uleb128 0xb
+ 398 0188 12000000 		.4byte	.LVL6
+ 399 018c CE010000 		.4byte	0x1ce
+ 400 0190 00       		.byte	0
+ 401 0191 0C       		.uleb128 0xc
+ 402 0192 89020000 		.4byte	.LASF33
+ 403 0196 01       		.byte	0x1
+ 404 0197 17       		.byte	0x17
+ 405 0198 EF000000 		.4byte	0xef
+ 406 019c 05       		.uleb128 0x5
+ 407 019d 03       		.byte	0x3
+ 408 019e 00000000 		.4byte	PrISM_2_backup
+ 409 01a2 0D       		.uleb128 0xd
+ 410 01a3 FB010000 		.4byte	.LASF25
+ 411 01a7 FB010000 		.4byte	.LASF25
+ 412 01ab 03       		.byte	0x3
+ 413 01ac 4B       		.byte	0x4b
+ 414 01ad 0D       		.uleb128 0xd
+ 415 01ae 2E020000 		.4byte	.LASF26
+ 416 01b2 2E020000 		.4byte	.LASF26
+ 417 01b6 03       		.byte	0x3
+ 418 01b7 4D       		.byte	0x4d
+ 419 01b8 0D       		.uleb128 0xd
+ 420 01b9 16000000 		.4byte	.LASF27
+ 421 01bd 16000000 		.4byte	.LASF27
+ 422 01c1 03       		.byte	0x3
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cc3M2mGc.s 			page 12
+
+
+ 423 01c2 4E       		.byte	0x4e
+ 424 01c3 0D       		.uleb128 0xd
+ 425 01c4 C4010000 		.4byte	.LASF28
+ 426 01c8 C4010000 		.4byte	.LASF28
+ 427 01cc 03       		.byte	0x3
+ 428 01cd 48       		.byte	0x48
+ 429 01ce 0D       		.uleb128 0xd
+ 430 01cf 7A020000 		.4byte	.LASF29
+ 431 01d3 7A020000 		.4byte	.LASF29
+ 432 01d7 03       		.byte	0x3
+ 433 01d8 5A       		.byte	0x5a
+ 434 01d9 00       		.byte	0
+ 435              		.section	.debug_abbrev,"",%progbits
+ 436              	.Ldebug_abbrev0:
+ 437 0000 01       		.uleb128 0x1
+ 438 0001 11       		.uleb128 0x11
+ 439 0002 01       		.byte	0x1
+ 440 0003 25       		.uleb128 0x25
+ 441 0004 0E       		.uleb128 0xe
+ 442 0005 13       		.uleb128 0x13
+ 443 0006 0B       		.uleb128 0xb
+ 444 0007 03       		.uleb128 0x3
+ 445 0008 0E       		.uleb128 0xe
+ 446 0009 1B       		.uleb128 0x1b
+ 447 000a 0E       		.uleb128 0xe
+ 448 000b 55       		.uleb128 0x55
+ 449 000c 17       		.uleb128 0x17
+ 450 000d 11       		.uleb128 0x11
+ 451 000e 01       		.uleb128 0x1
+ 452 000f 10       		.uleb128 0x10
+ 453 0010 17       		.uleb128 0x17
+ 454 0011 00       		.byte	0
+ 455 0012 00       		.byte	0
+ 456 0013 02       		.uleb128 0x2
+ 457 0014 24       		.uleb128 0x24
+ 458 0015 00       		.byte	0
+ 459 0016 0B       		.uleb128 0xb
+ 460 0017 0B       		.uleb128 0xb
+ 461 0018 3E       		.uleb128 0x3e
+ 462 0019 0B       		.uleb128 0xb
+ 463 001a 03       		.uleb128 0x3
+ 464 001b 0E       		.uleb128 0xe
+ 465 001c 00       		.byte	0
+ 466 001d 00       		.byte	0
+ 467 001e 03       		.uleb128 0x3
+ 468 001f 24       		.uleb128 0x24
+ 469 0020 00       		.byte	0
+ 470 0021 0B       		.uleb128 0xb
+ 471 0022 0B       		.uleb128 0xb
+ 472 0023 3E       		.uleb128 0x3e
+ 473 0024 0B       		.uleb128 0xb
+ 474 0025 03       		.uleb128 0x3
+ 475 0026 08       		.uleb128 0x8
+ 476 0027 00       		.byte	0
+ 477 0028 00       		.byte	0
+ 478 0029 04       		.uleb128 0x4
+ 479 002a 16       		.uleb128 0x16
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cc3M2mGc.s 			page 13
+
+
+ 480 002b 00       		.byte	0
+ 481 002c 03       		.uleb128 0x3
+ 482 002d 0E       		.uleb128 0xe
+ 483 002e 3A       		.uleb128 0x3a
+ 484 002f 0B       		.uleb128 0xb
+ 485 0030 3B       		.uleb128 0x3b
+ 486 0031 05       		.uleb128 0x5
+ 487 0032 49       		.uleb128 0x49
+ 488 0033 13       		.uleb128 0x13
+ 489 0034 00       		.byte	0
+ 490 0035 00       		.byte	0
+ 491 0036 05       		.uleb128 0x5
+ 492 0037 35       		.uleb128 0x35
+ 493 0038 00       		.byte	0
+ 494 0039 49       		.uleb128 0x49
+ 495 003a 13       		.uleb128 0x13
+ 496 003b 00       		.byte	0
+ 497 003c 00       		.byte	0
+ 498 003d 06       		.uleb128 0x6
+ 499 003e 13       		.uleb128 0x13
+ 500 003f 01       		.byte	0x1
+ 501 0040 0B       		.uleb128 0xb
+ 502 0041 0B       		.uleb128 0xb
+ 503 0042 3A       		.uleb128 0x3a
+ 504 0043 0B       		.uleb128 0xb
+ 505 0044 3B       		.uleb128 0x3b
+ 506 0045 0B       		.uleb128 0xb
+ 507 0046 01       		.uleb128 0x1
+ 508 0047 13       		.uleb128 0x13
+ 509 0048 00       		.byte	0
+ 510 0049 00       		.byte	0
+ 511 004a 07       		.uleb128 0x7
+ 512 004b 0D       		.uleb128 0xd
+ 513 004c 00       		.byte	0
+ 514 004d 03       		.uleb128 0x3
+ 515 004e 0E       		.uleb128 0xe
+ 516 004f 3A       		.uleb128 0x3a
+ 517 0050 0B       		.uleb128 0xb
+ 518 0051 3B       		.uleb128 0x3b
+ 519 0052 0B       		.uleb128 0xb
+ 520 0053 49       		.uleb128 0x49
+ 521 0054 13       		.uleb128 0x13
+ 522 0055 38       		.uleb128 0x38
+ 523 0056 0B       		.uleb128 0xb
+ 524 0057 00       		.byte	0
+ 525 0058 00       		.byte	0
+ 526 0059 08       		.uleb128 0x8
+ 527 005a 0D       		.uleb128 0xd
+ 528 005b 00       		.byte	0
+ 529 005c 03       		.uleb128 0x3
+ 530 005d 08       		.uleb128 0x8
+ 531 005e 3A       		.uleb128 0x3a
+ 532 005f 0B       		.uleb128 0xb
+ 533 0060 3B       		.uleb128 0x3b
+ 534 0061 0B       		.uleb128 0xb
+ 535 0062 49       		.uleb128 0x49
+ 536 0063 13       		.uleb128 0x13
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cc3M2mGc.s 			page 14
+
+
+ 537 0064 38       		.uleb128 0x38
+ 538 0065 0B       		.uleb128 0xb
+ 539 0066 00       		.byte	0
+ 540 0067 00       		.byte	0
+ 541 0068 09       		.uleb128 0x9
+ 542 0069 16       		.uleb128 0x16
+ 543 006a 00       		.byte	0
+ 544 006b 03       		.uleb128 0x3
+ 545 006c 0E       		.uleb128 0xe
+ 546 006d 3A       		.uleb128 0x3a
+ 547 006e 0B       		.uleb128 0xb
+ 548 006f 3B       		.uleb128 0x3b
+ 549 0070 0B       		.uleb128 0xb
+ 550 0071 49       		.uleb128 0x49
+ 551 0072 13       		.uleb128 0x13
+ 552 0073 00       		.byte	0
+ 553 0074 00       		.byte	0
+ 554 0075 0A       		.uleb128 0xa
+ 555 0076 2E       		.uleb128 0x2e
+ 556 0077 01       		.byte	0x1
+ 557 0078 3F       		.uleb128 0x3f
+ 558 0079 19       		.uleb128 0x19
+ 559 007a 03       		.uleb128 0x3
+ 560 007b 0E       		.uleb128 0xe
+ 561 007c 3A       		.uleb128 0x3a
+ 562 007d 0B       		.uleb128 0xb
+ 563 007e 3B       		.uleb128 0x3b
+ 564 007f 0B       		.uleb128 0xb
+ 565 0080 27       		.uleb128 0x27
+ 566 0081 19       		.uleb128 0x19
+ 567 0082 11       		.uleb128 0x11
+ 568 0083 01       		.uleb128 0x1
+ 569 0084 12       		.uleb128 0x12
+ 570 0085 06       		.uleb128 0x6
+ 571 0086 40       		.uleb128 0x40
+ 572 0087 18       		.uleb128 0x18
+ 573 0088 9742     		.uleb128 0x2117
+ 574 008a 19       		.uleb128 0x19
+ 575 008b 01       		.uleb128 0x1
+ 576 008c 13       		.uleb128 0x13
+ 577 008d 00       		.byte	0
+ 578 008e 00       		.byte	0
+ 579 008f 0B       		.uleb128 0xb
+ 580 0090 898201   		.uleb128 0x4109
+ 581 0093 00       		.byte	0
+ 582 0094 11       		.uleb128 0x11
+ 583 0095 01       		.uleb128 0x1
+ 584 0096 31       		.uleb128 0x31
+ 585 0097 13       		.uleb128 0x13
+ 586 0098 00       		.byte	0
+ 587 0099 00       		.byte	0
+ 588 009a 0C       		.uleb128 0xc
+ 589 009b 34       		.uleb128 0x34
+ 590 009c 00       		.byte	0
+ 591 009d 03       		.uleb128 0x3
+ 592 009e 0E       		.uleb128 0xe
+ 593 009f 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cc3M2mGc.s 			page 15
+
+
+ 594 00a0 0B       		.uleb128 0xb
+ 595 00a1 3B       		.uleb128 0x3b
+ 596 00a2 0B       		.uleb128 0xb
+ 597 00a3 49       		.uleb128 0x49
+ 598 00a4 13       		.uleb128 0x13
+ 599 00a5 02       		.uleb128 0x2
+ 600 00a6 18       		.uleb128 0x18
+ 601 00a7 00       		.byte	0
+ 602 00a8 00       		.byte	0
+ 603 00a9 0D       		.uleb128 0xd
+ 604 00aa 2E       		.uleb128 0x2e
+ 605 00ab 00       		.byte	0
+ 606 00ac 3F       		.uleb128 0x3f
+ 607 00ad 19       		.uleb128 0x19
+ 608 00ae 3C       		.uleb128 0x3c
+ 609 00af 19       		.uleb128 0x19
+ 610 00b0 6E       		.uleb128 0x6e
+ 611 00b1 0E       		.uleb128 0xe
+ 612 00b2 03       		.uleb128 0x3
+ 613 00b3 0E       		.uleb128 0xe
+ 614 00b4 3A       		.uleb128 0x3a
+ 615 00b5 0B       		.uleb128 0xb
+ 616 00b6 3B       		.uleb128 0x3b
+ 617 00b7 0B       		.uleb128 0xb
+ 618 00b8 00       		.byte	0
+ 619 00b9 00       		.byte	0
+ 620 00ba 00       		.byte	0
+ 621              		.section	.debug_aranges,"",%progbits
+ 622 0000 34000000 		.4byte	0x34
+ 623 0004 0200     		.2byte	0x2
+ 624 0006 00000000 		.4byte	.Ldebug_info0
+ 625 000a 04       		.byte	0x4
+ 626 000b 00       		.byte	0
+ 627 000c 0000     		.2byte	0
+ 628 000e 0000     		.2byte	0
+ 629 0010 00000000 		.4byte	.LFB2
+ 630 0014 2C000000 		.4byte	.LFE2-.LFB2
+ 631 0018 00000000 		.4byte	.LFB3
+ 632 001c 30000000 		.4byte	.LFE3-.LFB3
+ 633 0020 00000000 		.4byte	.LFB4
+ 634 0024 2C000000 		.4byte	.LFE4-.LFB4
+ 635 0028 00000000 		.4byte	.LFB5
+ 636 002c 18000000 		.4byte	.LFE5-.LFB5
+ 637 0030 00000000 		.4byte	0
+ 638 0034 00000000 		.4byte	0
+ 639              		.section	.debug_ranges,"",%progbits
+ 640              	.Ldebug_ranges0:
+ 641 0000 00000000 		.4byte	.LFB2
+ 642 0004 2C000000 		.4byte	.LFE2
+ 643 0008 00000000 		.4byte	.LFB3
+ 644 000c 30000000 		.4byte	.LFE3
+ 645 0010 00000000 		.4byte	.LFB4
+ 646 0014 2C000000 		.4byte	.LFE4
+ 647 0018 00000000 		.4byte	.LFB5
+ 648 001c 18000000 		.4byte	.LFE5
+ 649 0020 00000000 		.4byte	0
+ 650 0024 00000000 		.4byte	0
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cc3M2mGc.s 			page 16
+
+
+ 651              		.section	.debug_line,"",%progbits
+ 652              	.Ldebug_line0:
+ 653 0000 B2000000 		.section	.debug_str,"MS",%progbits,1
+ 653      02005400 
+ 653      00000201 
+ 653      FB0E0D00 
+ 653      01010101 
+ 654              	.LASF22:
+ 655 0000 50724953 		.ascii	"PrISM_2_RestoreConfig\000"
+ 655      4D5F325F 
+ 655      52657374 
+ 655      6F726543 
+ 655      6F6E6669 
+ 656              	.LASF27:
+ 657 0016 50724953 		.ascii	"PrISM_2_WritePolynomial\000"
+ 657      4D5F325F 
+ 657      57726974 
+ 657      65506F6C 
+ 657      796E6F6D 
+ 658              	.LASF3:
+ 659 002e 73686F72 		.ascii	"short unsigned int\000"
+ 659      7420756E 
+ 659      7369676E 
+ 659      65642069 
+ 659      6E7400
+ 660              	.LASF9:
+ 661 0041 666C6F61 		.ascii	"float\000"
+ 661      7400
+ 662              	.LASF20:
+ 663 0047 50724953 		.ascii	"PrISM_2_BACKUP_STRUCT\000"
+ 663      4D5F325F 
+ 663      4241434B 
+ 663      55505F53 
+ 663      54525543 
+ 664              	.LASF1:
+ 665 005d 756E7369 		.ascii	"unsigned char\000"
+ 665      676E6564 
+ 665      20636861 
+ 665      7200
+ 666              	.LASF13:
+ 667 006b 72656738 		.ascii	"reg8\000"
+ 667      00
+ 668              	.LASF5:
+ 669 0070 6C6F6E67 		.ascii	"long unsigned int\000"
+ 669      20756E73 
+ 669      69676E65 
+ 669      6420696E 
+ 669      7400
+ 670              	.LASF12:
+ 671 0082 75696E74 		.ascii	"uint8\000"
+ 671      3800
+ 672              	.LASF24:
+ 673 0088 50724953 		.ascii	"PrISM_2_Wakeup\000"
+ 673      4D5F325F 
+ 673      57616B65 
+ 673      757000
+ 674              	.LASF10:
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cc3M2mGc.s 			page 17
+
+
+ 675 0097 646F7562 		.ascii	"double\000"
+ 675      6C6500
+ 676              	.LASF18:
+ 677 009e 73656564 		.ascii	"seed_copy\000"
+ 677      5F636F70 
+ 677      7900
+ 678              	.LASF31:
+ 679 00a8 47656E65 		.ascii	"Generated_Source\\PSoC4\\PrISM_2_PM.c\000"
+ 679      72617465 
+ 679      645F536F 
+ 679      75726365 
+ 679      5C50536F 
+ 680              	.LASF8:
+ 681 00cc 756E7369 		.ascii	"unsigned int\000"
+ 681      676E6564 
+ 681      20696E74 
+ 681      00
+ 682              	.LASF7:
+ 683 00d9 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 683      206C6F6E 
+ 683      6720756E 
+ 683      7369676E 
+ 683      65642069 
+ 684              	.LASF32:
+ 685 00f0 483A5C52 		.ascii	"H:\\R_D\\Smart_house_PSoC_part\\Workspace0\\Custom_"
+ 685      5F445C53 
+ 685      6D617274 
+ 685      5F686F75 
+ 685      73655F50 
+ 686 011f 424C455F 		.ascii	"BLE_Profile_Test.cydsn\000"
+ 686      50726F66 
+ 686      696C655F 
+ 686      54657374 
+ 686      2E637964 
+ 687              	.LASF30:
+ 688 0136 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 688      43313120 
+ 688      352E342E 
+ 688      31203230 
+ 688      31363036 
+ 689 0169 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 689      20726576 
+ 689      6973696F 
+ 689      6E203233 
+ 689      37373135 
+ 690 019c 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 690      66756E63 
+ 690      74696F6E 
+ 690      2D736563 
+ 690      74696F6E 
+ 691              	.LASF28:
+ 692 01c4 50724953 		.ascii	"PrISM_2_Stop\000"
+ 692      4D5F325F 
+ 692      53746F70 
+ 692      00
+ 693              	.LASF15:
+ 694 01d1 73697A65 		.ascii	"sizetype\000"
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cc3M2mGc.s 			page 18
+
+
+ 694      74797065 
+ 694      00
+ 695              	.LASF6:
+ 696 01da 6C6F6E67 		.ascii	"long long int\000"
+ 696      206C6F6E 
+ 696      6720696E 
+ 696      7400
+ 697              	.LASF23:
+ 698 01e8 50724953 		.ascii	"PrISM_2_Sleep\000"
+ 698      4D5F325F 
+ 698      536C6565 
+ 698      7000
+ 699              	.LASF11:
+ 700 01f6 63686172 		.ascii	"char\000"
+ 700      00
+ 701              	.LASF25:
+ 702 01fb 50724953 		.ascii	"PrISM_2_ReadSeed\000"
+ 702      4D5F325F 
+ 702      52656164 
+ 702      53656564 
+ 702      00
+ 703              	.LASF21:
+ 704 020c 50724953 		.ascii	"PrISM_2_SaveConfig\000"
+ 704      4D5F325F 
+ 704      53617665 
+ 704      436F6E66 
+ 704      696700
+ 705              	.LASF2:
+ 706 021f 73686F72 		.ascii	"short int\000"
+ 706      7420696E 
+ 706      7400
+ 707              	.LASF17:
+ 708 0229 73656564 		.ascii	"seed\000"
+ 708      00
+ 709              	.LASF26:
+ 710 022e 50724953 		.ascii	"PrISM_2_ReadPolynomial\000"
+ 710      4D5F325F 
+ 710      52656164 
+ 710      506F6C79 
+ 710      6E6F6D69 
+ 711              	.LASF19:
+ 712 0245 706F6C79 		.ascii	"polynom\000"
+ 712      6E6F6D00 
+ 713              	.LASF4:
+ 714 024d 6C6F6E67 		.ascii	"long int\000"
+ 714      20696E74 
+ 714      00
+ 715              	.LASF16:
+ 716 0256 656E6162 		.ascii	"enableState\000"
+ 716      6C655374 
+ 716      61746500 
+ 717              	.LASF14:
+ 718 0262 6C6F6E67 		.ascii	"long double\000"
+ 718      20646F75 
+ 718      626C6500 
+ 719              	.LASF0:
+ 720 026e 7369676E 		.ascii	"signed char\000"
+ARM GAS  C:\Users\ihor\AppData\Local\Temp\cc3M2mGc.s 			page 19
+
+
+ 720      65642063 
+ 720      68617200 
+ 721              	.LASF29:
+ 722 027a 50724953 		.ascii	"PrISM_2_Enable\000"
+ 722      4D5F325F 
+ 722      456E6162 
+ 722      6C6500
+ 723              	.LASF33:
+ 724 0289 50724953 		.ascii	"PrISM_2_backup\000"
+ 724      4D5F325F 
+ 724      6261636B 
+ 724      757000
+ 725              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

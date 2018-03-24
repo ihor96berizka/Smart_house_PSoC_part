@@ -1,0 +1,6 @@
+H:\R_D\Smart_house_PSoC_part\Workspace0\Custom_BLE_Profile_Test.cydsn\Custom_BLE_Profile_Test.cyprj|65275035-563c-4cf8-9f43-990cfe6d24d0
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|272cf94a-b682-4644-8087-0e157b17c132
+C:\Users\ihor\Documents\PSoC Creator\4.2\Downloads ( 4.2).cylib\Downloads ( 4.2).cyprj|fa8ceb65-7935-4642-bd2e-61514a73a07d
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|8ac1a2ce-e653-4380-b584-06989e97b7a8
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|5f3c35ba-ea4f-4a66-866a-1f9c2f72d056
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|c6759e34-d301-4b1e-bd43-b435502cf22e
